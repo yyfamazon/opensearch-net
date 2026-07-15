@@ -123,7 +123,7 @@ public class ServerError</code></pre>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError__ctor.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError.%23ctor%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L40">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L41">View Source</a>
   </span>
   <a id="OpenSearch_Net_ServerError__ctor_" data-uid="OpenSearch.Net.ServerError.#ctor*"></a>
   <h4 id="OpenSearch_Net_ServerError__ctor" data-uid="OpenSearch.Net.ServerError.#ctor">ServerError()</h4>
@@ -138,7 +138,7 @@ public class ServerError</code></pre>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError__ctor_OpenSearch_Net_Error_System_Nullable_System_Int32__.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError.%23ctor(OpenSearch.Net.Error%2CSystem.Nullable%7BSystem.Int32%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L42">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L43">View Source</a>
   </span>
   <a id="OpenSearch_Net_ServerError__ctor_" data-uid="OpenSearch.Net.ServerError.#ctor*"></a>
   <h4 id="OpenSearch_Net_ServerError__ctor_OpenSearch_Net_Error_System_Nullable_System_Int32__" data-uid="OpenSearch.Net.ServerError.#ctor(OpenSearch.Net.Error,System.Nullable{System.Int32})">ServerError(Error, int?)</h4>
@@ -177,7 +177,7 @@ public class ServerError</code></pre>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError_Error.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError.Error%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L48">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L49">View Source</a>
   </span>
   <a id="OpenSearch_Net_ServerError_Error_" data-uid="OpenSearch.Net.ServerError.Error*"></a>
   <h4 id="OpenSearch_Net_ServerError_Error" data-uid="OpenSearch.Net.ServerError.Error">Error</h4>
@@ -186,6 +186,8 @@ public class ServerError</code></pre>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DataMember(Name = &quot;error&quot;)]
+[JsonInclude]
+[JsonPropertyName(&quot;error&quot;)]
 public Error Error { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
@@ -208,7 +210,7 @@ public Error Error { get; }</code></pre>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError_Status.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError.Status%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L51">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L54">View Source</a>
   </span>
   <a id="OpenSearch_Net_ServerError_Status_" data-uid="OpenSearch.Net.ServerError.Status*"></a>
   <h4 id="OpenSearch_Net_ServerError_Status" data-uid="OpenSearch.Net.ServerError.Status">Status</h4>
@@ -217,6 +219,8 @@ public Error Error { get; }</code></pre>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DataMember(Name = &quot;status&quot;)]
+[JsonInclude]
+[JsonPropertyName(&quot;status&quot;)]
 public int Status { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
@@ -241,7 +245,7 @@ public int Status { get; }</code></pre>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError_Create_System_IO_Stream_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError.Create(System.IO.Stream)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L68">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L73">View Source</a>
   </span>
   <a id="OpenSearch_Net_ServerError_Create_" data-uid="OpenSearch.Net.ServerError.Create*"></a>
   <h4 id="OpenSearch_Net_ServerError_Create_System_IO_Stream_" data-uid="OpenSearch.Net.ServerError.Create(System.IO.Stream)">Create(Stream)</h4>
@@ -288,7 +292,7 @@ public int Status { get; }</code></pre>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError_CreateAsync_System_IO_Stream_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError.CreateAsync(System.IO.Stream%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L72">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L77">View Source</a>
   </span>
   <a id="OpenSearch_Net_ServerError_CreateAsync_" data-uid="OpenSearch.Net.ServerError.CreateAsync*"></a>
   <h4 id="OpenSearch_Net_ServerError_CreateAsync_System_IO_Stream_System_Threading_CancellationToken_" data-uid="OpenSearch.Net.ServerError.CreateAsync(System.IO.Stream,System.Threading.CancellationToken)">CreateAsync(Stream, CancellationToken)</h4>
@@ -340,7 +344,7 @@ public int Status { get; }</code></pre>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError_ToString.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError.ToString%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L75">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L80">View Source</a>
   </span>
   <a id="OpenSearch_Net_ServerError_ToString_" data-uid="OpenSearch.Net.ServerError.ToString*"></a>
   <h4 id="OpenSearch_Net_ServerError_ToString" data-uid="OpenSearch.Net.ServerError.ToString">ToString()</h4>
@@ -372,7 +376,7 @@ public int Status { get; }</code></pre>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError_TryCreate_System_IO_Stream_OpenSearch_Net_ServerError__.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError.TryCreate(System.IO.Stream%2COpenSearch.Net.ServerError%40)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L54">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L59">View Source</a>
   </span>
   <a id="OpenSearch_Net_ServerError_TryCreate_" data-uid="OpenSearch.Net.ServerError.TryCreate*"></a>
   <h4 id="OpenSearch_Net_ServerError_TryCreate_System_IO_Stream_OpenSearch_Net_ServerError__" data-uid="OpenSearch.Net.ServerError.TryCreate(System.IO.Stream,OpenSearch.Net.ServerError@)">TryCreate(Stream, out ServerError)</h4>
@@ -435,7 +439,7 @@ public int Status { get; }</code></pre>
                     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
                   </li>
                   <li>
-                    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L37" class="contribution-link">View Source</a>
+                    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L38" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
