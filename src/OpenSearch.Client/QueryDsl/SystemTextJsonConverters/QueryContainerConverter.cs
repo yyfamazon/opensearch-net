@@ -276,6 +276,76 @@ namespace OpenSearch.Client.QueryDsl.SystemTextJsonConverters
 				writer.WritePropertyName("hybrid");
 				WriteGenericQuery(writer, value.Hybrid, options);
 			}
+			else if (value.SpanContaining != null)
+			{
+				writer.WritePropertyName("span_containing");
+				WriteGenericQuery(writer, value.SpanContaining, options);
+			}
+			else if (value.SpanFieldMasking != null)
+			{
+				writer.WritePropertyName("span_field_masking");
+				WriteGenericQuery(writer, value.SpanFieldMasking, options);
+			}
+			else if (value.SpanFirst != null)
+			{
+				writer.WritePropertyName("span_first");
+				WriteGenericQuery(writer, value.SpanFirst, options);
+			}
+			else if (value.SpanMultiTerm != null)
+			{
+				writer.WritePropertyName("span_multi");
+				WriteGenericQuery(writer, value.SpanMultiTerm, options);
+			}
+			else if (value.SpanNear != null)
+			{
+				writer.WritePropertyName("span_near");
+				WriteGenericQuery(writer, value.SpanNear, options);
+			}
+			else if (value.SpanNot != null)
+			{
+				writer.WritePropertyName("span_not");
+				WriteGenericQuery(writer, value.SpanNot, options);
+			}
+			else if (value.SpanOr != null)
+			{
+				writer.WritePropertyName("span_or");
+				WriteGenericQuery(writer, value.SpanOr, options);
+			}
+			else if (value.SpanTerm != null)
+			{
+				writer.WritePropertyName("span_term");
+				WriteGenericQuery(writer, value.SpanTerm, options);
+			}
+			else if (value.SpanWithin != null)
+			{
+				writer.WritePropertyName("span_within");
+				WriteGenericQuery(writer, value.SpanWithin, options);
+			}
+			else if (value.CombinedFields != null)
+			{
+				writer.WritePropertyName("combined_fields");
+				WriteGenericQuery(writer, value.CombinedFields, options);
+			}
+			else if (value.GeoPolygon != null)
+			{
+				writer.WritePropertyName("geo_polygon");
+				WriteGenericQuery(writer, value.GeoPolygon, options);
+			}
+			else if (value.Shape != null)
+			{
+				writer.WritePropertyName("shape");
+				WriteGenericQuery(writer, value.Shape, options);
+			}
+			else if (value.Intervals != null)
+			{
+				writer.WritePropertyName("intervals");
+				WriteGenericQuery(writer, value.Intervals, options);
+			}
+			else if (value.TermsSet != null)
+			{
+				writer.WritePropertyName("terms_set");
+				WriteGenericQuery(writer, value.TermsSet, options);
+			}
 
 			writer.WriteEndObject();
 		}

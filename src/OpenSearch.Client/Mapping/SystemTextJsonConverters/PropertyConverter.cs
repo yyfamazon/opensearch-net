@@ -78,10 +78,15 @@ namespace OpenSearch.Client.Mapping.SystemTextJsonConverters
 				writer.WriteString("type", typeValue);
 			}
 
-			// Write remaining properties
+			// Write remaining properties, excluding internal metadata that should not be on the wire
 			foreach (var prop in tempDoc.RootElement.EnumerateObject())
 			{
 				if (prop.Name == "type") continue; // already written
+				// Exclude IJsonProperty / attribute metadata that leaks from PropertyNameAttribute and OpenSearchPropertyAttributeBase
+				if (prop.Name == "allowPrivate" || prop.Name == "ignore" || prop.Name == "order"
+					|| prop.Name == "name" && prop.Value.ValueKind == JsonValueKind.Null
+					|| prop.Name == "canBeFlattened" || prop.Name == "typeId")
+					continue;
 				prop.WriteTo(writer);
 			}
 

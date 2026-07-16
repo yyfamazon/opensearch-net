@@ -319,12 +319,15 @@ namespace OpenSearch.Client
 			_options.Converters.Add(new BulkResponseItemConverter(settings));
 			_options.Converters.Add(new IndexRequestConverterFactory(settings));
 			_options.Converters.Add(new CreateRequestConverterFactory(settings));
+			_options.Converters.Add(new MultiGetRequestConverter(settings));
+			_options.Converters.Add(new BulkRequestConverter(settings));
 
 			// Search converters
 			_options.Converters.Add(new TotalHitsConverter());
 			_options.Converters.Add(new TrackTotalHitsConverter());
 			_options.Converters.Add(new HighlightConverter());
 			_options.Converters.Add(new SuggestDictionaryConverterFactory());
+			_options.Converters.Add(new MultiSearchRequestConverter(settings));
 
 			// Cluster converters
 			_options.Converters.Add(new ClusterRerouteCommandConverter());
