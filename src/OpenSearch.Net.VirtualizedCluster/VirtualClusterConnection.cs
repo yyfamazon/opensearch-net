@@ -1,3 +1,4 @@
+#pragma warning disable CS0618 // LowLevelRequestResponseSerializer is obsolete - used intentionally in test infrastructure
 /* SPDX-License-Identifier: Apache-2.0
 *
 * The OpenSearch Contributors require contributions made to

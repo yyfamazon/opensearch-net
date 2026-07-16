@@ -27,6 +27,13 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Added support for `combined_fields` query ([#956](https://github.com/opensearch-project/opensearch-net/issues/956))
 - Added support for `MaxDistance` and `MinScore` to `KnnQuery` ([#917](https://github.com/opensearch-project/opensearch-net/pull/917))
 - Added 3.x support ([#974](https://github.com/opensearch-project/opensearch-net/pull/974))
+- Added `SystemTextJsonSerializer` as the new default serializer for `OpenSearch.Net`, replacing the embedded Utf8Json serializer ([#995](https://github.com/opensearch-project/opensearch-net/pull/995))
+- Added `DefaultHighLevelSystemTextJsonSerializer` for `OpenSearch.Client` ([#995](https://github.com/opensearch-project/opensearch-net/pull/995))
+- Added System.Text.Json converters for QueryDsl, Aggregations, Mapping, Analysis, Document, Indices, Search, Ingest, Cluster, and Snapshot types ([#995](https://github.com/opensearch-project/opensearch-net/pull/995))
+
+### Deprecated
+- Deprecated `LowLevelRequestResponseSerializer` (Utf8Json-based) in favor of `SystemTextJsonSerializer` ([#995](https://github.com/opensearch-project/opensearch-net/pull/995))
+- Deprecated `DefaultHighLevelSerializer` (Utf8Json-based) in favor of `DefaultHighLevelSystemTextJsonSerializer` ([#995](https://github.com/opensearch-project/opensearch-net/pull/995))
 
 ### Removed
 - Removed support for the `net461` target ([#256](https://github.com/opensearch-project/opensearch-net/pull/256))
