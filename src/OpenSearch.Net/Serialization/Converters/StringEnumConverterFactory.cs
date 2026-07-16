@@ -15,7 +15,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpenSearch.Net;
 
-namespace OpenSearch.Net.Serialization.Converters
+namespace OpenSearch.Net
 {
 	/// <summary>
 	/// A <see cref="JsonConverterFactory"/> that produces string-based enum converters for

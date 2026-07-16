@@ -129,9 +129,25 @@ namespace OpenSearch.Client
 				Environment.GetEnvironmentVariable("OSC_USE_STJ"), "true",
 				StringComparison.OrdinalIgnoreCase);
 
-			var defaultSerializer = new DefaultHighLevelSystemTextJsonSerializer(this);
-			var sourceSerializer = sourceSerializerFactory?.Invoke(defaultSerializer, this) ?? defaultSerializer;
-			defaultSerializer.SourceSerializer = sourceSerializer;
+			IOpenSearchSerializer defaultSerializer;
+			if (_useUtf8Json)
+			{
+				var formatterResolver = new OpenSearchClientFormatterResolver(this);
+				#pragma warning disable CS0618
+				defaultSerializer = new DefaultHighLevelSerializer(formatterResolver);
+				#pragma warning restore CS0618
+			}
+			else
+			{
+				var stjSerializer = new DefaultHighLevelSystemTextJsonSerializer(this);
+				var stjSourceSerializer = sourceSerializerFactory?.Invoke(stjSerializer, this) ?? stjSerializer;
+				stjSerializer.SourceSerializer = stjSourceSerializer;
+				defaultSerializer = stjSerializer;
+			}
+
+			var sourceSerializer = _useUtf8Json
+				? (sourceSerializerFactory?.Invoke(defaultSerializer, this) ?? defaultSerializer)
+				: ((DefaultHighLevelSystemTextJsonSerializer)defaultSerializer).SourceSerializer ?? defaultSerializer;
 			var serializerAsMappingProvider = sourceSerializer as IPropertyMappingProvider;
 
 			_propertyMappingProvider = propertyMappingProvider ?? serializerAsMappingProvider ?? new PropertyMappingProvider();

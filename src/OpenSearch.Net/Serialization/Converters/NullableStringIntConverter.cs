@@ -9,7 +9,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Net.Serialization.Converters
+namespace OpenSearch.Net
 {
 	/// <summary>
 	/// A <see cref="JsonConverter{T}"/> for <see cref="Nullable{Int32}"/> that handles values

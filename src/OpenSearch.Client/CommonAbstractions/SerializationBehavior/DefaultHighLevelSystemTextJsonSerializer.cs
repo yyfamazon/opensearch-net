@@ -44,7 +44,6 @@ using System.Threading.Tasks;
 
 using OpenSearch.Net;
 
-using OpenSearch.Net.Serialization.Converters;
 
 using OpenSearch.Client.IngestConverters;
 using OpenSearch.Client.QueryDsl.SystemTextJsonConverters;

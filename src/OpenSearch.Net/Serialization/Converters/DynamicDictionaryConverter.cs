@@ -11,7 +11,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpenSearch.Net;
 
-namespace OpenSearch.Net.Serialization.Converters
+namespace OpenSearch.Net
 {
 	/// <summary>
 	/// A <see cref="JsonConverter{T}"/> for <see cref="DynamicDictionary"/> that serializes
