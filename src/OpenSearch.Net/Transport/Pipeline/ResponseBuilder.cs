@@ -203,7 +203,9 @@ namespace OpenSearch.Net
 				else
 				{
 					using var ms = memoryStreamFactory.Create(bytes);
-					var body = SystemTextJsonSerializer.Instance.Deserialize<DynamicDictionary>(ms);
+#pragma warning disable CS0618
+					var body = LowLevelRequestResponseSerializer.Instance.Deserialize<DynamicDictionary>(ms);
+#pragma warning restore CS0618
 					cs = new DynamicResponse(body) as TResponse;
 				}
 			}

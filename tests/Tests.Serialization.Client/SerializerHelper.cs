@@ -21,8 +21,18 @@ public static class SerializerHelper
     public static IOpenSearchSerializer GetSerializer()
     {
         var pool = new SingleNodeConnectionPool(new Uri("http://localhost:9200"));
-        var settings = new ConnectionSettings(pool);
-        return ((IConnectionSettingsValues)settings).RequestResponseSerializer;
+        // Set env var before construction since serializer choice happens in constructor
+        var originalValue = Environment.GetEnvironmentVariable("OSC_USE_STJ");
+        Environment.SetEnvironmentVariable("OSC_USE_STJ", "true");
+        try
+        {
+            var settings = new ConnectionSettings(pool);
+            return ((IConnectionSettingsValues)settings).RequestResponseSerializer;
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable("OSC_USE_STJ", originalValue);
+        }
     }
 
     public static string Serialize<T>(T obj)

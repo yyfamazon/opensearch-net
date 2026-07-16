@@ -204,7 +204,9 @@ namespace OpenSearch.Net
 		{
 			_connectionPool = connectionPool;
 			_connection = connection ?? new HttpConnection();
-			var serializer = requestResponseSerializer ?? new SystemTextJsonSerializer();
+#pragma warning disable CS0618 // LowLevelRequestResponseSerializer is obsolete but remains the default for backward compatibility
+			var serializer = requestResponseSerializer ?? LowLevelRequestResponseSerializer.Instance;
+#pragma warning restore CS0618
 			UseThisRequestResponseSerializer = new DiagnosticsSerializerProxy(serializer);
 
 			_connectionLimit = ConnectionConfiguration.DefaultConnectionLimit;

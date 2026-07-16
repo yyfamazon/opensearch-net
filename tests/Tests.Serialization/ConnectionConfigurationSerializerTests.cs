@@ -15,21 +15,34 @@ using Xunit;
 namespace Tests.Serialization;
 
 /// <summary>
-/// Tests that ConnectionConfiguration now defaults to SystemTextJsonSerializer
-/// instead of the deprecated LowLevelRequestResponseSerializer (Utf8Json).
+/// Tests that ConnectionConfiguration defaults to Utf8Json (LowLevelRequestResponseSerializer)
+/// for backward compatibility, and that STJ requires explicit opt-in.
 /// Covers: ConnectionConfiguration.cs change
 /// </summary>
 public class ConnectionConfigurationSerializerTests
 {
     [Fact]
-    public void DefaultSerializer_IsSystemTextJson()
+    public void DefaultSerializer_IsUtf8Json()
     {
         var config = new ConnectionConfiguration();
         var values = (IConnectionConfigurationValues)config;
 
-        // The serializer is wrapped in DiagnosticsSerializerProxy, but it wraps SystemTextJsonSerializer
+        // The default serializer is still Utf8Json (wrapped in DiagnosticsSerializerProxy)
         values.RequestResponseSerializer.Should().NotBeNull();
-        // Verify it produces camelCase JSON (SystemTextJsonSerializer behavior)
+        // Utf8Json produces PascalCase by default for anonymous types
+        using var stream = new MemoryStream();
+        values.RequestResponseSerializer.Serialize(new { TestProperty = "value" }, stream);
+        var json = Encoding.UTF8.GetString(stream.ToArray());
+        json.Should().Contain("\"TestProperty\"");
+    }
+
+    [Fact]
+    public void SystemTextJsonSerializer_ProducesCamelCase()
+    {
+        var pool = new SingleNodeConnectionPool(new Uri("http://localhost:9200"));
+        var config = new ConnectionConfiguration(pool, null, SystemTextJsonSerializer.Instance);
+        var values = (IConnectionConfigurationValues)config;
+
         using var stream = new MemoryStream();
         values.RequestResponseSerializer.Serialize(new { TestProperty = "value" }, stream);
         var json = Encoding.UTF8.GetString(stream.ToArray());
@@ -37,9 +50,10 @@ public class ConnectionConfigurationSerializerTests
     }
 
     [Fact]
-    public void DefaultSerializer_OmitsNulls()
+    public void SystemTextJsonSerializer_OmitsNulls()
     {
-        var config = new ConnectionConfiguration();
+        var pool = new SingleNodeConnectionPool(new Uri("http://localhost:9200"));
+        var config = new ConnectionConfiguration(pool, null, SystemTextJsonSerializer.Instance);
         var values = (IConnectionConfigurationValues)config;
 
         using var stream = new MemoryStream();

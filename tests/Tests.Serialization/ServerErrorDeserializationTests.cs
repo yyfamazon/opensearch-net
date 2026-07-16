@@ -28,14 +28,12 @@ public class ServerErrorDeserializationTests
 
         var error = ServerError.Create(stream);
 
-        // ServerError properties have internal setters. System.Text.Json cannot populate them
-        // without custom JsonSerializerOptions configuration (e.g., custom contract resolver).
-        // This documents a known behavioral difference from the old Utf8Json serializer which
-        // used IL emit to bypass access modifiers.
-        // TODO: Fix by adding IncludeFields or a custom contract modifier to SystemTextJsonSerializer
+        // Utf8Json (the default serializer) uses IL emit to populate internal setters
         error.Should().NotBeNull();
-        error!.Status.Should().Be(-1); // internal set - not deserialized
-        error.Error.Should().BeNull(); // internal set - not deserialized
+        error!.Status.Should().Be(404);
+        error.Error.Should().NotBeNull();
+        error.Error!.Type.Should().Be("index_not_found_exception");
+        error.Error.Reason.Should().Be("no such index [test]");
     }
 
     [Fact]
@@ -46,10 +44,12 @@ public class ServerErrorDeserializationTests
 
         var error = await ServerError.CreateAsync(stream);
 
-        // Same internal setter limitation as sync version
+        // Utf8Json (the default serializer) uses IL emit to populate internal setters
         error.Should().NotBeNull();
-        error!.Status.Should().Be(-1);
-        error.Error.Should().BeNull();
+        error!.Status.Should().Be(400);
+        error.Error.Should().NotBeNull();
+        error.Error!.Type.Should().Be("resource_already_exists_exception");
+        error.Error.Reason.Should().Be("index already exists");
     }
 
     [Fact]

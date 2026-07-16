@@ -114,6 +114,7 @@ namespace OpenSearch.Client
 		private bool _defaultDisableAllInference;
 		private Func<string, string> _defaultFieldNameInferrer;
 		private string _defaultIndex;
+		private bool _useUtf8Json;
 
 		protected ConnectionSettingsBase(
 			IConnectionPool connectionPool,
@@ -123,6 +124,11 @@ namespace OpenSearch.Client
 		)
 			: base(connectionPool, connection, null)
 		{
+			// Default: Utf8Json (legacy, stable). Opt-in: System.Text.Json via OSC_USE_STJ=true
+			_useUtf8Json = !string.Equals(
+				Environment.GetEnvironmentVariable("OSC_USE_STJ"), "true",
+				StringComparison.OrdinalIgnoreCase);
+
 			var defaultSerializer = new DefaultHighLevelSystemTextJsonSerializer(this);
 			var sourceSerializer = sourceSerializerFactory?.Invoke(defaultSerializer, this) ?? defaultSerializer;
 			defaultSerializer.SourceSerializer = sourceSerializer;
@@ -324,6 +330,24 @@ namespace OpenSearch.Client
 
 			return (TConnectionSettings)this;
 		}
+
+		/// <summary>
+		/// Switches the serialization engine to System.Text.Json, the modern Microsoft-supported serializer.
+		/// By default, the legacy Utf8Json serializer is used for backward compatibility.
+		/// Can also be enabled via the OSC_USE_STJ environment variable set to "true".
+		/// </summary>
+		/// <remarks>
+		/// System.Text.Json is the recommended serializer for new development.
+		/// The Utf8Json engine is deprecated and will be removed in a future major version.
+		/// </remarks>
+		public TConnectionSettings UseSystemTextJson(bool enable = true) => Assign(!enable, (a, v) => a._useUtf8Json = v);
+
+		/// <summary>
+		/// Explicitly selects the legacy Utf8Json serializer. This is the current default and
+		/// does not need to be called unless overriding a previously set <see cref="UseSystemTextJson"/>.
+		/// </summary>
+		[Obsolete("Utf8Json is deprecated. Use UseSystemTextJson() for the modern serializer.")]
+		public TConnectionSettings UseUtf8Json(bool enable = true) => Assign(enable, (a, v) => a._useUtf8Json = v);
 
 		/// <summary>
 		/// OpenSearch.Client handles 404 in its <see cref="ResponseBase.IsValid"/>, we do not want the low level client throwing exceptions
