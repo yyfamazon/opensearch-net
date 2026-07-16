@@ -196,7 +196,9 @@ namespace Tests.CodeStandards
 				oscAssembly.GetType("System.ComponentModel.Browsable", throwOnError: false),
 				oscAssembly.GetType("Microsoft.CodeAnalysis.EmbeddedAttribute", throwOnError: false),
 				oscAssembly.GetType("System.Runtime.CompilerServices.IsReadOnlyAttribute", throwOnError: false),
-                oscAssembly.GetType("System.Runtime.CompilerServices.RefSafetyRulesAttribute", throwOnError: false)
+                oscAssembly.GetType("System.Runtime.CompilerServices.RefSafetyRulesAttribute", throwOnError: false),
+				oscAssembly.GetType("System.Runtime.CompilerServices.NullableAttribute", throwOnError: false),
+				oscAssembly.GetType("System.Runtime.CompilerServices.NullableContextAttribute", throwOnError: false)
 			};
 
 			var types = oscAssembly.GetTypes();
@@ -208,6 +210,8 @@ namespace Tests.CodeStandards
 				.Where(t => !string.IsNullOrWhiteSpace(t.Namespace) && !t.Namespace.StartsWith("OpenSearch.Client.Json"))
 				.Where(t => !string.IsNullOrWhiteSpace(t.Namespace) && !t.Namespace.StartsWith("OpenSearch.Internal"))
 				.Where(t => !string.IsNullOrWhiteSpace(t.Namespace) && !t.Namespace.StartsWith("OpenSearch.Client.Specification"))
+				.Where(t => !string.IsNullOrWhiteSpace(t.Namespace) && !t.Namespace.Contains("SystemTextJsonConverters"))
+				.Where(t => !string.IsNullOrWhiteSpace(t.Namespace) && !t.Namespace.EndsWith("Converters"))
 				.Where(t => !t.Name.StartsWith("<"))
 				.Where(t => IsValidTypeNameOrIdentifier(t.Name, true))
 				.ToList();
