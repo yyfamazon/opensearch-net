@@ -55,8 +55,17 @@ namespace OpenSearch.Net
 		/// <inheritdoc />
 		public object Deserialize(Type type, Stream stream)
 		{
-			if (stream == null || stream == Stream.Null || (stream.CanSeek && stream.Length == 0))
-				return type.IsValueType ? Activator.CreateInstance(type) : null;
+			if (stream == null || stream == Stream.Null) return type.IsValueType ? Activator.CreateInstance(type) : null;
+			if (stream.CanSeek && stream.Length == 0) return type.IsValueType ? Activator.CreateInstance(type) : null;
+			if (!stream.CanSeek)
+			{
+				// Buffer non-seekable streams to check for empty content
+				var ms = new MemoryStream();
+				stream.CopyTo(ms);
+				if (ms.Length == 0) return type.IsValueType ? Activator.CreateInstance(type) : null;
+				ms.Position = 0;
+				stream = ms;
+			}
 
 			return JsonSerializer.Deserialize(stream, type, _options);
 		}
@@ -64,8 +73,17 @@ namespace OpenSearch.Net
 		/// <inheritdoc />
 		public T Deserialize<T>(Stream stream)
 		{
-			if (stream == null || stream == Stream.Null || (stream.CanSeek && stream.Length == 0))
-				return default;
+			if (stream == null || stream == Stream.Null) return default;
+			if (stream.CanSeek && stream.Length == 0) return default;
+			if (!stream.CanSeek)
+			{
+				// Buffer non-seekable streams to check for empty content
+				var ms = new MemoryStream();
+				stream.CopyTo(ms);
+				if (ms.Length == 0) return default;
+				ms.Position = 0;
+				stream = ms;
+			}
 
 			return JsonSerializer.Deserialize<T>(stream, _options);
 		}
@@ -73,8 +91,17 @@ namespace OpenSearch.Net
 		/// <inheritdoc />
 		public async Task<object> DeserializeAsync(Type type, Stream stream, CancellationToken cancellationToken = default)
 		{
-			if (stream == null || stream == Stream.Null || (stream.CanSeek && stream.Length == 0))
-				return type.IsValueType ? Activator.CreateInstance(type) : null;
+			if (stream == null || stream == Stream.Null) return type.IsValueType ? Activator.CreateInstance(type) : null;
+			if (stream.CanSeek && stream.Length == 0) return type.IsValueType ? Activator.CreateInstance(type) : null;
+			if (!stream.CanSeek)
+			{
+				// Buffer non-seekable streams to check for empty content
+				var ms = new MemoryStream();
+				await stream.CopyToAsync(ms).ConfigureAwait(false);
+				if (ms.Length == 0) return type.IsValueType ? Activator.CreateInstance(type) : null;
+				ms.Position = 0;
+				stream = ms;
+			}
 
 			return await JsonSerializer.DeserializeAsync(stream, type, _options, cancellationToken).ConfigureAwait(false);
 		}
@@ -82,8 +109,17 @@ namespace OpenSearch.Net
 		/// <inheritdoc />
 		public async Task<T> DeserializeAsync<T>(Stream stream, CancellationToken cancellationToken = default)
 		{
-			if (stream == null || stream == Stream.Null || (stream.CanSeek && stream.Length == 0))
-				return default;
+			if (stream == null || stream == Stream.Null) return default;
+			if (stream.CanSeek && stream.Length == 0) return default;
+			if (!stream.CanSeek)
+			{
+				// Buffer non-seekable streams to check for empty content
+				var ms = new MemoryStream();
+				await stream.CopyToAsync(ms).ConfigureAwait(false);
+				if (ms.Length == 0) return default;
+				ms.Position = 0;
+				stream = ms;
+			}
 
 			return await JsonSerializer.DeserializeAsync<T>(stream, _options, cancellationToken).ConfigureAwait(false);
 		}

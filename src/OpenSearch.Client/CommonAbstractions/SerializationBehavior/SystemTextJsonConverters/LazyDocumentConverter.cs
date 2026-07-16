@@ -21,6 +21,12 @@ namespace OpenSearch.Client.SystemTextJsonConverters;
 
 internal sealed class LazyDocumentConverter : JsonConverter<LazyDocument>
 {
+	private readonly IConnectionSettingsValues _settings;
+
+	public LazyDocumentConverter() => _settings = null;
+
+	public LazyDocumentConverter(IConnectionSettingsValues settings) => _settings = settings;
+
 	public override LazyDocument Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 	{
 		if (reader.TokenType == JsonTokenType.Null)
@@ -28,7 +34,7 @@ internal sealed class LazyDocumentConverter : JsonConverter<LazyDocument>
 
 		using var document = JsonDocument.ParseValue(ref reader);
 		var bytes = JsonDocumentToBytes(document);
-		return new LazyDocument(bytes, null);
+		return new LazyDocument(bytes, _settings);
 	}
 
 	public override void Write(Utf8JsonWriter writer, LazyDocument value, JsonSerializerOptions options)
@@ -64,7 +70,11 @@ internal sealed class LazyDocumentConverter : JsonConverter<LazyDocument>
 
 internal sealed class LazyDocumentInterfaceConverter : JsonConverter<ILazyDocument>
 {
-	private readonly LazyDocumentConverter _inner = new();
+	private readonly LazyDocumentConverter _inner;
+
+	public LazyDocumentInterfaceConverter() => _inner = new LazyDocumentConverter();
+
+	public LazyDocumentInterfaceConverter(IConnectionSettingsValues settings) => _inner = new LazyDocumentConverter(settings);
 
 	public override ILazyDocument Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) =>
 		_inner.Read(ref reader, typeof(LazyDocument), options);

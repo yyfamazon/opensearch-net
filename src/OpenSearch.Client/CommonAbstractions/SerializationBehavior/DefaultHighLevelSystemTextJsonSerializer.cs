@@ -68,7 +68,6 @@ namespace OpenSearch.Client
 	internal class DefaultHighLevelSystemTextJsonSerializer : IOpenSearchSerializer
 	{
 		private readonly JsonSerializerOptions _options;
-		private readonly JsonSerializerOptions _indentedOptions;
 
 		/// <summary>
 		/// The connection settings values used by converters that need access to property mappings,
@@ -159,6 +158,37 @@ namespace OpenSearch.Client
 										prop.Set = (obj, val) => setter.Invoke(obj, new[] { val });
 								}
 							}
+						},
+						typeInfo =>
+						{
+							if (typeInfo.Kind != System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
+								return;
+
+							// Discover non-public properties with [DataMember] attribute
+							var bindingFlags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+							foreach (var prop in typeInfo.Type.GetProperties(bindingFlags))
+							{
+								var dataMemberAttrs = prop.GetCustomAttributes(typeof(System.Runtime.Serialization.DataMemberAttribute), true);
+								if (dataMemberAttrs.Length == 0) continue;
+
+								// Skip if already present
+								var dmAttr = (System.Runtime.Serialization.DataMemberAttribute)dataMemberAttrs[0];
+								var jsonName = !string.IsNullOrEmpty(dmAttr.Name) ? dmAttr.Name : JsonNamingPolicy.CamelCase.ConvertName(prop.Name);
+
+								bool alreadyExists = false;
+								foreach (var existing in typeInfo.Properties)
+								{
+									if (existing.Name == jsonName) { alreadyExists = true; break; }
+								}
+								if (alreadyExists) continue;
+
+								var jsonProp = typeInfo.CreateJsonPropertyInfo(prop.PropertyType, jsonName);
+								jsonProp.Get = obj => prop.GetValue(obj);
+								var setter = prop.GetSetMethod(true);
+								if (setter != null)
+									jsonProp.Set = (obj, val) => setter.Invoke(obj, new[] { val });
+								typeInfo.Properties.Add(jsonProp);
+							}
 						}
 					}
 				}
@@ -214,7 +244,8 @@ namespace OpenSearch.Client
 			_options.Converters.Add(new IndexNameConverter(settings));
 			_options.Converters.Add(new RelationNameConverter(settings));
 			_options.Converters.Add(new RoutingConverter(settings));
-			_options.Converters.Add(new LazyDocumentConverter());
+			_options.Converters.Add(new LazyDocumentConverter(settings));
+			_options.Converters.Add(new LazyDocumentInterfaceConverter(settings));
 			_options.Converters.Add(new TimeConverter());
 			_options.Converters.Add(new UnionConverterFactory());
 			_options.Converters.Add(new PropertyNameConverter(settings));
@@ -256,12 +287,6 @@ namespace OpenSearch.Client
 			_options.Converters.Add(new GetRepositoryResponseConverter());
 			_options.Converters.Add(new CreateRepositoryConverter());
 
-			// DateTime converters
-			_options.Converters.Add(new EpochMillisecondsDateTimeConverter(settings));
-			_options.Converters.Add(new NullableEpochMillisecondsDateTimeConverter(settings));
-			_options.Converters.Add(new EpochMillisecondsDateTimeOffsetConverter(settings));
-			_options.Converters.Add(new NullableEpochMillisecondsDateTimeOffsetConverter(settings));
-
 			// OpenSearchClientConverterFactory as fallback for any remaining types
 			_options.Converters.Add(new OpenSearchClientConverterFactory(settings));
 
@@ -269,9 +294,6 @@ namespace OpenSearch.Client
 			_options.Converters.Add(new DynamicDictionaryConverter());
 			_options.Converters.Add(new NullableStringIntConverter());
 			_options.Converters.Add(new StringEnumConverterFactory());
-
-			// Create a copy with WriteIndented for formatting support in async serialization
-			_indentedOptions = new JsonSerializerOptions(_options) { WriteIndented = true };
 		}
 
 		/// <summary>
@@ -311,8 +333,17 @@ namespace OpenSearch.Client
 		/// <inheritdoc />
 		public T Deserialize<T>(Stream stream)
 		{
-			if (stream == null || stream == Stream.Null || (stream.CanSeek && stream.Length == 0))
-				return default;
+			if (stream == null || stream == Stream.Null) return default;
+			if (stream.CanSeek && stream.Length == 0) return default;
+			if (!stream.CanSeek)
+			{
+				// Buffer non-seekable streams to check for empty content
+				var ms = new MemoryStream();
+				stream.CopyTo(ms);
+				if (ms.Length == 0) return default;
+				ms.Position = 0;
+				stream = ms;
+			}
 
 			return JsonSerializer.Deserialize<T>(stream, _options);
 		}
@@ -320,8 +351,17 @@ namespace OpenSearch.Client
 		/// <inheritdoc />
 		public object Deserialize(Type type, Stream stream)
 		{
-			if (stream == null || stream == Stream.Null || (stream.CanSeek && stream.Length == 0))
-				return null;
+			if (stream == null || stream == Stream.Null) return null;
+			if (stream.CanSeek && stream.Length == 0) return null;
+			if (!stream.CanSeek)
+			{
+				// Buffer non-seekable streams to check for empty content
+				var ms = new MemoryStream();
+				stream.CopyTo(ms);
+				if (ms.Length == 0) return null;
+				ms.Position = 0;
+				stream = ms;
+			}
 
 			return JsonSerializer.Deserialize(stream, type, _options);
 		}
@@ -329,8 +369,17 @@ namespace OpenSearch.Client
 		/// <inheritdoc />
 		public async Task<T> DeserializeAsync<T>(Stream stream, CancellationToken cancellationToken = default)
 		{
-			if (stream == null || stream == Stream.Null || (stream.CanSeek && stream.Length == 0))
-				return default;
+			if (stream == null || stream == Stream.Null) return default;
+			if (stream.CanSeek && stream.Length == 0) return default;
+			if (!stream.CanSeek)
+			{
+				// Buffer non-seekable streams to check for empty content
+				var ms = new MemoryStream();
+				await stream.CopyToAsync(ms).ConfigureAwait(false);
+				if (ms.Length == 0) return default;
+				ms.Position = 0;
+				stream = ms;
+			}
 
 			return await JsonSerializer.DeserializeAsync<T>(stream, _options, cancellationToken).ConfigureAwait(false);
 		}
@@ -338,8 +387,17 @@ namespace OpenSearch.Client
 		/// <inheritdoc />
 		public async Task<object> DeserializeAsync(Type type, Stream stream, CancellationToken cancellationToken = default)
 		{
-			if (stream == null || stream == Stream.Null || (stream.CanSeek && stream.Length == 0))
-				return null;
+			if (stream == null || stream == Stream.Null) return null;
+			if (stream.CanSeek && stream.Length == 0) return null;
+			if (!stream.CanSeek)
+			{
+				// Buffer non-seekable streams to check for empty content
+				var ms = new MemoryStream();
+				await stream.CopyToAsync(ms).ConfigureAwait(false);
+				if (ms.Length == 0) return null;
+				ms.Position = 0;
+				stream = ms;
+			}
 
 			return await JsonSerializer.DeserializeAsync(stream, type, _options, cancellationToken).ConfigureAwait(false);
 		}
@@ -349,9 +407,12 @@ namespace OpenSearch.Client
 		{
 			if (stream == null) throw new ArgumentNullException(nameof(stream));
 
+			// Always write compact JSON for request bodies sent to the server.
+			// The formatting parameter is intentionally ignored - indented output
+			// would change content-length and break content hashes (e.g. SigV4).
 			using var writer = new Utf8JsonWriter(stream, new JsonWriterOptions
 			{
-				Indented = formatting == SerializationFormatting.Indented,
+				Indented = false,
 				Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
 			});
 			JsonSerializer.Serialize(writer, data, _options);
@@ -363,9 +424,7 @@ namespace OpenSearch.Client
 			CancellationToken cancellationToken = default)
 		{
 			if (stream == null) throw new ArgumentNullException(nameof(stream));
-
-			var options = formatting == SerializationFormatting.Indented ? _indentedOptions : _options;
-			return JsonSerializer.SerializeAsync(stream, data, options, cancellationToken);
+			return JsonSerializer.SerializeAsync(stream, data, _options, cancellationToken);
 		}
 	}
 }

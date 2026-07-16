@@ -86,6 +86,22 @@ namespace OpenSearch.Client
 			_memoryStreamFactory = settings.MemoryStreamFactory;
 		}
 
+		/// <summary>
+		/// Constructor for System.Text.Json deserialization path where IJsonFormatterResolver
+		/// is not available. When settings is null, lazy deserialization (As&lt;T&gt;) will
+		/// throw - the caller must ensure settings are provided.
+		/// </summary>
+		internal LazyDocument(byte[] bytes, IConnectionSettingsValues settings)
+		{
+			Bytes = bytes;
+			if (settings != null)
+			{
+				_sourceSerializer = settings.SourceSerializer;
+				_requestResponseSerializer = settings.RequestResponseSerializer;
+				_memoryStreamFactory = settings.MemoryStreamFactory;
+			}
+		}
+
 		internal byte[] Bytes { get; }
 
 		internal T AsUsingRequestResponseSerializer<T>()

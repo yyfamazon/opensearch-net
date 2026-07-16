@@ -73,6 +73,10 @@ namespace OpenSearch.Client.Aggregations.SystemTextJsonConverters
 			if (root.TryGetProperty("values", out var valuesElement))
 				return ReadPercentilesAggregate(valuesElement, meta);
 
+			// Check for top_hits aggregate: has a "hits" object containing "hits" array
+			if (root.TryGetProperty("hits", out var hitsElement) && hitsElement.ValueKind == JsonValueKind.Object)
+				return ReadTopHitsAggregate(hitsElement, meta);
+
 			if (root.TryGetProperty("value", out var valueElement))
 				return ReadValueAggregate(root, valueElement, meta);
 
@@ -114,16 +118,43 @@ namespace OpenSearch.Client.Aggregations.SystemTextJsonConverters
 			}
 		}
 
-		private static ValueAggregate ReadValueAggregate(
+		private IAggregate ReadValueAggregate(
 			JsonElement root, JsonElement valueElement, IReadOnlyDictionary<string, object> meta)
 		{
 			double? numericValue = null;
 			string valueAsString = null;
 
-			if (valueElement.ValueKind == JsonValueKind.Number)
-				numericValue = valueElement.GetDouble();
-			else if (valueElement.ValueKind == JsonValueKind.Null)
-				numericValue = null;
+			switch (valueElement.ValueKind)
+			{
+				case JsonValueKind.Number:
+					numericValue = valueElement.GetDouble();
+					break;
+				case JsonValueKind.Null:
+					numericValue = null;
+					break;
+				case JsonValueKind.Object:
+				case JsonValueKind.Array:
+				case JsonValueKind.String when !double.TryParse(valueElement.GetString(), System.Globalization.NumberStyles.Any,
+					System.Globalization.CultureInfo.InvariantCulture, out _):
+					// Non-numeric value (object, array, or non-numeric string) - this is a scripted_metric aggregate.
+					// Store the value as a LazyDocument so it can be deserialized later via Value<T>().
+					var rawBytes = System.Text.Encoding.UTF8.GetBytes(valueElement.GetRawText());
+					var lazyDoc = new LazyDocument(rawBytes, _settings);
+					return new ScriptedMetricAggregate(lazyDoc)
+					{
+						Meta = meta ?? EmptyReadOnly<string, object>.Dictionary
+					};
+				default:
+					// String that is a number, or other types - try to parse
+					if (valueElement.ValueKind == JsonValueKind.String)
+					{
+						var str = valueElement.GetString();
+						if (double.TryParse(str, System.Globalization.NumberStyles.Any,
+							System.Globalization.CultureInfo.InvariantCulture, out var parsed))
+							numericValue = parsed;
+					}
+					break;
+			}
 
 			if (root.TryGetProperty("value_as_string", out var vasElement))
 				valueAsString = vasElement.GetString();
@@ -160,6 +191,62 @@ namespace OpenSearch.Client.Aggregations.SystemTextJsonConverters
 			return new PercentilesAggregate
 			{
 				Items = items,
+				Meta = meta ?? EmptyReadOnly<string, object>.Dictionary
+			};
+		}
+
+		private TopHitsAggregate ReadTopHitsAggregate(
+			JsonElement hitsElement, IReadOnlyDictionary<string, object> meta)
+		{
+			double? maxScore = null;
+			TotalHits total = null;
+			var topHits = new List<LazyDocument>();
+
+			// Parse the "hits" object which contains "total", "max_score", and "hits" array
+			if (hitsElement.TryGetProperty("total", out var totalElement))
+			{
+				if (totalElement.ValueKind == JsonValueKind.Object)
+				{
+					// OpenSearch 1.x+ format: { "value": N, "relation": "eq" }
+					long totalValue = 0;
+					var relation = TotalHitsRelation.EqualTo;
+					if (totalElement.TryGetProperty("value", out var totalValEl))
+						totalValue = totalValEl.GetInt64();
+					if (totalElement.TryGetProperty("relation", out var totalRelEl))
+					{
+						var relStr = totalRelEl.GetString();
+						if (relStr == "gte")
+							relation = TotalHitsRelation.GreaterThanOrEqualTo;
+					}
+					total = new TotalHits { Value = totalValue, Relation = relation };
+				}
+				else if (totalElement.ValueKind == JsonValueKind.Number)
+				{
+					// Legacy format: just a number
+					total = new TotalHits { Value = totalElement.GetInt64(), Relation = TotalHitsRelation.EqualTo };
+				}
+			}
+
+			if (hitsElement.TryGetProperty("max_score", out var maxScoreElement)
+				&& maxScoreElement.ValueKind == JsonValueKind.Number)
+			{
+				maxScore = maxScoreElement.GetDouble();
+			}
+
+			if (hitsElement.TryGetProperty("hits", out var hitsArrayElement)
+				&& hitsArrayElement.ValueKind == JsonValueKind.Array)
+			{
+				foreach (var hitElement in hitsArrayElement.EnumerateArray())
+				{
+					var hitBytes = System.Text.Encoding.UTF8.GetBytes(hitElement.GetRawText());
+					topHits.Add(new LazyDocument(hitBytes, _settings));
+				}
+			}
+
+			return new TopHitsAggregate(topHits, null)
+			{
+				Total = total,
+				MaxScore = maxScore,
 				Meta = meta ?? EmptyReadOnly<string, object>.Dictionary
 			};
 		}

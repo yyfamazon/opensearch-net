@@ -71,6 +71,12 @@ namespace OpenSearch.Net
 		private readonly IJsonFormatterResolver _formatterResolver;
 		private static DiagnosticSource DiagnosticSource { get; } = new DiagnosticListener(DiagnosticSources.Serializer.SourceName);
 
+		/// <summary>
+		/// Gets the underlying serializer that this proxy wraps.
+		/// Used internally to determine the actual serializer type (e.g., to detect self-referential source serializer).
+		/// </summary>
+		internal IOpenSearchSerializer Inner => _serializer;
+
 		public DiagnosticsSerializerProxy(IOpenSearchSerializer serializer, string purpose = "request/response")
 		{
 			_serializer = serializer;

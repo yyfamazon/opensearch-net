@@ -16,6 +16,8 @@ using System.Text.Json;
 
 using System.Text.Json.Serialization;
 
+using OpenSearch.Net;
+
 #nullable disable
 
 namespace OpenSearch.Client.SystemTextJsonConverters;
@@ -64,6 +66,19 @@ internal sealed class SourceConverter<T> : JsonConverter<T>
 		|| typeof(T) == typeof(string) || typeof(T) == typeof(decimal)
 		|| typeof(T).IsEnum || typeof(T) == typeof(object);
 
+	/// <summary>
+	/// Cached options for the self-referential case (no custom source serializer configured).
+	/// Uses PropertyNameCaseInsensitive but does NOT include the SourceConverterFactory
+	/// to avoid infinite recursion.
+	/// </summary>
+	private static readonly JsonSerializerOptions SelfDeserializeOptions = new JsonSerializerOptions
+	{
+		PropertyNameCaseInsensitive = true,
+		PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+		NumberHandling = JsonNumberHandling.AllowReadingFromString,
+		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+	};
+
 	public SourceConverter(IConnectionSettingsValues settings) => _settings = settings;
 
 	public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -72,23 +87,41 @@ internal sealed class SourceConverter<T> : JsonConverter<T>
 		if (IsSimpleType)
 			return JsonSerializer.Deserialize<T>(ref reader);
 
-		// Capture the raw JSON for the current value
-		using var document = JsonDocument.ParseValue(ref reader);
-		using var ms = new MemoryStream();
-		using (var jsonWriter = new Utf8JsonWriter(ms))
-		{
-			document.RootElement.WriteTo(jsonWriter);
-		}
-
-		ms.Position = 0;
 		var sourceSerializer = _settings.SourceSerializer;
 
-		// Avoid recursion: if SourceSerializer is the same as the request serializer,
-		// deserialize without the SourceConverterFactory by using a plain deserialize
-		if (sourceSerializer is DefaultHighLevelSystemTextJsonSerializer)
-			return JsonSerializer.Deserialize<T>(ms);
+		// Determine if the source serializer is the built-in STJ serializer (self-referential).
+		// When no custom source serializer is configured, the source serializer wraps the same
+		// DefaultHighLevelSystemTextJsonSerializer instance — calling it would recurse through
+		// this converter factory, so we use plain STJ options without SourceConverterFactory.
+		var isSelfReferential = sourceSerializer is DiagnosticsSerializerProxy proxy
+			&& proxy.Inner is DefaultHighLevelSystemTextJsonSerializer;
 
-		return sourceSerializer.Deserialize<T>(ms);
+		if (isSelfReferential)
+		{
+			// Self-referential: no custom source serializer configured.
+			// Buffer the JSON and deserialize with plain options (no SourceConverterFactory)
+			// to avoid infinite recursion.
+			using var document = JsonDocument.ParseValue(ref reader);
+			using var ms = new MemoryStream();
+			using (var jsonWriter = new Utf8JsonWriter(ms))
+			{
+				document.RootElement.WriteTo(jsonWriter);
+			}
+			ms.Position = 0;
+			return JsonSerializer.Deserialize<T>(ms, SelfDeserializeOptions);
+		}
+		else
+		{
+			// External source serializer (e.g., JsonNetSerializer) — buffer and delegate
+			using var document = JsonDocument.ParseValue(ref reader);
+			using var ms = new MemoryStream();
+			using (var jsonWriter = new Utf8JsonWriter(ms))
+			{
+				document.RootElement.WriteTo(jsonWriter);
+			}
+			ms.Position = 0;
+			return sourceSerializer.Deserialize<T>(ms);
+		}
 	}
 
 	public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
@@ -110,9 +143,12 @@ internal sealed class SourceConverter<T> : JsonConverter<T>
 
 		// Avoid recursion: if SourceSerializer is the same as the request serializer,
 		// serialize using default options without the SourceConverterFactory
-		if (sourceSerializer is DefaultHighLevelSystemTextJsonSerializer)
+		var isSelfReferential = sourceSerializer is DiagnosticsSerializerProxy proxy
+			&& proxy.Inner is DefaultHighLevelSystemTextJsonSerializer;
+
+		if (isSelfReferential)
 		{
-			JsonSerializer.Serialize(writer, value);
+			JsonSerializer.Serialize(writer, value, SelfDeserializeOptions);
 			return;
 		}
 
