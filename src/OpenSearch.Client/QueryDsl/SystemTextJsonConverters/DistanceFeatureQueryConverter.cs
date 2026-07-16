@@ -28,6 +28,10 @@ namespace OpenSearch.Client.QueryDsl.SystemTextJsonConverters
 	internal sealed class DistanceFeatureQueryConverter : JsonConverter<IDistanceFeatureQuery>
 	{
 		private static readonly GeoLocationConverter LocationConverter = new GeoLocationConverter();
+		private readonly IConnectionSettingsValues _settings;
+
+		public DistanceFeatureQueryConverter() { }
+		public DistanceFeatureQueryConverter(IConnectionSettingsValues settings) => _settings = settings;
 
 		public override IDistanceFeatureQuery Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
@@ -98,7 +102,8 @@ namespace OpenSearch.Client.QueryDsl.SystemTextJsonConverters
 			if (value.Field != null)
 			{
 				writer.WritePropertyName("field");
-				writer.WriteStringValue(value.Field.ToString());
+				var fieldName = _settings != null ? _settings.Inferrer.Field(value.Field) : value.Field.ToString();
+				writer.WriteStringValue(fieldName);
 			}
 
 			if (value.Origin != null)

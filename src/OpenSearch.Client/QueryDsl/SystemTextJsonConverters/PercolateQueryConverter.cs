@@ -32,6 +32,10 @@ namespace OpenSearch.Client.QueryDsl.SystemTextJsonConverters
 	/// </summary>
 	internal sealed class PercolateQueryConverter : JsonConverter<IPercolateQuery>
 	{
+		private readonly IConnectionSettingsValues _settings;
+
+		public PercolateQueryConverter() { }
+		public PercolateQueryConverter(IConnectionSettingsValues settings) => _settings = settings;
 		public override IPercolateQuery Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
 			if (reader.TokenType == JsonTokenType.Null)
@@ -102,7 +106,8 @@ namespace OpenSearch.Client.QueryDsl.SystemTextJsonConverters
 			if (value.Field != null)
 			{
 				writer.WritePropertyName("field");
-				writer.WriteStringValue(value.Field.ToString());
+				var fieldName = _settings != null ? _settings.Inferrer.Field(value.Field) : value.Field.ToString();
+				writer.WriteStringValue(fieldName);
 			}
 
 			if (value.Document != null)

@@ -31,6 +31,10 @@ namespace OpenSearch.Client.QueryDsl.SystemTextJsonConverters
 	internal sealed class GeoShapeQueryConverter : JsonConverter<IGeoShapeQuery>
 	{
 		private static readonly GeoShapeConverter ShapeConverter = new GeoShapeConverter();
+		private readonly IConnectionSettingsValues _settings;
+
+		public GeoShapeQueryConverter() { }
+		public GeoShapeQueryConverter(IConnectionSettingsValues settings) => _settings = settings;
 
 		public override IGeoShapeQuery Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
@@ -82,7 +86,7 @@ namespace OpenSearch.Client.QueryDsl.SystemTextJsonConverters
 
 			writer.WriteStartObject();
 
-			var fieldName = value.Field?.ToString();
+			var fieldName = _settings != null ? _settings.Inferrer.Field(value.Field) : value.Field?.ToString();
 			if (string.IsNullOrEmpty(fieldName))
 				throw new JsonException("Field name cannot be null for geo_shape query");
 

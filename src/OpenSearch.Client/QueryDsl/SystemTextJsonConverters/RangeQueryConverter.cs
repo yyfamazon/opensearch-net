@@ -25,6 +25,10 @@ namespace OpenSearch.Client.QueryDsl.SystemTextJsonConverters
 	/// </summary>
 	internal sealed class RangeQueryConverter : JsonConverter<IRangeQuery>
 	{
+		private readonly IConnectionSettingsValues _settings;
+
+		public RangeQueryConverter() { }
+		public RangeQueryConverter(IConnectionSettingsValues settings) => _settings = settings;
 		public override IRangeQuery Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
 			if (reader.TokenType == JsonTokenType.Null)
@@ -83,7 +87,9 @@ namespace OpenSearch.Client.QueryDsl.SystemTextJsonConverters
 			writer.WriteStartObject();
 
 			var field = ((IFieldNameQuery)value).Field;
-			var fieldName = field?.ToString() ?? throw new JsonException("Field name cannot be null for a range query");
+			var fieldName = _settings != null ? _settings.Inferrer.Field(field) : field?.ToString();
+			if (string.IsNullOrEmpty(fieldName))
+				throw new JsonException("Field name cannot be null for a range query");
 			writer.WritePropertyName(fieldName);
 			writer.WriteStartObject();
 

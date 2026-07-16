@@ -24,6 +24,10 @@ namespace OpenSearch.Client.QueryDsl.SystemTextJsonConverters
 	/// </summary>
 	internal sealed class ScoreFunctionConverter : JsonConverter<IScoreFunction>
 	{
+		private readonly IConnectionSettingsValues _settings;
+
+		public ScoreFunctionConverter() { }
+		public ScoreFunctionConverter(IConnectionSettingsValues settings) => _settings = settings;
 		public override IScoreFunction Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
 			if (reader.TokenType == JsonTokenType.Null)
@@ -247,12 +251,12 @@ namespace OpenSearch.Client.QueryDsl.SystemTextJsonConverters
 			return fn;
 		}
 
-		private static void WriteDecay(Utf8JsonWriter writer, IDecayFunction decay, JsonSerializerOptions options)
+		private void WriteDecay(Utf8JsonWriter writer, IDecayFunction decay, JsonSerializerOptions options)
 		{
 			writer.WritePropertyName(decay.DecayType);
 			writer.WriteStartObject();
 
-			var fieldName = decay.Field?.ToString();
+			var fieldName = _settings != null && decay.Field != null ? _settings.Inferrer.Field(decay.Field) : decay.Field?.ToString();
 			if (!string.IsNullOrEmpty(fieldName))
 			{
 				writer.WritePropertyName(fieldName);
@@ -290,18 +294,18 @@ namespace OpenSearch.Client.QueryDsl.SystemTextJsonConverters
 			writer.WriteEndObject();
 		}
 
-		private static void WriteFieldValueFactor(Utf8JsonWriter writer, IFieldValueFactorFunction value)
+		private void WriteFieldValueFactor(Utf8JsonWriter writer, IFieldValueFactorFunction value)
 		{
 			writer.WritePropertyName("field_value_factor");
 			writer.WriteStartObject();
-			if (value.Field != null) { writer.WritePropertyName("field"); writer.WriteStringValue(value.Field.ToString()); }
+			if (value.Field != null) { writer.WritePropertyName("field"); var fn = _settings != null ? _settings.Inferrer.Field(value.Field) : value.Field.ToString(); writer.WriteStringValue(fn); }
 			if (value.Factor.HasValue) { writer.WritePropertyName("factor"); writer.WriteNumberValue(value.Factor.Value); }
 			if (value.Modifier.HasValue) { writer.WritePropertyName("modifier"); writer.WriteStringValue(GetModifierString(value.Modifier.Value)); }
 			if (value.Missing.HasValue) { writer.WritePropertyName("missing"); writer.WriteNumberValue(value.Missing.Value); }
 			writer.WriteEndObject();
 		}
 
-		private static void WriteRandomScore(Utf8JsonWriter writer, IRandomScoreFunction value)
+		private void WriteRandomScore(Utf8JsonWriter writer, IRandomScoreFunction value)
 		{
 			writer.WritePropertyName("random_score");
 			writer.WriteStartObject();
@@ -311,7 +315,7 @@ namespace OpenSearch.Client.QueryDsl.SystemTextJsonConverters
 				if (value.Seed.Tag == 0) writer.WriteNumberValue(value.Seed.Item1);
 				else writer.WriteStringValue(value.Seed.Item2);
 			}
-			if (value.Field != null) { writer.WritePropertyName("field"); writer.WriteStringValue(value.Field.ToString()); }
+			if (value.Field != null) { writer.WritePropertyName("field"); var fn = _settings != null ? _settings.Inferrer.Field(value.Field) : value.Field.ToString(); writer.WriteStringValue(fn); }
 			writer.WriteEndObject();
 		}
 

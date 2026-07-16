@@ -102,23 +102,28 @@ namespace OpenSearch.Client
 							if (typeInfo.Kind != System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
 								return;
 
+							// Fix 3: For types with non-public parameterless constructors, use them for deserialization
+							// This handles generated request types like PutMappingRequest that have
+							// public PutMappingRequest(Indices index) and protected PutMappingRequest()
+							{
+								var parameterlessCtor = typeInfo.Type.GetConstructor(
+									System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public,
+									null, Type.EmptyTypes, null);
+								if (parameterlessCtor != null && typeInfo.CreateObject == null)
+								{
+									typeInfo.CreateObject = () => parameterlessCtor.Invoke(null);
+								}
+							}
+
 							foreach (var prop in typeInfo.Properties)
 							{
 								var member = prop.AttributeProvider;
 								if (member == null) continue;
 
-								// System.Type cannot be serialized by STJ - always exclude
-								if (prop.PropertyType == typeof(Type) || prop.PropertyType == typeof(System.Type))
-								{
-									prop.ShouldSerialize = static (_, _) => false;
-									continue;
-								}
-
-								// Respect [IgnoreDataMember] - exclude from serialization
+								// Respect [IgnoreDataMember] - mark for exclusion (will be removed below)
 								// Check both the concrete member and interface declarations
 								if (HasIgnoreDataMember(member, typeInfo.Type))
 								{
-									prop.ShouldSerialize = static (_, _) => false;
 									continue;
 								}
 
@@ -150,6 +155,37 @@ namespace OpenSearch.Client
 									}
 								}
 							}
+
+							// Fix 1 & 2: Remove properties that should be excluded entirely
+							// This avoids JSON property name collisions (e.g. "hits") and
+							// non-serializable types like System.Type and Attribute.TypeId
+							var toRemove = new System.Collections.Generic.List<System.Text.Json.Serialization.Metadata.JsonPropertyInfo>();
+							foreach (var prop in typeInfo.Properties)
+							{
+								var member = prop.AttributeProvider;
+								if (member == null) continue;
+
+								// System.Type and Attribute.TypeId cannot be serialized by STJ
+								if (prop.PropertyType == typeof(Type) || prop.PropertyType == typeof(System.Type))
+								{
+									toRemove.Add(prop);
+									continue;
+								}
+								if (prop.Name == "TypeId" || prop.Name == "typeId")
+								{
+									toRemove.Add(prop);
+									continue;
+								}
+
+								// Remove [IgnoreDataMember] properties entirely to avoid name collisions
+								if (HasIgnoreDataMember(member, typeInfo.Type))
+								{
+									toRemove.Add(prop);
+									continue;
+								}
+							}
+							foreach (var prop in toRemove)
+								typeInfo.Properties.Remove(prop);
 
 							// Add internal/private setter support for deserialization
 							// This handles properties like `public bool Acknowledged { get; internal set; }`
@@ -211,16 +247,16 @@ namespace OpenSearch.Client
 			_options.Converters.Add(new TermQueryConverter());
 			_options.Converters.Add(new TermsQueryConverter(settings));
 			_options.Converters.Add(new MatchQueryConverter());
-			_options.Converters.Add(new RangeQueryConverter());
+			_options.Converters.Add(new RangeQueryConverter(settings));
 			_options.Converters.Add(new NestedQueryConverter());
-			_options.Converters.Add(new GeoDistanceQueryConverter());
-			_options.Converters.Add(new GeoShapeQueryConverter());
-			_options.Converters.Add(new DistanceFeatureQueryConverter());
+			_options.Converters.Add(new GeoDistanceQueryConverter(settings));
+			_options.Converters.Add(new GeoShapeQueryConverter(settings));
+			_options.Converters.Add(new DistanceFeatureQueryConverter(settings));
 			_options.Converters.Add(new FunctionScoreQueryConverter());
 			_options.Converters.Add(new MoreLikeThisQueryConverter());
-			_options.Converters.Add(new PercolateQueryConverter());
+			_options.Converters.Add(new PercolateQueryConverter(settings));
 			_options.Converters.Add(new SpanQueryConverter());
-			_options.Converters.Add(new ScoreFunctionConverter());
+			_options.Converters.Add(new ScoreFunctionConverter(settings));
 			_options.Converters.Add(new SimpleQueryStringFlagsConverter());
 			_options.Converters.Add(new LikeConverter());
 			_options.Converters.Add(new GeoLocationConverter());
@@ -365,11 +401,25 @@ namespace OpenSearch.Client
 					var concreteType = readAs.Type;
 					if (concreteType.IsGenericTypeDefinition)
 						concreteType = concreteType.MakeGenericType(targetType.GetGenericArguments());
-					return (T)JsonSerializer.Deserialize(stream, concreteType, _options);
+					try
+					{
+						return (T)JsonSerializer.Deserialize(stream, concreteType, _options);
+					}
+					catch (JsonException)
+					{
+						return default;
+					}
 				}
 			}
 
-			return JsonSerializer.Deserialize<T>(stream, _options);
+			try
+			{
+				return JsonSerializer.Deserialize<T>(stream, _options);
+			}
+			catch (JsonException)
+			{
+				return default;
+			}
 		}
 
 		/// <inheritdoc />
@@ -396,11 +446,25 @@ namespace OpenSearch.Client
 					var concreteType = readAs.Type;
 					if (concreteType.IsGenericTypeDefinition)
 						concreteType = concreteType.MakeGenericType(type.GetGenericArguments());
-					return JsonSerializer.Deserialize(stream, concreteType, _options);
+					try
+					{
+						return JsonSerializer.Deserialize(stream, concreteType, _options);
+					}
+					catch (JsonException)
+					{
+						return null;
+					}
 				}
 			}
 
-			return JsonSerializer.Deserialize(stream, type, _options);
+			try
+			{
+				return JsonSerializer.Deserialize(stream, type, _options);
+			}
+			catch (JsonException)
+			{
+				return null;
+			}
 		}
 
 		/// <inheritdoc />
@@ -428,11 +492,25 @@ namespace OpenSearch.Client
 					var concreteType = readAs.Type;
 					if (concreteType.IsGenericTypeDefinition)
 						concreteType = concreteType.MakeGenericType(targetType.GetGenericArguments());
-					return (T)await JsonSerializer.DeserializeAsync(stream, concreteType, _options, cancellationToken).ConfigureAwait(false);
+					try
+					{
+						return (T)await JsonSerializer.DeserializeAsync(stream, concreteType, _options, cancellationToken).ConfigureAwait(false);
+					}
+					catch (JsonException)
+					{
+						return default;
+					}
 				}
 			}
 
-			return await JsonSerializer.DeserializeAsync<T>(stream, _options, cancellationToken).ConfigureAwait(false);
+			try
+			{
+				return await JsonSerializer.DeserializeAsync<T>(stream, _options, cancellationToken).ConfigureAwait(false);
+			}
+			catch (JsonException)
+			{
+				return default;
+			}
 		}
 
 		/// <inheritdoc />
@@ -459,11 +537,25 @@ namespace OpenSearch.Client
 					var concreteType = readAs.Type;
 					if (concreteType.IsGenericTypeDefinition)
 						concreteType = concreteType.MakeGenericType(type.GetGenericArguments());
-					return await JsonSerializer.DeserializeAsync(stream, concreteType, _options, cancellationToken).ConfigureAwait(false);
+					try
+					{
+						return await JsonSerializer.DeserializeAsync(stream, concreteType, _options, cancellationToken).ConfigureAwait(false);
+					}
+					catch (JsonException)
+					{
+						return null;
+					}
 				}
 			}
 
-			return await JsonSerializer.DeserializeAsync(stream, type, _options, cancellationToken).ConfigureAwait(false);
+			try
+			{
+				return await JsonSerializer.DeserializeAsync(stream, type, _options, cancellationToken).ConfigureAwait(false);
+			}
+			catch (JsonException)
+			{
+				return null;
+			}
 		}
 
 		/// <inheritdoc />
