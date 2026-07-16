@@ -171,6 +171,11 @@ and will signal the right defaults for the client to use for OpenSearch Cloud to
       <h4><a class="xref" href="OpenSearch.Net.DynamicDictionary.html">DynamicDictionary</a></h4>
       <section><p>A dictionary that supports dynamic access.</p>
 </section>
+      <h4><a class="xref" href="OpenSearch.Net.DynamicDictionaryConverter.html">DynamicDictionaryConverter</a></h4>
+      <section><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1">JsonConverter&lt;T&gt;</a> for <a class="xref" href="OpenSearch.Net.DynamicDictionary.html">DynamicDictionary</a> that serializes
+key-value pairs as a JSON object and deserializes JSON objects or arrays into
+a <a class="xref" href="OpenSearch.Net.DynamicDictionary.html">DynamicDictionary</a>.</p>
+</section>
       <h4><a class="xref" href="OpenSearch.Net.DynamicResponse.html">DynamicResponse</a></h4>
       <section></section>
       <h4><a class="xref" href="OpenSearch.Net.DynamicValue.html">DynamicValue</a></h4>
@@ -254,6 +259,10 @@ This class is deprecated in favor of <a class="xref" href="OpenSearch.Net.System
       <section></section>
       <h4><a class="xref" href="OpenSearch.Net.Node.html">Node</a></h4>
       <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.NullableStringIntConverter.html">NullableStringIntConverter</a></h4>
+      <section><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1">JsonConverter&lt;T&gt;</a> for <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> that handles values
+which may arrive from OpenSearch as a JSON number, a string containing a number, or null.</p>
+</section>
       <h4><a class="xref" href="OpenSearch.Net.OpenSearchClientException.html">OpenSearchClientException</a></h4>
       <section></section>
       <h4><a class="xref" href="OpenSearch.Net.OpenSearchLowLevelClient.html">OpenSearchLowLevelClient</a></h4>
@@ -384,6 +393,11 @@ Allows users full control over how they want to write data to the stream to Open
 </section>
       <h4><a class="xref" href="OpenSearch.Net.StringEnumAttribute.html">StringEnumAttribute</a></h4>
       <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.StringEnumConverterFactory.html">StringEnumConverterFactory</a></h4>
+      <section><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverterfactory">JsonConverterFactory</a> that produces string-based enum converters for
+enum types decorated with <a class="xref" href="OpenSearch.Net.StringEnumAttribute.html">StringEnumAttribute</a>. Uses <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.enummemberattribute">EnumMemberAttribute</a>
+values when present, otherwise converts the enum name to camelCase.</p>
+</section>
       <h4><a class="xref" href="OpenSearch.Net.StringResponse.html">StringResponse</a></h4>
       <section></section>
       <h4><a class="xref" href="OpenSearch.Net.SystemTextJsonSerializer.html">SystemTextJsonSerializer</a></h4>

@@ -40026,6 +40026,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.DynamicDictionaryConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.DynamicDictionaryConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.DynamicDictionaryConverter",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.DynamicDictionaryConverter.yml\" sourcestartlinenumber=\"1\">A <xref href=\"System.Text.Json.Serialization.JsonConverter%601\" data-throw-if-not-resolved=\"false\"></xref> for <xref href=\"OpenSearch.Net.DynamicDictionary\" data-throw-if-not-resolved=\"false\"></xref> that serializes\nkey-value pairs as a JSON object and deserializes JSON objects or arrays into\na <xref href=\"OpenSearch.Net.DynamicDictionary\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.DynamicResponse.yml",
       "output": {
         ".html": {
@@ -40908,6 +40922,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.NullableStringIntConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.NullableStringIntConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.NullableStringIntConverter",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.NullableStringIntConverter.yml\" sourcestartlinenumber=\"1\">A <xref href=\"System.Text.Json.Serialization.JsonConverter%601\" data-throw-if-not-resolved=\"false\"></xref> for <xref href=\"System.Nullable%601\" data-throw-if-not-resolved=\"false\"></xref> that handles values\nwhich may arrive from OpenSearch as a JSON number, a string containing a number, or null.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.OpType.yml",
       "output": {
         ".html": {
@@ -41478,62 +41506,6 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "OpenSearch.Net.SerializableData<T>",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.DynamicDictionaryConverter.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenSearch.Net.Serialization.Converters.DynamicDictionaryConverter.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "OpenSearch.Net.Serialization.Converters.DynamicDictionaryConverter",
-      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.DynamicDictionaryConverter.yml\" sourcestartlinenumber=\"1\">A <xref href=\"System.Text.Json.Serialization.JsonConverter%601\" data-throw-if-not-resolved=\"false\"></xref> for <xref href=\"OpenSearch.Net.DynamicDictionary\" data-throw-if-not-resolved=\"false\"></xref> that serializes\nkey-value pairs as a JSON object and deserializes JSON objects or arrays into\na <xref href=\"OpenSearch.Net.DynamicDictionary\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.NullableStringIntConverter.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenSearch.Net.Serialization.Converters.NullableStringIntConverter.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "OpenSearch.Net.Serialization.Converters.NullableStringIntConverter",
-      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.NullableStringIntConverter.yml\" sourcestartlinenumber=\"1\">A <xref href=\"System.Text.Json.Serialization.JsonConverter%601\" data-throw-if-not-resolved=\"false\"></xref> for <xref href=\"System.Nullable%601\" data-throw-if-not-resolved=\"false\"></xref> that handles values\nwhich may arrive from OpenSearch as a JSON number, a string containing a number, or null.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.StringEnumConverterFactory.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenSearch.Net.Serialization.Converters.StringEnumConverterFactory.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "OpenSearch.Net.Serialization.Converters.StringEnumConverterFactory",
-      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.StringEnumConverterFactory.yml\" sourcestartlinenumber=\"1\">A <xref href=\"System.Text.Json.Serialization.JsonConverterFactory\" data-throw-if-not-resolved=\"false\"></xref> that produces string-based enum converters for\nenum types decorated with <xref href=\"OpenSearch.Net.StringEnumAttribute\" data-throw-if-not-resolved=\"false\"></xref>. Uses <xref href=\"System.Runtime.Serialization.EnumMemberAttribute\" data-throw-if-not-resolved=\"false\"></xref>\nvalues when present, otherwise converts the enum name to camelCase.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenSearch.Net.Serialization.Converters.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "OpenSearch.Net.Serialization.Converters",
       "Summary": null
     },
     {
@@ -49025,6 +48997,20 @@
       "IsMRef": true,
       "Title": "OpenSearch.Net.StringEnumAttribute",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.StringEnumConverterFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.StringEnumConverterFactory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.StringEnumConverterFactory",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.StringEnumConverterFactory.yml\" sourcestartlinenumber=\"1\">A <xref href=\"System.Text.Json.Serialization.JsonConverterFactory\" data-throw-if-not-resolved=\"false\"></xref> that produces string-based enum converters for\nenum types decorated with <xref href=\"OpenSearch.Net.StringEnumAttribute\" data-throw-if-not-resolved=\"false\"></xref>. Uses <xref href=\"System.Runtime.Serialization.EnumMemberAttribute\" data-throw-if-not-resolved=\"false\"></xref>\nvalues when present, otherwise converts the enum name to camelCase.</p>\n"
     },
     {
       "type": "ManagedReference",
