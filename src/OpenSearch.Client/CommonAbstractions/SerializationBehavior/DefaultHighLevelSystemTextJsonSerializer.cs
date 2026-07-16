@@ -107,6 +107,13 @@ namespace OpenSearch.Client
 								var member = prop.AttributeProvider;
 								if (member == null) continue;
 
+								// System.Type cannot be serialized by STJ - always exclude
+								if (prop.PropertyType == typeof(Type) || prop.PropertyType == typeof(System.Type))
+								{
+									prop.ShouldSerialize = static (_, _) => false;
+									continue;
+								}
+
 								// Respect [IgnoreDataMember] - exclude from serialization
 								// Check both the concrete member and interface declarations
 								if (HasIgnoreDataMember(member, typeInfo.Type))
@@ -202,7 +209,7 @@ namespace OpenSearch.Client
 			_options.Converters.Add(new QueryContainerCollectionConverter());
 			_options.Converters.Add(new BoolQueryConverter());
 			_options.Converters.Add(new TermQueryConverter());
-			_options.Converters.Add(new TermsQueryConverter());
+			_options.Converters.Add(new TermsQueryConverter(settings));
 			_options.Converters.Add(new MatchQueryConverter());
 			_options.Converters.Add(new RangeQueryConverter());
 			_options.Converters.Add(new NestedQueryConverter());
@@ -242,6 +249,7 @@ namespace OpenSearch.Client
 			_options.Converters.Add(new FieldsConverter(settings));
 			_options.Converters.Add(new IdConverter(settings));
 			_options.Converters.Add(new IndexNameConverter(settings));
+			_options.Converters.Add(new IndicesConverter(settings));
 			_options.Converters.Add(new RelationNameConverter(settings));
 			_options.Converters.Add(new RoutingConverter(settings));
 			_options.Converters.Add(new LazyDocumentConverter(settings));
@@ -273,6 +281,8 @@ namespace OpenSearch.Client
 			_options.Converters.Add(new ReindexRoutingConverter(settings));
 			_options.Converters.Add(new SlicesConverter(settings));
 			_options.Converters.Add(new BulkResponseItemConverter(settings));
+			_options.Converters.Add(new IndexRequestConverterFactory(settings));
+			_options.Converters.Add(new CreateRequestConverterFactory(settings));
 
 			// Search converters
 			_options.Converters.Add(new TotalHitsConverter());
@@ -345,6 +355,20 @@ namespace OpenSearch.Client
 				stream = ms;
 			}
 
+			var targetType = typeof(T);
+			if (targetType.IsInterface)
+			{
+				var readAsAttrs = targetType.GetCustomAttributes(typeof(ReadAsAttribute), true);
+				if (readAsAttrs.Length > 0)
+				{
+					var readAs = (ReadAsAttribute)readAsAttrs[0];
+					var concreteType = readAs.Type;
+					if (concreteType.IsGenericTypeDefinition)
+						concreteType = concreteType.MakeGenericType(targetType.GetGenericArguments());
+					return (T)JsonSerializer.Deserialize(stream, concreteType, _options);
+				}
+			}
+
 			return JsonSerializer.Deserialize<T>(stream, _options);
 		}
 
@@ -361,6 +385,19 @@ namespace OpenSearch.Client
 				if (ms.Length == 0) return null;
 				ms.Position = 0;
 				stream = ms;
+			}
+
+			if (type.IsInterface)
+			{
+				var readAsAttrs = type.GetCustomAttributes(typeof(ReadAsAttribute), true);
+				if (readAsAttrs.Length > 0)
+				{
+					var readAs = (ReadAsAttribute)readAsAttrs[0];
+					var concreteType = readAs.Type;
+					if (concreteType.IsGenericTypeDefinition)
+						concreteType = concreteType.MakeGenericType(type.GetGenericArguments());
+					return JsonSerializer.Deserialize(stream, concreteType, _options);
+				}
 			}
 
 			return JsonSerializer.Deserialize(stream, type, _options);
@@ -381,6 +418,20 @@ namespace OpenSearch.Client
 				stream = ms;
 			}
 
+			var targetType = typeof(T);
+			if (targetType.IsInterface)
+			{
+				var readAsAttrs = targetType.GetCustomAttributes(typeof(ReadAsAttribute), true);
+				if (readAsAttrs.Length > 0)
+				{
+					var readAs = (ReadAsAttribute)readAsAttrs[0];
+					var concreteType = readAs.Type;
+					if (concreteType.IsGenericTypeDefinition)
+						concreteType = concreteType.MakeGenericType(targetType.GetGenericArguments());
+					return (T)await JsonSerializer.DeserializeAsync(stream, concreteType, _options, cancellationToken).ConfigureAwait(false);
+				}
+			}
+
 			return await JsonSerializer.DeserializeAsync<T>(stream, _options, cancellationToken).ConfigureAwait(false);
 		}
 
@@ -397,6 +448,19 @@ namespace OpenSearch.Client
 				if (ms.Length == 0) return null;
 				ms.Position = 0;
 				stream = ms;
+			}
+
+			if (type.IsInterface)
+			{
+				var readAsAttrs = type.GetCustomAttributes(typeof(ReadAsAttribute), true);
+				if (readAsAttrs.Length > 0)
+				{
+					var readAs = (ReadAsAttribute)readAsAttrs[0];
+					var concreteType = readAs.Type;
+					if (concreteType.IsGenericTypeDefinition)
+						concreteType = concreteType.MakeGenericType(type.GetGenericArguments());
+					return await JsonSerializer.DeserializeAsync(stream, concreteType, _options, cancellationToken).ConfigureAwait(false);
+				}
 			}
 
 			return await JsonSerializer.DeserializeAsync(stream, type, _options, cancellationToken).ConfigureAwait(false);

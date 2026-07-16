@@ -32,6 +32,10 @@ namespace OpenSearch.Client.QueryDsl.SystemTextJsonConverters
 	/// </summary>
 	internal sealed class TermsQueryConverter : JsonConverter<ITermsQuery>
 	{
+		private readonly IConnectionSettingsValues _settings;
+
+		public TermsQueryConverter() { }
+		public TermsQueryConverter(IConnectionSettingsValues settings) => _settings = settings;
 		public override ITermsQuery Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
 			if (reader.TokenType == JsonTokenType.Null)
@@ -84,7 +88,7 @@ namespace OpenSearch.Client.QueryDsl.SystemTextJsonConverters
 
 			writer.WriteStartObject();
 
-			var fieldName = value.Field?.ToString();
+			var fieldName = _settings != null ? _settings.Inferrer.Field(value.Field) : value.Field?.ToString();
 			if (!string.IsNullOrEmpty(fieldName))
 			{
 				writer.WritePropertyName(fieldName);
