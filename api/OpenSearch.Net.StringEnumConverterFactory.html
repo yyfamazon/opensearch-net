@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width">
       <meta name="title" content="Class StringEnumConverterFactory | OpenSearch.Net ">
     
-    <meta name="description" content="A  that produces string-based enum converters for enum types decorated with . Uses  values when present, otherwise converts the enum name to camelCase.">
+    <meta name="description" content="A  converter factory that serializes enums decorated with  as strings, honoring  values (for example TokenChar.Whitespace → &amp;quot;whitespace&amp;quot;).  (Named with a Factory suffix to avoid colliding with Newtonsoft.Json.Converters.StringEnumConverter in consumers that import both namespaces.)   This reproduces the vendored Utf8Json behavior (EnumFormatter with serializeByName: true): the built-in  emits the CLR member name and does not read  on the target frameworks this client supports, so a dedicated converter is required for wire compatibility (#388).">
       <link rel="shortcut icon" href="../favicon.ico">
       <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="../styles/docfx.css">
@@ -81,9 +81,19 @@
 
 
   <h1 id="OpenSearch_Net_StringEnumConverterFactory" data-uid="OpenSearch.Net.StringEnumConverterFactory" class="text-break">Class StringEnumConverterFactory</h1>
-  <div class="markdown level0 summary"><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverterfactory">JsonConverterFactory</a> that produces string-based enum converters for
-enum types decorated with <a class="xref" href="OpenSearch.Net.StringEnumAttribute.html">StringEnumAttribute</a>. Uses <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.enummemberattribute">EnumMemberAttribute</a>
-values when present, otherwise converts the enum name to camelCase.</p>
+  <div class="markdown level0 summary"><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system">System.Text.Json</a> converter factory that serializes enums decorated with
+<a class="xref" href="OpenSearch.Net.StringEnumAttribute.html">StringEnumAttribute</a> as strings, honoring <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.enummemberattribute">EnumMemberAttribute</a>
+values (for example <code>TokenChar.Whitespace</code> → <code>&quot;whitespace&quot;</code>).</p>
+<p>
+(Named with a <code>Factory</code> suffix to avoid colliding with
+<code>Newtonsoft.Json.Converters.StringEnumConverter</code> in consumers that import both namespaces.)
+</p>
+<p>
+This reproduces the vendored Utf8Json behavior (<code>EnumFormatter</code> with
+<code>serializeByName: true</code>): the built-in <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonstringenumconverter">JsonStringEnumConverter</a> emits the
+CLR member name and does not read <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.enummemberattribute">EnumMemberAttribute</a> on the target frameworks
+this client supports, so a dedicated converter is required for wire compatibility (#388).
+</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -126,6 +136,38 @@ values when present, otherwise converts the enum name to camelCase.</p>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class StringEnumConverterFactory : JsonConverterFactory</code></pre>
   </div>
+  <h3 id="fields">Fields
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_StringEnumConverterFactory_Instance.md&amp;value=---%0Auid%3A%20OpenSearch.Net.StringEnumConverterFactory.Instance%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/StringEnumConverterFactory.cs/#L36">View Source</a>
+  </span>
+  <h4 id="OpenSearch_Net_StringEnumConverterFactory_Instance" data-uid="OpenSearch.Net.StringEnumConverterFactory.Instance">Instance</h4>
+  <div class="markdown level1 summary"><p>A shared instance of the factory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly StringEnumConverterFactory Instance</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Net.StringEnumConverterFactory.html">StringEnumConverterFactory</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="methods">Methods
 </h3>
   <span class="small pull-right mobile-hide">
@@ -133,7 +175,7 @@ values when present, otherwise converts the enum name to camelCase.</p>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_StringEnumConverterFactory_CanConvert_System_Type_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.StringEnumConverterFactory.CanConvert(System.Type)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/Converters/StringEnumConverterFactory.cs/#L28">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/StringEnumConverterFactory.cs/#L41">View Source</a>
   </span>
   <a id="OpenSearch_Net_StringEnumConverterFactory_CanConvert_" data-uid="OpenSearch.Net.StringEnumConverterFactory.CanConvert*"></a>
   <h4 id="OpenSearch_Net_StringEnumConverterFactory_CanConvert_System_Type_" data-uid="OpenSearch.Net.StringEnumConverterFactory.CanConvert(System.Type)">CanConvert(Type)</h4>
@@ -185,7 +227,7 @@ values when present, otherwise converts the enum name to camelCase.</p>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_StringEnumConverterFactory_CreateConverter_System_Type_System_Text_Json_JsonSerializerOptions_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.StringEnumConverterFactory.CreateConverter(System.Type%2CSystem.Text.Json.JsonSerializerOptions)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/Converters/StringEnumConverterFactory.cs/#L35">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/StringEnumConverterFactory.cs/#L48">View Source</a>
   </span>
   <a id="OpenSearch_Net_StringEnumConverterFactory_CreateConverter_" data-uid="OpenSearch.Net.StringEnumConverterFactory.CreateConverter*"></a>
   <h4 id="OpenSearch_Net_StringEnumConverterFactory_CreateConverter_System_Type_System_Text_Json_JsonSerializerOptions_" data-uid="OpenSearch.Net.StringEnumConverterFactory.CreateConverter(System.Type,System.Text.Json.JsonSerializerOptions)">CreateConverter(Type, JsonSerializerOptions)</h4>
@@ -254,7 +296,7 @@ values when present, otherwise converts the enum name to camelCase.</p>
                     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_StringEnumConverterFactory.md&amp;value=---%0Auid%3A%20OpenSearch.Net.StringEnumConverterFactory%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
                   </li>
                   <li>
-                    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/Converters/StringEnumConverterFactory.cs/#L25" class="contribution-link">View Source</a>
+                    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/StringEnumConverterFactory.cs/#L33" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

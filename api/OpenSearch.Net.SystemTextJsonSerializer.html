@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width">
       <meta name="title" content="Class SystemTextJsonSerializer | OpenSearch.Net ">
     
-    <meta name="description" content="A serializer implementation using System.Text.Json, replacing the legacy Utf8Json-based .">
+    <meta name="description" content="An  implementation backed by the Microsoft System.Text.Json library.  This is the foundation for migrating the client away from the vendored, unmaintained Utf8Json serializer (see GitHub issue #388). It is a standalone serializer that plugs into the existing  seam; it does not implement the internal Utf8Json formatter-resolver interface, so it can be used independently of that layer.">
       <link rel="shortcut icon" href="../favicon.ico">
       <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="../styles/docfx.css">
@@ -81,8 +81,15 @@
 
 
   <h1 id="OpenSearch_Net_SystemTextJsonSerializer" data-uid="OpenSearch.Net.SystemTextJsonSerializer" class="text-break">Class SystemTextJsonSerializer</h1>
-  <div class="markdown level0 summary"><p>A serializer implementation using System.Text.Json, replacing the legacy Utf8Json-based
-<a class="xref" href="OpenSearch.Net.LowLevelRequestResponseSerializer.html">LowLevelRequestResponseSerializer</a>.</p>
+  <div class="markdown level0 summary"><p>An <a class="xref" href="OpenSearch.Net.IOpenSearchSerializer.html">IOpenSearchSerializer</a> implementation backed by the
+Microsoft <code>System.Text.Json</code> library.</p>
+<p>
+This is the foundation for migrating the client away from the vendored,
+unmaintained Utf8Json serializer (see GitHub issue #388). It is a standalone
+serializer that plugs into the existing <a class="xref" href="OpenSearch.Net.IOpenSearchSerializer.html">IOpenSearchSerializer</a>
+seam; it does not implement the internal Utf8Json formatter-resolver
+interface, so it can be used independently of that layer.
+</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -124,51 +131,57 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class SystemTextJsonSerializer : IOpenSearchSerializer</code></pre>
   </div>
+  <h5 id="OpenSearch_Net_SystemTextJsonSerializer_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>This is the default request/response and source serializer for the high-level
+<code>OpenSearch.Client</code> (see GitHub issue #388): when constructed with the
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a> produced by the client's options factory it is
+wire-compatible with the server, honoring the client's <code>[DataMember]</code>/<code>[ReadAs]</code>/
+<code>[StringEnum]</code> attributes, per-property <code>[JsonFormatter]</code> converters, and document
+field-name inference.</p>
+<p>
+The parameterless constructor (and <a class="xref" href="OpenSearch.Net.DataContractResolver.html#OpenSearch_Net_DataContractResolver_Instance">Instance</a>) is for
+low-level/standalone use: it still honors <code>[DataMember]</code>/<code>[IgnoreDataMember]</code>, but it
+keeps declared (PascalCase) names for un-attributed members and does not apply the high-level
+client's document field-name inference or its client-specific converters. Use the client-built
+options (not the default) when serializing high-level <code>OpenSearch.Client</code> request/response
+types.
+</p>
+</div>
   <h3 id="constructors">Constructors
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_SystemTextJsonSerializer__ctor.md&amp;value=---%0Auid%3A%20OpenSearch.Net.SystemTextJsonSerializer.%23ctor%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_SystemTextJsonSerializer__ctor_System_Text_Json_JsonSerializerOptions_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.SystemTextJsonSerializer.%23ctor(System.Text.Json.JsonSerializerOptions)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L28">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L56">View Source</a>
   </span>
   <a id="OpenSearch_Net_SystemTextJsonSerializer__ctor_" data-uid="OpenSearch.Net.SystemTextJsonSerializer.#ctor*"></a>
-  <h4 id="OpenSearch_Net_SystemTextJsonSerializer__ctor" data-uid="OpenSearch.Net.SystemTextJsonSerializer.#ctor">SystemTextJsonSerializer()</h4>
-  <div class="markdown level1 summary"></div>
+  <h4 id="OpenSearch_Net_SystemTextJsonSerializer__ctor_System_Text_Json_JsonSerializerOptions_" data-uid="OpenSearch.Net.SystemTextJsonSerializer.#ctor(System.Text.Json.JsonSerializerOptions)">SystemTextJsonSerializer(JsonSerializerOptions)</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="OpenSearch.Net.SystemTextJsonSerializer.html">SystemTextJsonSerializer</a>.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SystemTextJsonSerializer()</code></pre>
+    <pre><code class="lang-csharp hljs">public SystemTextJsonSerializer(JsonSerializerOptions options = null)</code></pre>
   </div>
-  <h3 id="fields">Fields
-</h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_SystemTextJsonSerializer_Instance.md&amp;value=---%0Auid%3A%20OpenSearch.Net.SystemTextJsonSerializer.Instance%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L23">View Source</a>
-  </span>
-  <h4 id="OpenSearch_Net_SystemTextJsonSerializer_Instance" data-uid="OpenSearch.Net.SystemTextJsonSerializer.Instance">Instance</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static readonly SystemTextJsonSerializer Instance</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
+  <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
+        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="OpenSearch.Net.SystemTextJsonSerializer.html">SystemTextJsonSerializer</a></td>
-        <td></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a> to use. When <code>null</code>, a new
+default instance is used. The provided options instance carries any
+custom converters that thread client/connection state into serialization.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -179,7 +192,7 @@
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_SystemTextJsonSerializer_Deserialize_System_Type_System_IO_Stream_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.SystemTextJsonSerializer.Deserialize(System.Type%2CSystem.IO.Stream)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L55">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L90">View Source</a>
   </span>
   <a id="OpenSearch_Net_SystemTextJsonSerializer_Deserialize_" data-uid="OpenSearch.Net.SystemTextJsonSerializer.Deserialize*"></a>
   <h4 id="OpenSearch_Net_SystemTextJsonSerializer_Deserialize_System_Type_System_IO_Stream_" data-uid="OpenSearch.Net.SystemTextJsonSerializer.Deserialize(System.Type,System.IO.Stream)">Deserialize(Type, Stream)</h4>
@@ -227,12 +240,16 @@
       </tr>
     </tbody>
   </table>
+  <h5 id="OpenSearch_Net_SystemTextJsonSerializer_Deserialize_System_Type_System_IO_Stream__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Buffers the entire stream into memory before deserializing; for very large
+responses this trades memory for simplicity. The async overload streams.</p>
+</div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_SystemTextJsonSerializer_DeserializeAsync_System_Type_System_IO_Stream_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.SystemTextJsonSerializer.DeserializeAsync(System.Type%2CSystem.IO.Stream%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L91">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L106">View Source</a>
   </span>
   <a id="OpenSearch_Net_SystemTextJsonSerializer_DeserializeAsync_" data-uid="OpenSearch.Net.SystemTextJsonSerializer.DeserializeAsync*"></a>
   <h4 id="OpenSearch_Net_SystemTextJsonSerializer_DeserializeAsync_System_Type_System_IO_Stream_System_Threading_CancellationToken_" data-uid="OpenSearch.Net.SystemTextJsonSerializer.DeserializeAsync(System.Type,System.IO.Stream,System.Threading.CancellationToken)">DeserializeAsync(Type, Stream, CancellationToken)</h4>
@@ -290,7 +307,7 @@
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_SystemTextJsonSerializer_DeserializeAsync__1_System_IO_Stream_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.SystemTextJsonSerializer.DeserializeAsync%60%601(System.IO.Stream%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L109">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L113">View Source</a>
   </span>
   <a id="OpenSearch_Net_SystemTextJsonSerializer_DeserializeAsync_" data-uid="OpenSearch.Net.SystemTextJsonSerializer.DeserializeAsync*"></a>
   <h4 id="OpenSearch_Net_SystemTextJsonSerializer_DeserializeAsync__1_System_IO_Stream_System_Threading_CancellationToken_" data-uid="OpenSearch.Net.SystemTextJsonSerializer.DeserializeAsync``1(System.IO.Stream,System.Threading.CancellationToken)">DeserializeAsync&lt;T&gt;(Stream, CancellationToken)</h4>
@@ -358,11 +375,11 @@
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_SystemTextJsonSerializer_Deserialize__1_System_IO_Stream_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.SystemTextJsonSerializer.Deserialize%60%601(System.IO.Stream)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L73">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L99">View Source</a>
   </span>
   <a id="OpenSearch_Net_SystemTextJsonSerializer_Deserialize_" data-uid="OpenSearch.Net.SystemTextJsonSerializer.Deserialize*"></a>
   <h4 id="OpenSearch_Net_SystemTextJsonSerializer_Deserialize__1_System_IO_Stream_" data-uid="OpenSearch.Net.SystemTextJsonSerializer.Deserialize``1(System.IO.Stream)">Deserialize&lt;T&gt;(Stream)</h4>
-  <div class="markdown level1 summary"><p>Deserialize <code class="paramref">stream</code> to an instance of <code class="typeparamref">T</code></p>
+  <div class="markdown level1 summary"><p>Deserialize <code class="paramref">stream</code> to an instance of <code class="paramref">type</code></p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -416,12 +433,16 @@
       </tr>
     </tbody>
   </table>
+  <h5 id="OpenSearch_Net_SystemTextJsonSerializer_Deserialize__1_System_IO_Stream__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Buffers the entire stream into memory before deserializing; for very large
+responses this trades memory for simplicity. The async overload streams.</p>
+</div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_SystemTextJsonSerializer_SerializeAsync__1___0_System_IO_Stream_OpenSearch_Net_SerializationFormatting_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.SystemTextJsonSerializer.SerializeAsync%60%601(%60%600%2CSystem.IO.Stream%2COpenSearch.Net.SerializationFormatting%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L135">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L134">View Source</a>
   </span>
   <a id="OpenSearch_Net_SystemTextJsonSerializer_SerializeAsync_" data-uid="OpenSearch.Net.SystemTextJsonSerializer.SerializeAsync*"></a>
   <h4 id="OpenSearch_Net_SystemTextJsonSerializer_SerializeAsync__1___0_System_IO_Stream_OpenSearch_Net_SerializationFormatting_System_Threading_CancellationToken_" data-uid="OpenSearch.Net.SystemTextJsonSerializer.SerializeAsync``1(``0,System.IO.Stream,OpenSearch.Net.SerializationFormatting,System.Threading.CancellationToken)">SerializeAsync&lt;T&gt;(T, Stream, SerializationFormatting, CancellationToken)</h4>
@@ -503,7 +524,7 @@ satisfy this hint.</p>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_SystemTextJsonSerializer_Serialize__1___0_System_IO_Stream_OpenSearch_Net_SerializationFormatting_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.SystemTextJsonSerializer.Serialize%60%601(%60%600%2CSystem.IO.Stream%2COpenSearch.Net.SerializationFormatting)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L127">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L120">View Source</a>
   </span>
   <a id="OpenSearch_Net_SystemTextJsonSerializer_Serialize_" data-uid="OpenSearch.Net.SystemTextJsonSerializer.Serialize*"></a>
   <h4 id="OpenSearch_Net_SystemTextJsonSerializer_Serialize__1___0_System_IO_Stream_OpenSearch_Net_SerializationFormatting_" data-uid="OpenSearch.Net.SystemTextJsonSerializer.Serialize``1(``0,System.IO.Stream,OpenSearch.Net.SerializationFormatting)">Serialize&lt;T&gt;(T, Stream, SerializationFormatting)</h4>
@@ -592,7 +613,7 @@ satisfy this hint.</p>
                     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_SystemTextJsonSerializer.md&amp;value=---%0Auid%3A%20OpenSearch.Net.SystemTextJsonSerializer%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
                   </li>
                   <li>
-                    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L21" class="contribution-link">View Source</a>
+                    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/SystemTextJsonSerializer.cs/#L44" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

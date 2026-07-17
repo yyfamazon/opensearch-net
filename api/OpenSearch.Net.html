@@ -138,8 +138,33 @@ and will signal the right defaults for the client to use for OpenSearch Cloud to
 </section>
       <h4><a class="xref" href="OpenSearch.Net.CustomResponseBuilderBase.html">CustomResponseBuilderBase</a></h4>
       <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.DataContractResolver.html">DataContractResolver</a></h4>
+      <section><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system">System.Text.Json</a> contract resolver that makes the serializer honor the
+<code>System.Runtime.Serialization</code> attributes the client already uses
+(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.datamemberattribute">DataMemberAttribute</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.ignoredatamemberattribute">IgnoreDataMemberAttribute</a>,
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.datacontractattribute">DataContractAttribute</a>), rather than requiring every model property to be
+re-annotated with <code>[JsonPropertyName]</code>/<code>[JsonIgnore]</code>.</p>
+<p>
+This is foundational infrastructure for the Utf8Json → System.Text.Json migration
+(see GitHub issue #388): the client has ~3,700 <code>[DataMember]</code> attributes that must
+keep producing the same wire property names.
+</p>
+<ul><li><code>[DataMember(Name = "x")]</code> → the JSON property name becomes <code>x</code>.</li><li><code>[IgnoreDataMember]</code> → the property is not (de)serialized.</li><li>On a <code>[DataContract]</code> type, only members with <code>[DataMember]</code> are serialized (opt-in semantics).</li></ul>
+<p>
+The client overwhelmingly declares these attributes on <em>interfaces</em> (for example
+<code>ICharGroupTokenizer.MaxTokenLength</code> carries <code>[DataMember(Name = "max_token_length")]</code>
+while the concrete <code>CharGroupTokenizer.MaxTokenLength</code> implements it implicitly with no
+attribute). The resolver therefore walks the concrete type's interface maps and inherits the
+attributes from the implemented interface property, mirroring how the vendored Utf8Json
+resolver (<code>MetaType</code>) resolved names.
+</p>
+</section>
       <h4><a class="xref" href="OpenSearch.Net.DateTimeProvider.html">DateTimeProvider</a></h4>
       <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.DecimalFormatConverter.html">DecimalFormatConverter</a></h4>
+      <section><p><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">decimal</a> counterpart of <a class="xref" href="OpenSearch.Net.DoubleFormatConverter.html">DoubleFormatConverter</a>: a whole value keeps a
+decimal point (e.g. <code>1.0</code> rather than <code>1</code>), matching the vendored serializer.</p>
+</section>
       <h4><a class="xref" href="OpenSearch.Net.DeleteAllPitsRequestParameters.html">DeleteAllPitsRequestParameters</a></h4>
       <section><p>Request options for DeleteAllPits</p>
 <p>https://opensearch.org/docs/latest/search-plugins/point-in-time-api/#delete-pits</p>
@@ -168,13 +193,19 @@ and will signal the right defaults for the client to use for OpenSearch Cloud to
       <section><p>Request options for DocumentExists</p>
 <p>https://opensearch.org/docs/latest/api-reference/document-apis/get-documents/</p>
 </section>
+      <h4><a class="xref" href="OpenSearch.Net.DoubleFormatConverter.html">DoubleFormatConverter</a></h4>
+      <section><p><a class="xref" href="https://learn.microsoft.com/dotnet/api/system">System.Text.Json</a> converters for <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a> and <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a> that
+match the vendored Utf8Json number formatting (#388): an integral value in fixed notation is
+written with a trailing <code>.0</code> (for example <code>2</code> → <code>2.0</code>), which STJ's shortest form
+omits. Values already carrying a decimal point or an exponent (e.g. <code>1.5</code>, <code>1E+20</code>)
+are unchanged and already match. <code>boost</code> and many scored/float fields depend on this.</p>
+<p>
+STJ applies these to the corresponding nullable types (<code>double?</code>/<code>float?</code>)
+automatically via its built-in nullable wrapping.
+</p>
+</section>
       <h4><a class="xref" href="OpenSearch.Net.DynamicDictionary.html">DynamicDictionary</a></h4>
       <section><p>A dictionary that supports dynamic access.</p>
-</section>
-      <h4><a class="xref" href="OpenSearch.Net.DynamicDictionaryConverter.html">DynamicDictionaryConverter</a></h4>
-      <section><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1">JsonConverter&lt;T&gt;</a> for <a class="xref" href="OpenSearch.Net.DynamicDictionary.html">DynamicDictionary</a> that serializes
-key-value pairs as a JSON object and deserializes JSON objects or arrays into
-a <a class="xref" href="OpenSearch.Net.DynamicDictionary.html">DynamicDictionary</a>.</p>
 </section>
       <h4><a class="xref" href="OpenSearch.Net.DynamicResponse.html">DynamicResponse</a></h4>
       <section></section>
@@ -230,9 +261,7 @@ a <a class="xref" href="OpenSearch.Net.DynamicDictionary.html">DynamicDictionary
       <h4><a class="xref" href="OpenSearch.Net.KnownEnums.html">KnownEnums</a></h4>
       <section></section>
       <h4><a class="xref" href="OpenSearch.Net.LowLevelRequestResponseSerializer.html">LowLevelRequestResponseSerializer</a></h4>
-      <section><p>Legacy serializer implementation using the embedded Utf8Json library.
-This class is deprecated in favor of <a class="xref" href="OpenSearch.Net.SystemTextJsonSerializer.html">SystemTextJsonSerializer</a>.</p>
-</section>
+      <section></section>
       <h4><a class="xref" href="OpenSearch.Net.MemoryStreamFactory.html">MemoryStreamFactory</a></h4>
       <section><p>A factory for creating memory streams using instances of <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.memorystream">MemoryStream</a></p>
 </section>
@@ -259,9 +288,18 @@ This class is deprecated in favor of <a class="xref" href="OpenSearch.Net.System
       <section></section>
       <h4><a class="xref" href="OpenSearch.Net.Node.html">Node</a></h4>
       <section></section>
-      <h4><a class="xref" href="OpenSearch.Net.NullableStringIntConverter.html">NullableStringIntConverter</a></h4>
-      <section><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1">JsonConverter&lt;T&gt;</a> for <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> that handles values
-which may arrive from OpenSearch as a JSON number, a string containing a number, or null.</p>
+      <h4><a class="xref" href="OpenSearch.Net.ObjectConverter.html">ObjectConverter</a></h4>
+      <section><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system">System.Text.Json</a> converter for <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>-typed values (dynamic
+payloads such as script <code>params</code>, aggregation <code>meta</code>, <code>_source</code> fragments and
+<code>Dictionary&lt;string, object&gt;</code> values), part of the migration tracked by #388.</p>
+<p>
+By default <code>System.Text.Json</code> deserializes <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> to
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonelement">JsonElement</a>, which neither matches the CLR shapes the client's code expects nor
+round-trips through the rest of the pipeline. This reproduces the vendored Utf8Json
+<code>PrimitiveObjectFormatter</code> mapping instead:
+</p>
+<ul><li>JSON object → <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary&lt;TKey, TValue&gt;</a> of <code>string</code> to <code>object</code>.</li><li>JSON array → <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List&lt;T&gt;</a> of <code>object</code>.</li><li>Integral number → <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a>; other numbers → <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>.</li><li>String → <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>; <code>true</code>/<code>false</code> → <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>; null → <code>null</code>.</li></ul>
+<p>Writing delegates to the value's runtime type, so the shapes above serialize as expected.</p>
 </section>
       <h4><a class="xref" href="OpenSearch.Net.OpenSearchClientException.html">OpenSearchClientException</a></h4>
       <section></section>
@@ -287,6 +325,20 @@ as format arguments. It also handles known string representations for e.g bool/E
 </section>
       <h4><a class="xref" href="OpenSearch.Net.PipelineException.html">PipelineException</a></h4>
       <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.PolymorphicInterfaceConverter-1.html">PolymorphicInterfaceConverter&lt;TInterface&gt;</a></h4>
+      <section><p>A reusable <a class="xref" href="https://learn.microsoft.com/dotnet/api/system">System.Text.Json</a> converter for the client's many &quot;single object with
+a <code>type</code> discriminator&quot; polymorphic hierarchies (tokenizers, char filters, token filters,
+analyzers, normalizers, …), replacing the per-family hand-written Utf8Json <code>*Formatter</code>
+dispatchers as part of the migration tracked by #388.</p>
+<p>
+A concrete family only supplies the discriminator → concrete-type map; all read/write logic is
+shared here. This is the shape the converter generator emits per family, so adding a namespace
+is a table, not new dispatch code.
+</p>
+<ul><li><b>Write</b> serializes the concrete runtime type. Because that type is not
+<code class="typeparamref">TInterface</code>, this does not re-enter the converter.</li><li><b>Read</b> buffers the object, reads the discriminator property, and deserializes into
+the mapped concrete type (property names resolved by <a class="xref" href="OpenSearch.Net.DataContractResolver.html">DataContractResolver</a>).</li></ul>
+</section>
       <h4><a class="xref" href="OpenSearch.Net.PostData.html">PostData</a></h4>
       <section></section>
       <h4><a class="xref" href="OpenSearch.Net.PostData-1.html">PostData&lt;T&gt;</a></h4>
@@ -366,6 +418,9 @@ You can always pass a simple NameValueCollection if you want.</p>
       <section></section>
       <h4><a class="xref" href="OpenSearch.Net.ShardFailure.html">ShardFailure</a></h4>
       <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.SingleFormatConverter.html">SingleFormatConverter</a></h4>
+      <section><p><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a> counterpart of <a class="xref" href="OpenSearch.Net.DoubleFormatConverter.html">DoubleFormatConverter</a>.</p>
+</section>
       <h4><a class="xref" href="OpenSearch.Net.SingleNodeConnectionPool.html">SingleNodeConnectionPool</a></h4>
       <section><p>A connection pool to a single node or endpoint</p>
 </section>
@@ -394,15 +449,32 @@ Allows users full control over how they want to write data to the stream to Open
       <h4><a class="xref" href="OpenSearch.Net.StringEnumAttribute.html">StringEnumAttribute</a></h4>
       <section></section>
       <h4><a class="xref" href="OpenSearch.Net.StringEnumConverterFactory.html">StringEnumConverterFactory</a></h4>
-      <section><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverterfactory">JsonConverterFactory</a> that produces string-based enum converters for
-enum types decorated with <a class="xref" href="OpenSearch.Net.StringEnumAttribute.html">StringEnumAttribute</a>. Uses <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.enummemberattribute">EnumMemberAttribute</a>
-values when present, otherwise converts the enum name to camelCase.</p>
+      <section><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system">System.Text.Json</a> converter factory that serializes enums decorated with
+<a class="xref" href="OpenSearch.Net.StringEnumAttribute.html">StringEnumAttribute</a> as strings, honoring <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.enummemberattribute">EnumMemberAttribute</a>
+values (for example <code>TokenChar.Whitespace</code> → <code>&quot;whitespace&quot;</code>).</p>
+<p>
+(Named with a <code>Factory</code> suffix to avoid colliding with
+<code>Newtonsoft.Json.Converters.StringEnumConverter</code> in consumers that import both namespaces.)
+</p>
+<p>
+This reproduces the vendored Utf8Json behavior (<code>EnumFormatter</code> with
+<code>serializeByName: true</code>): the built-in <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonstringenumconverter">JsonStringEnumConverter</a> emits the
+CLR member name and does not read <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.enummemberattribute">EnumMemberAttribute</a> on the target frameworks
+this client supports, so a dedicated converter is required for wire compatibility (#388).
+</p>
 </section>
       <h4><a class="xref" href="OpenSearch.Net.StringResponse.html">StringResponse</a></h4>
       <section></section>
       <h4><a class="xref" href="OpenSearch.Net.SystemTextJsonSerializer.html">SystemTextJsonSerializer</a></h4>
-      <section><p>A serializer implementation using System.Text.Json, replacing the legacy Utf8Json-based
-<a class="xref" href="OpenSearch.Net.LowLevelRequestResponseSerializer.html">LowLevelRequestResponseSerializer</a>.</p>
+      <section><p>An <a class="xref" href="OpenSearch.Net.IOpenSearchSerializer.html">IOpenSearchSerializer</a> implementation backed by the
+Microsoft <code>System.Text.Json</code> library.</p>
+<p>
+This is the foundation for migrating the client away from the vendored,
+unmaintained Utf8Json serializer (see GitHub issue #388). It is a standalone
+serializer that plugs into the existing <a class="xref" href="OpenSearch.Net.IOpenSearchSerializer.html">IOpenSearchSerializer</a>
+seam; it does not implement the internal Utf8Json formatter-resolver
+interface, so it can be used independently of that layer.
+</p>
 </section>
       <h4><a class="xref" href="OpenSearch.Net.TermVectorsRequestParameters.html">TermVectorsRequestParameters</a></h4>
       <section><p>Request options for TermVectors</p>

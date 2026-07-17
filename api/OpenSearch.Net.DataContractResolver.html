@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class DataContractResolver | OpenSearch.Net </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class DataContractResolver | OpenSearch.Net ">
+    
+    <meta name="description" content="A  contract resolver that makes the serializer honor the System.Runtime.Serialization attributes the client already uses (, , ), rather than requiring every model property to be re-annotated with [JsonPropertyName]/[JsonIgnore].  This is foundational infrastructure for the Utf8Json → System.Text.Json migration (see GitHub issue #388): the client has ~3,700 [DataMember] attributes that must keep producing the same wire property names.  [DataMember(Name = &quot;x&quot;)] → the JSON property name becomes x.[IgnoreDataMember] → the property is not (de)serialized.On a [DataContract] type, only members with [DataMember] are serialized (opt-in semantics).  The client overwhelmingly declares these attributes on interfaces (for example ICharGroupTokenizer.MaxTokenLength carries [DataMember(Name = &quot;max_token_length&quot;)] while the concrete CharGroupTokenizer.MaxTokenLength implements it implicitly with no attribute). The resolver therefore walks the concrete type&#39;s interface maps and inherits the attributes from the implemented interface property, mirroring how the vendored Utf8Json resolver (MetaType) resolved names.">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../OpenSearch.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="OpenSearch.Net.DataContractResolver">
+
+
+
+  <h1 id="OpenSearch_Net_DataContractResolver" data-uid="OpenSearch.Net.DataContractResolver" class="text-break">Class DataContractResolver</h1>
+  <div class="markdown level0 summary"><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system">System.Text.Json</a> contract resolver that makes the serializer honor the
+<code>System.Runtime.Serialization</code> attributes the client already uses
+(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.datamemberattribute">DataMemberAttribute</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.ignoredatamemberattribute">IgnoreDataMemberAttribute</a>,
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.datacontractattribute">DataContractAttribute</a>), rather than requiring every model property to be
+re-annotated with <code>[JsonPropertyName]</code>/<code>[JsonIgnore]</code>.</p>
+<p>
+This is foundational infrastructure for the Utf8Json → System.Text.Json migration
+(see GitHub issue #388): the client has ~3,700 <code>[DataMember]</code> attributes that must
+keep producing the same wire property names.
+</p>
+<ul><li><code>[DataMember(Name = "x")]</code> → the JSON property name becomes <code>x</code>.</li><li><code>[IgnoreDataMember]</code> → the property is not (de)serialized.</li><li>On a <code>[DataContract]</code> type, only members with <code>[DataMember]</code> are serialized (opt-in semantics).</li></ul>
+<p>
+The client overwhelmingly declares these attributes on <em>interfaces</em> (for example
+<code>ICharGroupTokenizer.MaxTokenLength</code> carries <code>[DataMember(Name = "max_token_length")]</code>
+while the concrete <code>CharGroupTokenizer.MaxTokenLength</code> implements it implicitly with no
+attribute). The resolver therefore walks the concrete type's interface maps and inherits the
+attributes from the implemented interface property, mirroring how the vendored Utf8Json
+resolver (<code>MetaType</code>) resolved names.
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.defaultjsontypeinforesolver">DefaultJsonTypeInfoResolver</a></div>
+    <div class="level2"><span class="xref">DataContractResolver</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.ijsontypeinforesolver">IJsonTypeInfoResolver</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.defaultjsontypeinforesolver.gettypeinfo">DefaultJsonTypeInfoResolver.GetTypeInfo(Type, JsonSerializerOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.defaultjsontypeinforesolver.modifiers">DefaultJsonTypeInfoResolver.Modifiers</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="OpenSearch.html">OpenSearch</a>.<a class="xref" href="OpenSearch.Net.html">Net</a></h6>
+  <h6><strong>Assembly</strong>: OpenSearch.Net.dll</h6>
+  <h5 id="OpenSearch_Net_DataContractResolver_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class DataContractResolver : DefaultJsonTypeInfoResolver, IJsonTypeInfoResolver</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_DataContractResolver__ctor_System_Func_System_Reflection_MemberInfo_System_Nullable_System_ValueTuple_System_String_System_Boolean____System_Func_System_Reflection_MemberInfo_System_Func_System_Object_System_Object_System_Boolean___System_Boolean_System_Func_System_Reflection_MemberInfo_System_Nullable_System_ValueTuple_System_String_System_Boolean____.md&amp;value=---%0Auid%3A%20OpenSearch.Net.DataContractResolver.%23ctor(System.Func%7BSystem.Reflection.MemberInfo%2CSystem.Nullable%7BSystem.ValueTuple%7BSystem.String%2CSystem.Boolean%7D%7D%7D%2CSystem.Func%7BSystem.Reflection.MemberInfo%2CSystem.Func%7BSystem.Object%2CSystem.Object%2CSystem.Boolean%7D%7D%2CSystem.Boolean%2CSystem.Func%7BSystem.Reflection.MemberInfo%2CSystem.Nullable%7BSystem.ValueTuple%7BSystem.String%2CSystem.Boolean%7D%7D%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/DataContractResolver.cs/#L120">View Source</a>
+  </span>
+  <a id="OpenSearch_Net_DataContractResolver__ctor_" data-uid="OpenSearch.Net.DataContractResolver.#ctor*"></a>
+  <h4 id="OpenSearch_Net_DataContractResolver__ctor_System_Func_System_Reflection_MemberInfo_System_Nullable_System_ValueTuple_System_String_System_Boolean____System_Func_System_Reflection_MemberInfo_System_Func_System_Object_System_Object_System_Boolean___System_Boolean_System_Func_System_Reflection_MemberInfo_System_Nullable_System_ValueTuple_System_String_System_Boolean____" data-uid="OpenSearch.Net.DataContractResolver.#ctor(System.Func{System.Reflection.MemberInfo,System.Nullable{System.ValueTuple{System.String,System.Boolean}}},System.Func{System.Reflection.MemberInfo,System.Func{System.Object,System.Object,System.Boolean}},System.Boolean,System.Func{System.Reflection.MemberInfo,System.Nullable{System.ValueTuple{System.String,System.Boolean}}})">DataContractResolver(Func&lt;MemberInfo, (string Name, bool Ignore)?&gt;, Func&lt;MemberInfo, Func&lt;object, object, bool&gt;&gt;, bool, Func&lt;MemberInfo, (string Name, bool Ignore)?&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates a resolver that applies the data-contract modifier to every object type, optionally
+with a per-member name/ignore override (document field-name inference for the source
+serializer), a value-based <code>ShouldSerialize</code> hook, camel-casing of un-attributed
+members for the request/response wire format, and a serializer-attribute inclusion hook (#388).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataContractResolver(Func&lt;MemberInfo, (string Name, bool Ignore)?&gt; nameOverride = null, Func&lt;MemberInfo, Func&lt;object, object, bool&gt;&gt; memberShouldSerialize = null, bool camelCaseUnattributed = false, Func&lt;MemberInfo, (string Name, bool Ignore)?&gt; serializerInclusion = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo">MemberInfo</a>, (<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.boolean-.name">Name</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.boolean-.ignore">Ignore</a>)?&gt;</td>
+        <td><span class="parametername">nameOverride</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo">MemberInfo</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;&gt;</td>
+        <td><span class="parametername">memberShouldSerialize</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">camelCaseUnattributed</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo">MemberInfo</a>, (<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.boolean-.name">Name</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.boolean-.ignore">Ignore</a>)?&gt;</td>
+        <td><span class="parametername">serializerInclusion</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_DataContractResolver_Instance.md&amp;value=---%0Auid%3A%20OpenSearch.Net.DataContractResolver.Instance%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/DataContractResolver.cs/#L45">View Source</a>
+  </span>
+  <h4 id="OpenSearch_Net_DataContractResolver_Instance" data-uid="OpenSearch.Net.DataContractResolver.Instance">Instance</h4>
+  <div class="markdown level1 summary"><p>A shared instance applying the data-contract modifier.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly DataContractResolver Instance</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Net.DataContractResolver.html">DataContractResolver</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.ijsontypeinforesolver">IJsonTypeInfoResolver</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="OpenSearch.Client.SuffixExtensions.html#OpenSearch_Client_SuffixExtensions_Suffix_System_Object_System_String_">SuffixExtensions.Suffix(object, string)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_DataContractResolver.md&amp;value=---%0Auid%3A%20OpenSearch.Net.DataContractResolver%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/DataContractResolver.cs/#L42" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PolymorphicInterfaceConverter&lt;TInterface&gt; | OpenSearch.Net </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PolymorphicInterfaceConverter&lt;TInterface&gt; | OpenSearch.Net ">
+    
+    <meta name="description" content="A reusable  converter for the client&#39;s many &amp;quot;single object with a type discriminator&amp;quot; polymorphic hierarchies (tokenizers, char filters, token filters, analyzers, normalizers, …), replacing the per-family hand-written Utf8Json *Formatter dispatchers as part of the migration tracked by #388.  A concrete family only supplies the discriminator → concrete-type map; all read/write logic is shared here. This is the shape the converter generator emits per family, so adding a namespace is a table, not new dispatch code.  Write serializes the concrete runtime type. Because that type is not TInterface, this does not re-enter the converter.Read buffers the object, reads the discriminator property, and deserializes into the mapped concrete type (property names resolved by ).">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../OpenSearch.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="OpenSearch.Net.PolymorphicInterfaceConverter`1">
+
+
+
+  <h1 id="OpenSearch_Net_PolymorphicInterfaceConverter_1" data-uid="OpenSearch.Net.PolymorphicInterfaceConverter`1" class="text-break">Class PolymorphicInterfaceConverter&lt;TInterface&gt;</h1>
+  <div class="markdown level0 summary"><p>A reusable <a class="xref" href="https://learn.microsoft.com/dotnet/api/system">System.Text.Json</a> converter for the client's many &quot;single object with
+a <code>type</code> discriminator&quot; polymorphic hierarchies (tokenizers, char filters, token filters,
+analyzers, normalizers, …), replacing the per-family hand-written Utf8Json <code>*Formatter</code>
+dispatchers as part of the migration tracked by #388.</p>
+<p>
+A concrete family only supplies the discriminator → concrete-type map; all read/write logic is
+shared here. This is the shape the converter generator emits per family, so adding a namespace
+is a table, not new dispatch code.
+</p>
+<ul><li><b>Write</b> serializes the concrete runtime type. Because that type is not
+<code class="typeparamref">TInterface</code>, this does not re-enter the converter.</li><li><b>Read</b> buffers the object, reads the discriminator property, and deserializes into
+the mapped concrete type (property names resolved by <a class="xref" href="OpenSearch.Net.DataContractResolver.html">DataContractResolver</a>).</li></ul>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter">JsonConverter</a></div>
+    <div class="level2"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1">JsonConverter</a>&lt;TInterface&gt;</div>
+    <div class="level3"><span class="xref">PolymorphicInterfaceConverter&lt;TInterface&gt;</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.canconvert">JsonConverter&lt;TInterface&gt;.CanConvert(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.readaspropertyname">JsonConverter&lt;TInterface&gt;.ReadAsPropertyName(ref Utf8JsonReader, Type, JsonSerializerOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.writeaspropertyname">JsonConverter&lt;TInterface&gt;.WriteAsPropertyName(Utf8JsonWriter, TInterface, JsonSerializerOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.handlenull">JsonConverter&lt;TInterface&gt;.HandleNull</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.type">JsonConverter&lt;TInterface&gt;.Type</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="OpenSearch.html">OpenSearch</a>.<a class="xref" href="OpenSearch.Net.html">Net</a></h6>
+  <h6><strong>Assembly</strong>: OpenSearch.Net.dll</h6>
+  <h5 id="OpenSearch_Net_PolymorphicInterfaceConverter_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class PolymorphicInterfaceConverter&lt;TInterface&gt; : JsonConverter&lt;TInterface&gt; where TInterface : class</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TInterface</span></td>
+        <td><p>The polymorphic base interface (for example <code>ITokenizer</code>).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_PolymorphicInterfaceConverter_1__ctor_System_Collections_Generic_IReadOnlyDictionary_System_String_System_Type__System_String_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.PolymorphicInterfaceConverter%601.%23ctor(System.Collections.Generic.IReadOnlyDictionary%7BSystem.String%2CSystem.Type%7D%2CSystem.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/PolymorphicInterfaceConverter.cs/#L46">View Source</a>
+  </span>
+  <a id="OpenSearch_Net_PolymorphicInterfaceConverter_1__ctor_" data-uid="OpenSearch.Net.PolymorphicInterfaceConverter`1.#ctor*"></a>
+  <h4 id="OpenSearch_Net_PolymorphicInterfaceConverter_1__ctor_System_Collections_Generic_IReadOnlyDictionary_System_String_System_Type__System_String_" data-uid="OpenSearch.Net.PolymorphicInterfaceConverter`1.#ctor(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Type},System.String)">PolymorphicInterfaceConverter(IReadOnlyDictionary&lt;string, Type&gt;, string)</h4>
+  <div class="markdown level1 summary"><p>Creates the converter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected PolymorphicInterfaceConverter(IReadOnlyDictionary&lt;string, Type&gt; typeByDiscriminator, string discriminatorPropertyName = &quot;type&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a>&gt;</td>
+        <td><span class="parametername">typeByDiscriminator</span></td>
+        <td><p>Maps each wire discriminator value to the concrete type to (de)serialize.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">discriminatorPropertyName</span></td>
+        <td><p>The discriminator property name; defaults to <code>type</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_PolymorphicInterfaceConverter_1_Read_System_Text_Json_Utf8JsonReader__System_Type_System_Text_Json_JsonSerializerOptions_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.PolymorphicInterfaceConverter%601.Read(System.Text.Json.Utf8JsonReader%40%2CSystem.Type%2CSystem.Text.Json.JsonSerializerOptions)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/PolymorphicInterfaceConverter.cs/#L55">View Source</a>
+  </span>
+  <a id="OpenSearch_Net_PolymorphicInterfaceConverter_1_Read_" data-uid="OpenSearch.Net.PolymorphicInterfaceConverter`1.Read*"></a>
+  <h4 id="OpenSearch_Net_PolymorphicInterfaceConverter_1_Read_System_Text_Json_Utf8JsonReader__System_Type_System_Text_Json_JsonSerializerOptions_" data-uid="OpenSearch.Net.PolymorphicInterfaceConverter`1.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">Read(ref Utf8JsonReader, Type, JsonSerializerOptions)</h4>
+  <div class="markdown level1 summary"><p>Reads and converts the JSON to type <code class="typeparamref">T</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override TInterface Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.utf8jsonreader">Utf8JsonReader</a></td>
+        <td><span class="parametername">reader</span></td>
+        <td><p>The reader.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">typeToConvert</span></td>
+        <td><p>The type to convert.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>An object that specifies serialization options to use.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TInterface</span></td>
+        <td><p>The converted value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.read">JsonConverter&lt;TInterface&gt;.Read(ref Utf8JsonReader, Type, JsonSerializerOptions)</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_PolymorphicInterfaceConverter_1_ResolveType_System_String_System_Text_Json_JsonElement_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.PolymorphicInterfaceConverter%601.ResolveType(System.String%2CSystem.Text.Json.JsonElement)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/PolymorphicInterfaceConverter.cs/#L82">View Source</a>
+  </span>
+  <a id="OpenSearch_Net_PolymorphicInterfaceConverter_1_ResolveType_" data-uid="OpenSearch.Net.PolymorphicInterfaceConverter`1.ResolveType*"></a>
+  <h4 id="OpenSearch_Net_PolymorphicInterfaceConverter_1_ResolveType_System_String_System_Text_Json_JsonElement_" data-uid="OpenSearch.Net.PolymorphicInterfaceConverter`1.ResolveType(System.String,System.Text.Json.JsonElement)">ResolveType(string, JsonElement)</h4>
+  <div class="markdown level1 summary"><p>Resolves the concrete type to deserialize into. The default looks the discriminator up in
+the table. Families with fallback rules (for example analyzers, which infer a custom vs.
+language analyzer from the presence of a <code>tokenizer</code> field) override this.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Type ResolveType(string discriminator, JsonElement document)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">discriminator</span></td>
+        <td><p>The discriminator value, or <code>null</code> if absent/non-string.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonelement">JsonElement</a></td>
+        <td><span class="parametername">document</span></td>
+        <td><p>The buffered JSON object, for inspecting other fields.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_PolymorphicInterfaceConverter_1_Write_System_Text_Json_Utf8JsonWriter__0_System_Text_Json_JsonSerializerOptions_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.PolymorphicInterfaceConverter%601.Write(System.Text.Json.Utf8JsonWriter%2C%600%2CSystem.Text.Json.JsonSerializerOptions)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/PolymorphicInterfaceConverter.cs/#L86">View Source</a>
+  </span>
+  <a id="OpenSearch_Net_PolymorphicInterfaceConverter_1_Write_" data-uid="OpenSearch.Net.PolymorphicInterfaceConverter`1.Write*"></a>
+  <h4 id="OpenSearch_Net_PolymorphicInterfaceConverter_1_Write_System_Text_Json_Utf8JsonWriter__0_System_Text_Json_JsonSerializerOptions_" data-uid="OpenSearch.Net.PolymorphicInterfaceConverter`1.Write(System.Text.Json.Utf8JsonWriter,`0,System.Text.Json.JsonSerializerOptions)">Write(Utf8JsonWriter, TInterface, JsonSerializerOptions)</h4>
+  <div class="markdown level1 summary"><p>Writes a specified value as JSON.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Write(Utf8JsonWriter writer, TInterface value, JsonSerializerOptions options)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.utf8jsonwriter">Utf8JsonWriter</a></td>
+        <td><span class="parametername">writer</span></td>
+        <td><p>The writer to write to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TInterface</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to convert to JSON.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>An object that specifies serialization options to use.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.write">JsonConverter&lt;TInterface&gt;.Write(Utf8JsonWriter, TInterface, JsonSerializerOptions)</a></div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="OpenSearch.Client.SuffixExtensions.html#OpenSearch_Client_SuffixExtensions_Suffix_System_Object_System_String_">SuffixExtensions.Suffix(object, string)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_PolymorphicInterfaceConverter_1.md&amp;value=---%0Auid%3A%20OpenSearch.Net.PolymorphicInterfaceConverter%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/PolymorphicInterfaceConverter.cs/#L33" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
