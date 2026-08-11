@@ -192,7 +192,7 @@
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_KnnVectorPropertyDescriptor_1__ctor.md&amp;value=---%0Auid%3A%20OpenSearch.Client.KnnVectorPropertyDescriptor%601.%23ctor%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Mapping/Types/Specialized/Knn/KnnVectorProperty.cs/#L113">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Mapping/Types/Specialized/Knn/KnnVectorProperty.cs/#L150">View Source</a>
   </span>
   <a id="OpenSearch_Client_KnnVectorPropertyDescriptor_1__ctor_" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.#ctor*"></a>
   <h4 id="OpenSearch_Client_KnnVectorPropertyDescriptor_1__ctor" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.#ctor">KnnVectorPropertyDescriptor()</h4>
@@ -206,10 +206,109 @@
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_KnnVectorPropertyDescriptor_1_CompressionLevel_System_String_.md&amp;value=---%0Auid%3A%20OpenSearch.Client.KnnVectorPropertyDescriptor%601.CompressionLevel(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Mapping/Types/Specialized/Knn/KnnVectorProperty.cs/#L177">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_KnnVectorPropertyDescriptor_1_CompressionLevel_" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.CompressionLevel*"></a>
+  <h4 id="OpenSearch_Client_KnnVectorPropertyDescriptor_1_CompressionLevel_System_String_" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.CompressionLevel(System.String)">CompressionLevel(string)</h4>
+  <div class="markdown level1 summary"><p>The compression level applied to the vector field (for example, <code>1x</code>, <code>2x</code>, <code>4x</code>).
+Higher compression reduces memory footprint at the cost of some search accuracy.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public KnnVectorPropertyDescriptor&lt;T&gt; CompressionLevel(string compressionLevel)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">compressionLevel</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Client.KnnVectorPropertyDescriptor-1.html">KnnVectorPropertyDescriptor</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_KnnVectorPropertyDescriptor_1_DataType_System_String_.md&amp;value=---%0Auid%3A%20OpenSearch.Client.KnnVectorPropertyDescriptor%601.DataType(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Mapping/Types/Specialized/Knn/KnnVectorProperty.cs/#L165">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_KnnVectorPropertyDescriptor_1_DataType_" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.DataType*"></a>
+  <h4 id="OpenSearch_Client_KnnVectorPropertyDescriptor_1_DataType_System_String_" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.DataType(System.String)">DataType(string)</h4>
+  <div class="markdown level1 summary"><p>The data type of the vector elements. Defaults to <code>float</code>. Set to <code>byte</code> to store each
+dimension as an 8-bit signed integer (<code>[-128, 127]</code>), or <code>binary</code> for binary vectors,
+reducing memory and storage requirements.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public KnnVectorPropertyDescriptor&lt;T&gt; DataType(string dataType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">dataType</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Client.KnnVectorPropertyDescriptor-1.html">KnnVectorPropertyDescriptor</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_KnnVectorPropertyDescriptor_1_Dimension_System_Nullable_System_Int32__.md&amp;value=---%0Auid%3A%20OpenSearch.Client.KnnVectorPropertyDescriptor%601.Dimension(System.Nullable%7BSystem.Int32%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Mapping/Types/Specialized/Knn/KnnVectorProperty.cs/#L120">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Mapping/Types/Specialized/Knn/KnnVectorProperty.cs/#L161">View Source</a>
   </span>
   <a id="OpenSearch_Client_KnnVectorPropertyDescriptor_1_Dimension_" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.Dimension*"></a>
   <h4 id="OpenSearch_Client_KnnVectorPropertyDescriptor_1_Dimension_System_Nullable_System_Int32__" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.Dimension(System.Nullable{System.Int32})">Dimension(int?)</h4>
@@ -257,7 +356,7 @@
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_KnnVectorPropertyDescriptor_1_Method_System_Func_OpenSearch_Client_KnnMethodDescriptor_OpenSearch_Client_IKnnMethod__.md&amp;value=---%0Auid%3A%20OpenSearch.Client.KnnVectorPropertyDescriptor%601.Method(System.Func%7BOpenSearch.Client.KnnMethodDescriptor%2COpenSearch.Client.IKnnMethod%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Mapping/Types/Specialized/Knn/KnnVectorProperty.cs/#L128">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Mapping/Types/Specialized/Knn/KnnVectorProperty.cs/#L185">View Source</a>
   </span>
   <a id="OpenSearch_Client_KnnVectorPropertyDescriptor_1_Method_" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.Method*"></a>
   <h4 id="OpenSearch_Client_KnnVectorPropertyDescriptor_1_Method_System_Func_OpenSearch_Client_KnnMethodDescriptor_OpenSearch_Client_IKnnMethod__" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.Method(System.Func{OpenSearch.Client.KnnMethodDescriptor,OpenSearch.Client.IKnnMethod})">Method(Func&lt;KnnMethodDescriptor, IKnnMethod&gt;)</h4>
@@ -302,10 +401,59 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_KnnVectorPropertyDescriptor_1_Mode_System_String_.md&amp;value=---%0Auid%3A%20OpenSearch.Client.KnnVectorPropertyDescriptor%601.Mode(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Mapping/Types/Specialized/Knn/KnnVectorProperty.cs/#L173">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_KnnVectorPropertyDescriptor_1_Mode_" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.Mode*"></a>
+  <h4 id="OpenSearch_Client_KnnVectorPropertyDescriptor_1_Mode_System_String_" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.Mode(System.String)">Mode(string)</h4>
+  <div class="markdown level1 summary"><p>The mode that determines the default configuration of the vector field, balancing between
+low latency and low cost (for example, <code>in_memory</code> or <code>on_disk</code>).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public KnnVectorPropertyDescriptor&lt;T&gt; Mode(string mode)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">mode</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Client.KnnVectorPropertyDescriptor-1.html">KnnVectorPropertyDescriptor</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_KnnVectorPropertyDescriptor_1_ModelId_System_String_.md&amp;value=---%0Auid%3A%20OpenSearch.Client.KnnVectorPropertyDescriptor%601.ModelId(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Mapping/Types/Specialized/Knn/KnnVectorProperty.cs/#L124">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Mapping/Types/Specialized/Knn/KnnVectorProperty.cs/#L181">View Source</a>
   </span>
   <a id="OpenSearch_Client_KnnVectorPropertyDescriptor_1_ModelId_" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.ModelId*"></a>
   <h4 id="OpenSearch_Client_KnnVectorPropertyDescriptor_1_ModelId_System_String_" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.ModelId(System.String)">ModelId(string)</h4>
@@ -329,6 +477,55 @@
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">modelId</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Client.KnnVectorPropertyDescriptor-1.html">KnnVectorPropertyDescriptor</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_KnnVectorPropertyDescriptor_1_SpaceType_System_String_.md&amp;value=---%0Auid%3A%20OpenSearch.Client.KnnVectorPropertyDescriptor%601.SpaceType(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Mapping/Types/Specialized/Knn/KnnVectorProperty.cs/#L169">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_KnnVectorPropertyDescriptor_1_SpaceType_" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.SpaceType*"></a>
+  <h4 id="OpenSearch_Client_KnnVectorPropertyDescriptor_1_SpaceType_System_String_" data-uid="OpenSearch.Client.KnnVectorPropertyDescriptor`1.SpaceType(System.String)">SpaceType(string)</h4>
+  <div class="markdown level1 summary"><p>The vector space used to calculate the distance between vectors. Can be specified at the top level
+of the field, as an alternative to specifying it on the <a class="xref" href="OpenSearch.Client.IKnnVectorProperty.html#OpenSearch_Client_IKnnVectorProperty_Method">Method</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public KnnVectorPropertyDescriptor&lt;T&gt; SpaceType(string spaceType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">spaceType</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -383,7 +580,7 @@
                     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_KnnVectorPropertyDescriptor_1.md&amp;value=---%0Auid%3A%20OpenSearch.Client.KnnVectorPropertyDescriptor%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
                   </li>
                   <li>
-                    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Mapping/Types/Specialized/Knn/KnnVectorProperty.cs/#L108" class="contribution-link">View Source</a>
+                    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Mapping/Types/Specialized/Knn/KnnVectorProperty.cs/#L145" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

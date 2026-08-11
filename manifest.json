@@ -17388,6 +17388,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.IKnnQueryRescoreContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.IKnnQueryRescoreContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.IKnnQueryRescoreContext",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Client.IKnnQueryRescoreContext.yml\" sourcestartlinenumber=\"1\">Configures rescoring of approximate k-NN search results using full-precision vectors.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.IKnnVectorProperty.yml",
       "output": {
         ".html": {
@@ -22470,6 +22484,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.IWildcardProperty.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.IWildcardProperty.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.IWildcardProperty",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Client.IWildcardProperty.yml\" sourcestartlinenumber=\"1\">A wildcard field stores values optimised for wildcard grep-like queries.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.IWildcardQuery.yml",
       "output": {
         ".html": {
@@ -25043,6 +25071,34 @@
       "IsMRef": true,
       "Title": "OpenSearch.Client.KnnQueryDescriptor<T>",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.KnnQueryRescoreContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.KnnQueryRescoreContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.KnnQueryRescoreContext",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Client.KnnQueryRescoreContext.yml\" sourcestartlinenumber=\"1\">Configures rescoring of approximate k-NN search results using full-precision vectors.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.KnnQueryRescoreContextDescriptor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.KnnQueryRescoreContextDescriptor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.KnnQueryRescoreContextDescriptor",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Client.KnnQueryRescoreContextDescriptor.yml\" sourcestartlinenumber=\"1\">A descriptor for configuring k-NN query rescoring.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -39144,6 +39200,48 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.WildcardAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.WildcardAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.WildcardAttribute",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.WildcardProperty.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.WildcardProperty.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.WildcardProperty",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Client.WildcardProperty.yml\" sourcestartlinenumber=\"1\">A wildcard field stores values optimised for wildcard grep-like queries.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.WildcardPropertyDescriptor-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.WildcardPropertyDescriptor-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.WildcardPropertyDescriptor<T>",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Client.WildcardPropertyDescriptor-1.yml\" sourcestartlinenumber=\"1\">A wildcard field stores values optimised for wildcard grep-like queries.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.WildcardQuery-2.yml",
       "output": {
         ".html": {
@@ -39886,6 +39984,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Diagnostics.OpenSearchClientActivitySource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Diagnostics.OpenSearchClientActivitySource.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Diagnostics.OpenSearchClientActivitySource",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Diagnostics.OpenSearchClientActivitySource.yml\" sourcestartlinenumber=\"1\">Holds the <xref href=\"OpenSearch.Net.Diagnostics.OpenSearchClientActivitySource.ActivitySource\" data-throw-if-not-resolved=\"false\"></xref> used to emit OpenTelemetry spans for requests to OpenSearch,\nalong with helpers to keep instrumentation cheap when nobody is listening.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Diagnostics.RequestPipelineDiagnosticObserver.yml",
       "output": {
         ".html": {
@@ -40023,20 +40135,6 @@
       "IsMRef": true,
       "Title": "OpenSearch.Net.DynamicDictionary",
       "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.DynamicDictionary.yml\" sourcestartlinenumber=\"1\">A dictionary that supports dynamic access.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.DynamicDictionaryConverter.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenSearch.Net.DynamicDictionaryConverter.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "OpenSearch.Net.DynamicDictionaryConverter",
-      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.DynamicDictionaryConverter.yml\" sourcestartlinenumber=\"1\">A <xref href=\"System.Text.Json.Serialization.JsonConverter%601\" data-throw-if-not-resolved=\"false\"></xref> for <xref href=\"OpenSearch.Net.DynamicDictionary\" data-throw-if-not-resolved=\"false\"></xref> that serializes\nkey-value pairs as a JSON object and deserializes JSON objects or arrays into\na <xref href=\"OpenSearch.Net.DynamicDictionary\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -40638,7 +40736,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "OpenSearch.Net.LowLevelRequestResponseSerializer",
-      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.LowLevelRequestResponseSerializer.yml\" sourcestartlinenumber=\"1\">Legacy serializer implementation using the embedded Utf8Json library.\nThis class is deprecated in favor of <xref href=\"OpenSearch.Net.SystemTextJsonSerializer\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -40919,20 +41017,6 @@
       "IsMRef": true,
       "Title": "OpenSearch.Net.NotificationsNotificationConfigType",
       "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.NullableStringIntConverter.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenSearch.Net.NullableStringIntConverter.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "OpenSearch.Net.NullableStringIntConverter",
-      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.NullableStringIntConverter.yml\" sourcestartlinenumber=\"1\">A <xref href=\"System.Text.Json.Serialization.JsonConverter%601\" data-throw-if-not-resolved=\"false\"></xref> for <xref href=\"System.Nullable%601\" data-throw-if-not-resolved=\"false\"></xref> that handles values\nwhich may arrive from OpenSearch as a JSON number, a string containing a number, or null.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -49000,20 +49084,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.StringEnumConverterFactory.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenSearch.Net.StringEnumConverterFactory.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "OpenSearch.Net.StringEnumConverterFactory",
-      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.StringEnumConverterFactory.yml\" sourcestartlinenumber=\"1\">A <xref href=\"System.Text.Json.Serialization.JsonConverterFactory\" data-throw-if-not-resolved=\"false\"></xref> that produces string-based enum converters for\nenum types decorated with <xref href=\"OpenSearch.Net.StringEnumAttribute\" data-throw-if-not-resolved=\"false\"></xref>. Uses <xref href=\"System.Runtime.Serialization.EnumMemberAttribute\" data-throw-if-not-resolved=\"false\"></xref>\nvalues when present, otherwise converts the enum name to camelCase.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.StringResponse.yml",
       "output": {
         ".html": {
@@ -49039,20 +49109,6 @@
       "IsMRef": true,
       "Title": "OpenSearch.Net.SuggestMode",
       "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.SystemTextJsonSerializer.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenSearch.Net.SystemTextJsonSerializer.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "OpenSearch.Net.SystemTextJsonSerializer",
-      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.SystemTextJsonSerializer.yml\" sourcestartlinenumber=\"1\">A serializer implementation using System.Text.Json, replacing the legacy Utf8Json-based\n<xref href=\"OpenSearch.Net.LowLevelRequestResponseSerializer\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
