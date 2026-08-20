@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class ObjectConverter | OpenSearch.Net </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class ObjectConverter | OpenSearch.Net ">
+    
+    <meta name="description" content="Writes values whose declared (static) type is  — the common case for dynamic request bodies such as Dictionary&amp;lt;string, object&amp;gt; built from a parsed YAML/JSON document. System.Text.Json writes a dictionary&#39;s  values through the declared  type, which bypasses the registered /; an integral double like 3.0 would then be emitted as 3, changing the value the server stores. This converter dispatches on the runtime type so boxed doubles/floats keep their trailing .0 and nested objects/arrays recurse through the same rules. On read, System.Text.Json&#39;s own  handling (or a more specific converter such as DynamicDictionaryConverter) applies, so this converter is write-only and defers reading to the reader&#39;s element deserialization.">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../OpenSearch.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="OpenSearch.Net.Serialization.Converters.ObjectConverter">
+
+
+
+  <h1 id="OpenSearch_Net_Serialization_Converters_ObjectConverter" data-uid="OpenSearch.Net.Serialization.Converters.ObjectConverter" class="text-break">Class ObjectConverter</h1>
+  <div class="markdown level0 summary"><p>Writes values whose declared (static) type is <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> — the common case for dynamic request bodies
+such as <code>Dictionary&lt;string, object&gt;</code> built from a parsed YAML/JSON document. System.Text.Json writes a
+dictionary's <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> values through the declared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> type, which bypasses the
+registered <a class="xref" href="OpenSearch.Net.Serialization.Converters.DoubleConverter.html">DoubleConverter</a>/<a class="xref" href="OpenSearch.Net.Serialization.Converters.SingleConverter.html">SingleConverter</a>; an integral double like <code>3.0</code> would
+then be emitted as <code>3</code>, changing the value the server stores. This converter dispatches on the runtime type
+so boxed doubles/floats keep their trailing <code>.0</code> and nested objects/arrays recurse through the same rules.</p>
+<p>On read, System.Text.Json's own <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> handling (or a more specific converter such as
+<code>DynamicDictionaryConverter</code>) applies, so this converter is write-only and defers reading to the reader's
+element deserialization.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter">JsonConverter</a></div>
+    <div class="level2"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1">JsonConverter</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</div>
+    <div class="level3"><span class="xref">ObjectConverter</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.readaspropertyname">JsonConverter&lt;object&gt;.ReadAsPropertyName(ref Utf8JsonReader, Type, JsonSerializerOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.writeaspropertyname">JsonConverter&lt;object&gt;.WriteAsPropertyName(Utf8JsonWriter, object, JsonSerializerOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.handlenull">JsonConverter&lt;object&gt;.HandleNull</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.type">JsonConverter&lt;object&gt;.Type</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="OpenSearch.html">OpenSearch</a>.<a class="xref" href="OpenSearch.Net.html">Net</a>.<a class="xref" href="OpenSearch.Net.Serialization.html">Serialization</a>.<a class="xref" href="OpenSearch.Net.Serialization.Converters.html">Converters</a></h6>
+  <h6><strong>Assembly</strong>: OpenSearch.Net.dll</h6>
+  <h5 id="OpenSearch_Net_Serialization_Converters_ObjectConverter_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ObjectConverter : JsonConverter&lt;object&gt;</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_Serialization_Converters_ObjectConverter_CanConvert_System_Type_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.Serialization.Converters.ObjectConverter.CanConvert(System.Type)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/Converters/ObjectConverter.cs/#L30">View Source</a>
+  </span>
+  <a id="OpenSearch_Net_Serialization_Converters_ObjectConverter_CanConvert_" data-uid="OpenSearch.Net.Serialization.Converters.ObjectConverter.CanConvert*"></a>
+  <h4 id="OpenSearch_Net_Serialization_Converters_ObjectConverter_CanConvert_System_Type_" data-uid="OpenSearch.Net.Serialization.Converters.ObjectConverter.CanConvert(System.Type)">CanConvert(Type)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the specified type can be converted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool CanConvert(Type typeToConvert)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">typeToConvert</span></td>
+        <td><p>The type to compare against.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the type can be converted; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.canconvert">JsonConverter&lt;object&gt;.CanConvert(Type)</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_Serialization_Converters_ObjectConverter_Read_System_Text_Json_Utf8JsonReader__System_Type_System_Text_Json_JsonSerializerOptions_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.Serialization.Converters.ObjectConverter.Read(System.Text.Json.Utf8JsonReader%40%2CSystem.Type%2CSystem.Text.Json.JsonSerializerOptions)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/Converters/ObjectConverter.cs/#L34">View Source</a>
+  </span>
+  <a id="OpenSearch_Net_Serialization_Converters_ObjectConverter_Read_" data-uid="OpenSearch.Net.Serialization.Converters.ObjectConverter.Read*"></a>
+  <h4 id="OpenSearch_Net_Serialization_Converters_ObjectConverter_Read_System_Text_Json_Utf8JsonReader__System_Type_System_Text_Json_JsonSerializerOptions_" data-uid="OpenSearch.Net.Serialization.Converters.ObjectConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">Read(ref Utf8JsonReader, Type, JsonSerializerOptions)</h4>
+  <div class="markdown level1 summary"><p>Reads and converts the JSON to type <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override object Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.utf8jsonreader">Utf8JsonReader</a></td>
+        <td><span class="parametername">reader</span></td>
+        <td><p>The reader.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">typeToConvert</span></td>
+        <td><p>The type to convert.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>An object that specifies serialization options to use.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><p>The converted value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.read">JsonConverter&lt;object&gt;.Read(ref Utf8JsonReader, Type, JsonSerializerOptions)</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_Serialization_Converters_ObjectConverter_Write_System_Text_Json_Utf8JsonWriter_System_Object_System_Text_Json_JsonSerializerOptions_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.Serialization.Converters.ObjectConverter.Write(System.Text.Json.Utf8JsonWriter%2CSystem.Object%2CSystem.Text.Json.JsonSerializerOptions)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/Converters/ObjectConverter.cs/#L74">View Source</a>
+  </span>
+  <a id="OpenSearch_Net_Serialization_Converters_ObjectConverter_Write_" data-uid="OpenSearch.Net.Serialization.Converters.ObjectConverter.Write*"></a>
+  <h4 id="OpenSearch_Net_Serialization_Converters_ObjectConverter_Write_System_Text_Json_Utf8JsonWriter_System_Object_System_Text_Json_JsonSerializerOptions_" data-uid="OpenSearch.Net.Serialization.Converters.ObjectConverter.Write(System.Text.Json.Utf8JsonWriter,System.Object,System.Text.Json.JsonSerializerOptions)">Write(Utf8JsonWriter, object, JsonSerializerOptions)</h4>
+  <div class="markdown level1 summary"><p>Writes a specified value as JSON.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Write(Utf8JsonWriter writer, object value, JsonSerializerOptions options)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.utf8jsonwriter">Utf8JsonWriter</a></td>
+        <td><span class="parametername">writer</span></td>
+        <td><p>The writer to write to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to convert to JSON.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>An object that specifies serialization options to use.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.write">JsonConverter&lt;object&gt;.Write(Utf8JsonWriter, object, JsonSerializerOptions)</a></div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="OpenSearch.Client.SuffixExtensions.html#OpenSearch_Client_SuffixExtensions_Suffix_System_Object_System_String_">SuffixExtensions.Suffix(object, string)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_Serialization_Converters_ObjectConverter.md&amp;value=---%0Auid%3A%20OpenSearch.Net.Serialization.Converters.ObjectConverter%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Serialization/Converters/ObjectConverter.cs/#L27" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

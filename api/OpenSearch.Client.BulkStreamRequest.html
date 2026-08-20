@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class BulkStreamRequest | OpenSearch.Net </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class BulkStreamRequest | OpenSearch.Net ">
+    
+    <meta name="description" content="Request for BulkStream https://opensearch.org/docs/latest/api-reference/document-apis/bulk-streaming/">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../OpenSearch.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="OpenSearch.Client.BulkStreamRequest">
+
+
+
+  <h1 id="OpenSearch_Client_BulkStreamRequest" data-uid="OpenSearch.Client.BulkStreamRequest" class="text-break">Class BulkStreamRequest</h1>
+  <div class="markdown level0 summary"><p>Request for BulkStream</p>
+<p>https://opensearch.org/docs/latest/api-reference/document-apis/bulk-streaming/</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="OpenSearch.Client.RequestBase-1.html">RequestBase</a>&lt;<a class="xref" href="OpenSearch.Net.BulkStreamRequestParameters.html">BulkStreamRequestParameters</a>&gt;</div>
+    <div class="level2"><a class="xref" href="OpenSearch.Client.PlainRequestBase-1.html">PlainRequestBase</a>&lt;<a class="xref" href="OpenSearch.Net.BulkStreamRequestParameters.html">BulkStreamRequestParameters</a>&gt;</div>
+    <div class="level3"><span class="xref">BulkStreamRequest</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="OpenSearch.Client.IBulkStreamRequest.html">IBulkStreamRequest</a></div>
+    <div><a class="xref" href="OpenSearch.Client.IRequest-1.html">IRequest</a>&lt;<a class="xref" href="OpenSearch.Net.BulkStreamRequestParameters.html">BulkStreamRequestParameters</a>&gt;</div>
+    <div><a class="xref" href="OpenSearch.Client.IRequest.html">IRequest</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="OpenSearch.Client.PlainRequestBase-1.html#OpenSearch_Client_PlainRequestBase_1_RequestConfiguration">PlainRequestBase&lt;BulkStreamRequestParameters&gt;.RequestConfiguration</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenSearch.Client.PlainRequestBase-1.html#OpenSearch_Client_PlainRequestBase_1_ErrorTrace">PlainRequestBase&lt;BulkStreamRequestParameters&gt;.ErrorTrace</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenSearch.Client.PlainRequestBase-1.html#OpenSearch_Client_PlainRequestBase_1_FilterPath">PlainRequestBase&lt;BulkStreamRequestParameters&gt;.FilterPath</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenSearch.Client.PlainRequestBase-1.html#OpenSearch_Client_PlainRequestBase_1_Human">PlainRequestBase&lt;BulkStreamRequestParameters&gt;.Human</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenSearch.Client.PlainRequestBase-1.html#OpenSearch_Client_PlainRequestBase_1_Pretty">PlainRequestBase&lt;BulkStreamRequestParameters&gt;.Pretty</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenSearch.Client.PlainRequestBase-1.html#OpenSearch_Client_PlainRequestBase_1_SourceQueryString">PlainRequestBase&lt;BulkStreamRequestParameters&gt;.SourceQueryString</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenSearch.Client.RequestBase-1.html#OpenSearch_Client_RequestBase_1_HttpMethod">RequestBase&lt;BulkStreamRequestParameters&gt;.HttpMethod</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenSearch.Client.RequestBase-1.html#OpenSearch_Client_RequestBase_1_RequestState">RequestBase&lt;BulkStreamRequestParameters&gt;.RequestState</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenSearch.Client.RequestBase-1.html#OpenSearch_Client_RequestBase_1_ContentType">RequestBase&lt;BulkStreamRequestParameters&gt;.ContentType</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenSearch.Client.RequestBase-1.html#OpenSearch_Client_RequestBase_1_ResolveUrl_OpenSearch_Client_RouteValues_OpenSearch_Client_IConnectionSettingsValues_">RequestBase&lt;BulkStreamRequestParameters&gt;.ResolveUrl(RouteValues, IConnectionSettingsValues)</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenSearch.Client.RequestBase-1.html#OpenSearch_Client_RequestBase_1_RequestDefaults__0_">RequestBase&lt;BulkStreamRequestParameters&gt;.RequestDefaults(BulkStreamRequestParameters)</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenSearch.Client.RequestBase-1.html#OpenSearch_Client_RequestBase_1_Q__1_System_String_">RequestBase&lt;BulkStreamRequestParameters&gt;.Q&lt;TOut&gt;(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenSearch.Client.RequestBase-1.html#OpenSearch_Client_RequestBase_1_Q_System_String_System_Object_">RequestBase&lt;BulkStreamRequestParameters&gt;.Q(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenSearch.Client.RequestBase-1.html#OpenSearch_Client_RequestBase_1_SetAcceptHeader_System_String_">RequestBase&lt;BulkStreamRequestParameters&gt;.SetAcceptHeader(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="OpenSearch.html">OpenSearch</a>.<a class="xref" href="OpenSearch.Client.html">Client</a></h6>
+  <h6><strong>Assembly</strong>: OpenSearch.Client.dll</h6>
+  <h5 id="OpenSearch_Client_BulkStreamRequest_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class BulkStreamRequest : PlainRequestBase&lt;BulkStreamRequestParameters&gt;, IBulkStreamRequest, IRequest&lt;BulkStreamRequestParameters&gt;, IRequest</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest__ctor.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.%23ctor%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L192">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest__ctor_" data-uid="OpenSearch.Client.BulkStreamRequest.#ctor*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest__ctor" data-uid="OpenSearch.Client.BulkStreamRequest.#ctor">BulkStreamRequest()</h4>
+  <div class="markdown level1 summary"><p>/_bulk/stream</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BulkStreamRequest()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest__ctor_OpenSearch_Client_IndexName_.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.%23ctor(OpenSearch.Client.IndexName)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L197">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest__ctor_" data-uid="OpenSearch.Client.BulkStreamRequest.#ctor*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest__ctor_OpenSearch_Client_IndexName_" data-uid="OpenSearch.Client.BulkStreamRequest.#ctor(OpenSearch.Client.IndexName)">BulkStreamRequest(IndexName)</h4>
+  <div class="markdown level1 summary"><p>/{index}/_bulk/stream</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BulkStreamRequest(IndexName index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Client.IndexName.html">IndexName</a></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>Optional, accepts null</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest_BatchInterval.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.BatchInterval%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L206">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest_BatchInterval_" data-uid="OpenSearch.Client.BulkStreamRequest.BatchInterval*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest_BatchInterval" data-uid="OpenSearch.Client.BulkStreamRequest.BatchInterval">BatchInterval</h4>
+  <div class="markdown level1 summary"><p>Specifies for how long bulk operations should be accumulated into a batch before sending the batch to data nodes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Time BatchInterval { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Client.Time.html">Time</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest_BatchSize.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.BatchSize%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L213">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest_BatchSize_" data-uid="OpenSearch.Client.BulkStreamRequest.BatchSize*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest_BatchSize" data-uid="OpenSearch.Client.BulkStreamRequest.BatchSize">BatchSize</h4>
+  <div class="markdown level1 summary"><p>Specifies how many bulk operations should be accumulated into a batch before sending the batch to data nodes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long? BatchSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a>?</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest_Operations.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.Operations%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Document/Multiple/BulkStream/BulkStreamRequest.cs/#L26">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest_Operations_" data-uid="OpenSearch.Client.BulkStreamRequest.Operations*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest_Operations" data-uid="OpenSearch.Client.BulkStreamRequest.Operations">Operations</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BulkOperationsCollection&lt;IBulkOperation&gt; Operations { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Client.BulkOperationsCollection-1.html">BulkOperationsCollection</a>&lt;<a class="xref" href="OpenSearch.Client.IBulkOperation.html">IBulkOperation</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest_Pipeline.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.Pipeline%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L224">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest_Pipeline_" data-uid="OpenSearch.Client.BulkStreamRequest.Pipeline*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest_Pipeline" data-uid="OpenSearch.Client.BulkStreamRequest.Pipeline">Pipeline</h4>
+  <div class="markdown level1 summary"><p>ID of the pipeline to use to preprocess incoming documents. If the index has a default ingest pipeline specified, then setting the value
+to <code>_none</code> disables the default ingest pipeline for this request. If a final pipeline is configured it will always run, regardless of
+the value of this parameter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Pipeline { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest_Refresh.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.Refresh%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L235">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest_Refresh_" data-uid="OpenSearch.Client.BulkStreamRequest.Refresh*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest_Refresh" data-uid="OpenSearch.Client.BulkStreamRequest.Refresh">Refresh</h4>
+  <div class="markdown level1 summary"><p>If <code>true</code>, OpenSearch refreshes the affected shards to make this operation visible to search, if <code>wait_for</code> then wait for a
+refresh to make this operation visible to search, if <code>false</code> do nothing with refreshes. Valid values: <code>true</code>, <code>false</code>,
+<code>wait_for</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Refresh? Refresh { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Net.Refresh.html">Refresh</a>?</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest_RequireAlias.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.RequireAlias%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L242">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest_RequireAlias_" data-uid="OpenSearch.Client.BulkStreamRequest.RequireAlias*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest_RequireAlias" data-uid="OpenSearch.Client.BulkStreamRequest.RequireAlias">RequireAlias</h4>
+  <div class="markdown level1 summary"><p>If <code>true</code>, the request's actions must target an index alias.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool? RequireAlias { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>?</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest_Routing.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.Routing%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L256">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest_Routing_" data-uid="OpenSearch.Client.BulkStreamRequest.Routing*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest_Routing" data-uid="OpenSearch.Client.BulkStreamRequest.Routing">Routing</h4>
+  <div class="markdown level1 summary"><p>A document is routed to a particular shard in an index using the following formula</p>
+<p> shard_num = hash(_routing) % num_primary_shards</p>
+<p>OpenSearch will use the document id if not provided. </p>
+<p>For requests that are constructed from/for a document OpenSearch.Client will automatically infer the routing key
+if that document has a <a class="xref" href="OpenSearch.Client.JoinField.html">JoinField</a> or a routing mapping on for its type exists on <a class="xref" href="OpenSearch.Client.ConnectionSettings.html">ConnectionSettings</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Routing Routing { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Client.Routing.html">Routing</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest_Self.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.Self%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L188">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest_Self_" data-uid="OpenSearch.Client.BulkStreamRequest.Self*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest_Self" data-uid="OpenSearch.Client.BulkStreamRequest.Self">Self</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IBulkStreamRequest Self { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Client.IBulkStreamRequest.html">IBulkStreamRequest</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest_SourceEnabled.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.SourceEnabled%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L263">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest_SourceEnabled_" data-uid="OpenSearch.Client.BulkStreamRequest.SourceEnabled*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest_SourceEnabled" data-uid="OpenSearch.Client.BulkStreamRequest.SourceEnabled">SourceEnabled</h4>
+  <div class="markdown level1 summary"><p>Whether the _source should be included in the response.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool? SourceEnabled { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>?</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest_SourceExcludes.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.SourceExcludes%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L270">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest_SourceExcludes_" data-uid="OpenSearch.Client.BulkStreamRequest.SourceExcludes*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest_SourceExcludes" data-uid="OpenSearch.Client.BulkStreamRequest.SourceExcludes">SourceExcludes</h4>
+  <div class="markdown level1 summary"><p>A comma-separated list of source fields to exclude from the response.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Fields SourceExcludes { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Client.Fields.html">Fields</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest_SourceIncludes.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.SourceIncludes%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L277">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest_SourceIncludes_" data-uid="OpenSearch.Client.BulkStreamRequest.SourceIncludes*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest_SourceIncludes" data-uid="OpenSearch.Client.BulkStreamRequest.SourceIncludes">SourceIncludes</h4>
+  <div class="markdown level1 summary"><p>A comma-separated list of source fields to include in the response.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Fields SourceIncludes { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Client.Fields.html">Fields</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest_Timeout.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.Timeout%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L284">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest_Timeout_" data-uid="OpenSearch.Client.BulkStreamRequest.Timeout*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest_Timeout" data-uid="OpenSearch.Client.BulkStreamRequest.Timeout">Timeout</h4>
+  <div class="markdown level1 summary"><p>Period each action waits for the following operations: automatic index creation, dynamic mapping updates, waiting for active shards.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Time Timeout { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Client.Time.html">Time</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest_Type.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.Type%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L291">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest_Type_" data-uid="OpenSearch.Client.BulkStreamRequest.Type*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest_Type" data-uid="OpenSearch.Client.BulkStreamRequest.Type">Type</h4>
+  <div class="markdown level1 summary"><p>Default document type for items which don't provide one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Type { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest_WaitForActiveShards.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest.WaitForActiveShards%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L301">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_BulkStreamRequest_WaitForActiveShards_" data-uid="OpenSearch.Client.BulkStreamRequest.WaitForActiveShards*"></a>
+  <h4 id="OpenSearch_Client_BulkStreamRequest_WaitForActiveShards" data-uid="OpenSearch.Client.BulkStreamRequest.WaitForActiveShards">WaitForActiveShards</h4>
+  <div class="markdown level1 summary"><p>The number of shard copies that must be active before proceeding with the operation. Set to all or any positive integer up to the total
+number of shards in the index (<code>number_of_replicas+1</code>).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string WaitForActiveShards { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="OpenSearch.Client.IBulkStreamRequest.html">IBulkStreamRequest</a>
+  </div>
+  <div>
+      <a class="xref" href="OpenSearch.Client.IRequest-1.html">IRequest&lt;TParameters&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="OpenSearch.Client.IRequest.html">IRequest</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="OpenSearch.Client.SuffixExtensions.html#OpenSearch_Client_SuffixExtensions_Suffix_System_Object_System_String_">SuffixExtensions.Suffix(object, string)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamRequest.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamRequest%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/_Generated/Requests.NoNamespace.cs/#L184" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

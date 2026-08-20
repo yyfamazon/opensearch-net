@@ -384,6 +384,17 @@ Allows users full control over how they want to write data to the stream to Open
       <section></section>
       <h4><a class="xref" href="OpenSearch.Net.StringResponse.html">StringResponse</a></h4>
       <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.SystemTextJsonEnvironment.html">SystemTextJsonEnvironment</a></h4>
+      <section><p>Shared environment-variable resolution for the System.Text.Json / Utf8Json engine switch (GitHub issue
+#388), used by both <span class="xref">OpenSearch.Net.ConnectionConfiguration&lt;T&gt;</span> (the low-level engine) and
+<code>OpenSearch.Client.ConnectionSettingsBase</code> (the high-level engine). Each layer's own programmatic
+<code>UseSystemTextJson()</code> call takes precedence over this; the two layers select their engines
+independently even though they read the same variable.</p>
+</section>
+      <h4><a class="xref" href="OpenSearch.Net.SystemTextJsonSerializer.html">SystemTextJsonSerializer</a></h4>
+      <section><p>A serializer implementation using System.Text.Json, replacing the legacy Utf8Json-based
+<a class="xref" href="OpenSearch.Net.LowLevelRequestResponseSerializer.html">LowLevelRequestResponseSerializer</a>.</p>
+</section>
       <h4><a class="xref" href="OpenSearch.Net.TermVectorsRequestParameters.html">TermVectorsRequestParameters</a></h4>
       <section><p>Request options for TermVectors</p>
 <p>https://opensearch.org/docs/latest</p>

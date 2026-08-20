@@ -238,18 +238,18 @@ public int Status { get; }</code></pre>
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError_Create_System_IO_Stream_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError.Create(System.IO.Stream)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError_Create_System_IO_Stream_OpenSearch_Net_IOpenSearchSerializer_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError.Create(System.IO.Stream%2COpenSearch.Net.IOpenSearchSerializer)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L68">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L76">View Source</a>
   </span>
   <a id="OpenSearch_Net_ServerError_Create_" data-uid="OpenSearch.Net.ServerError.Create*"></a>
-  <h4 id="OpenSearch_Net_ServerError_Create_System_IO_Stream_" data-uid="OpenSearch.Net.ServerError.Create(System.IO.Stream)">Create(Stream)</h4>
+  <h4 id="OpenSearch_Net_ServerError_Create_System_IO_Stream_OpenSearch_Net_IOpenSearchSerializer_" data-uid="OpenSearch.Net.ServerError.Create(System.IO.Stream,OpenSearch.Net.IOpenSearchSerializer)">Create(Stream, IOpenSearchSerializer)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ServerError Create(Stream stream)</code></pre>
+    <pre><code class="lang-csharp hljs">public static ServerError Create(Stream stream, IOpenSearchSerializer serializer = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -264,6 +264,11 @@ public int Status { get; }</code></pre>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></td>
         <td><span class="parametername">stream</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Net.IOpenSearchSerializer.html">IOpenSearchSerializer</a></td>
+        <td><span class="parametername">serializer</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -285,18 +290,18 @@ public int Status { get; }</code></pre>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError_CreateAsync_System_IO_Stream_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError.CreateAsync(System.IO.Stream%2CSystem.Threading.CancellationToken)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError_CreateAsync_System_IO_Stream_System_Threading_CancellationToken_OpenSearch_Net_IOpenSearchSerializer_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError.CreateAsync(System.IO.Stream%2CSystem.Threading.CancellationToken%2COpenSearch.Net.IOpenSearchSerializer)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L72">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L80">View Source</a>
   </span>
   <a id="OpenSearch_Net_ServerError_CreateAsync_" data-uid="OpenSearch.Net.ServerError.CreateAsync*"></a>
-  <h4 id="OpenSearch_Net_ServerError_CreateAsync_System_IO_Stream_System_Threading_CancellationToken_" data-uid="OpenSearch.Net.ServerError.CreateAsync(System.IO.Stream,System.Threading.CancellationToken)">CreateAsync(Stream, CancellationToken)</h4>
+  <h4 id="OpenSearch_Net_ServerError_CreateAsync_System_IO_Stream_System_Threading_CancellationToken_OpenSearch_Net_IOpenSearchSerializer_" data-uid="OpenSearch.Net.ServerError.CreateAsync(System.IO.Stream,System.Threading.CancellationToken,OpenSearch.Net.IOpenSearchSerializer)">CreateAsync(Stream, CancellationToken, IOpenSearchSerializer)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;ServerError&gt; CreateAsync(Stream stream, CancellationToken token = default)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task&lt;ServerError&gt; CreateAsync(Stream stream, CancellationToken token = default, IOpenSearchSerializer serializer = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -316,6 +321,11 @@ public int Status { get; }</code></pre>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
         <td><span class="parametername">token</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Net.IOpenSearchSerializer.html">IOpenSearchSerializer</a></td>
+        <td><span class="parametername">serializer</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -340,7 +350,7 @@ public int Status { get; }</code></pre>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError_ToString.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError.ToString%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L75">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L83">View Source</a>
   </span>
   <a id="OpenSearch_Net_ServerError_ToString_" data-uid="OpenSearch.Net.ServerError.ToString*"></a>
   <h4 id="OpenSearch_Net_ServerError_ToString" data-uid="OpenSearch.Net.ServerError.ToString">ToString()</h4>
@@ -369,18 +379,18 @@ public int Status { get; }</code></pre>
   <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError_TryCreate_System_IO_Stream_OpenSearch_Net_ServerError__.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError.TryCreate(System.IO.Stream%2COpenSearch.Net.ServerError%40)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Net_ServerError_TryCreate_System_IO_Stream_OpenSearch_Net_ServerError__OpenSearch_Net_IOpenSearchSerializer_.md&amp;value=---%0Auid%3A%20OpenSearch.Net.ServerError.TryCreate(System.IO.Stream%2COpenSearch.Net.ServerError%40%2COpenSearch.Net.IOpenSearchSerializer)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L54">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Net/Responses/ServerException/ServerError.cs/#L62">View Source</a>
   </span>
   <a id="OpenSearch_Net_ServerError_TryCreate_" data-uid="OpenSearch.Net.ServerError.TryCreate*"></a>
-  <h4 id="OpenSearch_Net_ServerError_TryCreate_System_IO_Stream_OpenSearch_Net_ServerError__" data-uid="OpenSearch.Net.ServerError.TryCreate(System.IO.Stream,OpenSearch.Net.ServerError@)">TryCreate(Stream, out ServerError)</h4>
+  <h4 id="OpenSearch_Net_ServerError_TryCreate_System_IO_Stream_OpenSearch_Net_ServerError__OpenSearch_Net_IOpenSearchSerializer_" data-uid="OpenSearch.Net.ServerError.TryCreate(System.IO.Stream,OpenSearch.Net.ServerError@,OpenSearch.Net.IOpenSearchSerializer)">TryCreate(Stream, out ServerError, IOpenSearchSerializer)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool TryCreate(Stream stream, out ServerError serverError)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool TryCreate(Stream stream, out ServerError serverError, IOpenSearchSerializer serializer = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -395,12 +405,23 @@ public int Status { get; }</code></pre>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></td>
         <td><span class="parametername">stream</span></td>
-        <td></td>
+        <td><p>The response stream containing the server's error body.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="OpenSearch.Net.ServerError.html">ServerError</a></td>
         <td><span class="parametername">serverError</span></td>
-        <td></td>
+        <td><p>The parsed error, or <code>null</code> if parsing failed.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenSearch.Net.IOpenSearchSerializer.html">IOpenSearchSerializer</a></td>
+        <td><span class="parametername">serializer</span></td>
+        <td><p>The serializer to deserialize with; defaults to the legacy Utf8Json <a class="xref" href="OpenSearch.Net.LowLevelRequestResponseSerializer.html">LowLevelRequestResponseSerializer</a>
+when omitted. Callers with access to the request's configured serializer (e.g. a response's
+<a class="xref" href="OpenSearch.Net.IApiCallDetails.html#OpenSearch_Net_IApiCallDetails_ConnectionConfiguration">ConnectionConfiguration</a>) should pass it, so error parsing honors the same
+engine as every other response type.</p>
+</td>
       </tr>
     </tbody>
   </table>

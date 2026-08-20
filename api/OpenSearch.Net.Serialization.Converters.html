@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace OpenSearch.Net.Serialization.Converters | OpenSearch.Net </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace OpenSearch.Net.Serialization.Converters | OpenSearch.Net ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../OpenSearch.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="OpenSearch.Net.Serialization.Converters">
+
+  <h1 id="OpenSearch_Net_Serialization_Converters" data-uid="OpenSearch.Net.Serialization.Converters" class="text-break">Namespace OpenSearch.Net.Serialization.Converters</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.DecimalConverter.html">DecimalConverter</a></h4>
+      <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.DoubleConverter.html">DoubleConverter</a></h4>
+      <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.DynamicDictionaryConverter.html">DynamicDictionaryConverter</a></h4>
+      <section><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1">JsonConverter&lt;T&gt;</a> for <a class="xref" href="OpenSearch.Net.DynamicDictionary.html">DynamicDictionary</a> that serializes
+key-value pairs as a JSON object and deserializes JSON objects or arrays into
+a <a class="xref" href="OpenSearch.Net.DynamicDictionary.html">DynamicDictionary</a>.</p>
+</section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.ErrorCauseConverter.html">ErrorCauseConverter</a></h4>
+      <section><p>Non-generic converter for the base <a class="xref" href="OpenSearch.Net.ErrorCause.html">ErrorCause</a> type.</p>
+</section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.ErrorCauseConverter-1.html">ErrorCauseConverter&lt;TErrorCause&gt;</a></h4>
+      <section><p>System.Text.Json replacement for the legacy Utf8Json <code>ErrorCauseFormatter&lt;T&gt;</code>.</p>
+<p>Reads an <a class="xref" href="OpenSearch.Net.ErrorCause.html">ErrorCause</a> that OpenSearch may return either as a bare string (treated as the
+<a class="xref" href="OpenSearch.Net.ErrorCause.html#OpenSearch_Net_ErrorCause_Reason">Reason</a>) or as an object with a fixed set of snake_case fields; unrecognised fields
+are collected into <a class="xref" href="OpenSearch.Net.ErrorCause.html#OpenSearch_Net_ErrorCause_AdditionalProperties">AdditionalProperties</a>. <code>caused_by</code> is recursive. Derived
+types extend the known-field set via the <a class="xref" href="OpenSearch.Net.Serialization.Converters.ErrorCauseConverter-1.html#OpenSearch_Net_Serialization_Converters_ErrorCauseConverter_1_ReadExtraField_System_Text_Json_Utf8JsonReader__System_String__0_System_Text_Json_JsonSerializerOptions_">ReadExtraField(ref Utf8JsonReader, string, TErrorCause, JsonSerializerOptions)</a> / <a class="xref" href="OpenSearch.Net.Serialization.Converters.ErrorCauseConverter-1.html#OpenSearch_Net_Serialization_Converters_ErrorCauseConverter_1_WriteExtraFields_System_Text_Json_Utf8JsonWriter__0_System_Text_Json_JsonSerializerOptions_">WriteExtraFields(Utf8JsonWriter, TErrorCause, JsonSerializerOptions)</a> hooks.</p>
+</section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.ErrorConverter.html">ErrorConverter</a></h4>
+      <section><p>System.Text.Json replacement for the legacy Utf8Json <code>ErrorFormatter</code>. Extends
+<a class="xref" href="OpenSearch.Net.Serialization.Converters.ErrorCauseConverter-1.html">ErrorCauseConverter&lt;TErrorCause&gt;</a> with the two <a class="xref" href="OpenSearch.Net.Error.html">Error</a>-specific fields:
+<code>headers</code> and <code>root_cause</code>.</p>
+</section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.ExceptionConverterFactory.html">ExceptionConverterFactory</a></h4>
+      <section><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverterfactory">JsonConverterFactory</a> that serializes any <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a> (and derived
+types) as a JSON array, one object per exception in the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception.innerexception">InnerException</a>
+chain. This replaces the legacy Utf8Json <code>ExceptionFormatter&lt;TException&gt;</code> and its
+resolver.</p>
+<p>Like the legacy formatter, this reads exception state via <code>ISerializable.GetObjectData</code>, so
+<code>RemoteStackTraceString</code> and <code>RemoteStackIndex</code> are still emitted and the output matches the legacy
+engine field-for-field. The one field the legacy formatter emitted that this does not is the structured
+<code>ExceptionMethod</code> object; on modern .NET <code>GetObjectData</code> no longer populates the underlying
+<code>ExceptionMethod</code> serialization entry, so the legacy formatter also produces nothing for it in practice
+(verified byte-for-byte across several exception shapes). Serialization is one-way; deserialization is not
+supported, matching the legacy behaviour.</p>
+</section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.GenericDictionaryConverterFactory.html">GenericDictionaryConverterFactory</a></h4>
+      <section><p>Handles dictionary types that System.Text.Json's built-in dictionary support cannot: those keyed by
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> (STJ rejects a non-string/non-primitive dictionary key) and read-only dictionary types
+that lack a public parameterless constructor (e.g. <code>ReadOnlyDictionary&lt;,&gt;</code>, a custom
+<code>IReadOnlyDictionary&lt;,&gt;</code>, or an <code>IIsADictionary</code> implementation). Keys are written verbatim via
+<code>ToString</code>; values delegate to the surrounding options. On read the target concrete type is reconstructed
+through a parameterless constructor + indexer, or a constructor accepting an <code>IDictionary&lt;TKey,TValue&gt;</code>.</p>
+<p>The common string-keyed cases (<code>Dictionary&lt;string,T&gt;</code>, <code>IDictionary&lt;string,T&gt;</code>,
+<code>Hashtable</code>) are left to STJ's built-in support — <a class="xref" href="OpenSearch.Net.Serialization.Converters.GenericDictionaryConverterFactory.html#OpenSearch_Net_Serialization_Converters_GenericDictionaryConverterFactory_CanConvert_System_Type_">CanConvert(Type)</a> only claims the types STJ fails.</p>
+</section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.InterfaceDataContractResolver.html">InterfaceDataContractResolver</a></h4>
+      <section><p>A System.Text.Json <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.ijsontypeinforesolver">IJsonTypeInfoResolver</a> that reproduces the legacy Utf8Json
+<code>[InterfaceDataContract]</code> behaviour: serialization metadata (<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.datamemberattribute">DataMemberAttribute</a> /
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.ignoredatamemberattribute">IgnoreDataMemberAttribute</a>) is frequently declared on the <em>interfaces</em> a request type
+implements rather than on the concrete class. When a type (or one of its interfaces) is marked with
+<span class="xref">OpenSearch.Net.Utf8Json.InterfaceDataContractAttribute</span>, this resolver:</p>
+<ul><li>opts the type into a data-contract model: only members carrying <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.datamemberattribute">DataMemberAttribute</a>
+(on the property or a matching interface property) are serialized;</li><li>honours <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.ignoredatamemberattribute">IgnoreDataMemberAttribute</a> and the <code>Name</code> of <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.datamemberattribute">DataMemberAttribute</a>
+as declared on the interface.</li></ul>
+<p>This is the System.Text.Json replacement for the metadata handling in the legacy <code>MetaType</code>.</p>
+</section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.Iso8601DateTimeConverter.html">Iso8601DateTimeConverter</a></h4>
+      <section><p>System.Text.Json replacements for the legacy Utf8Json <code>ISO8601DateTimeFormatter</code> /
+<code>ISO8601DateTimeOffsetFormatter</code> (the default DateTime/DateTimeOffset handling of the old engine).</p>
+<p>System.Text.Json's built-in <code>Utf8JsonReader.GetDateTime()</code> only accepts a strict RFC 3339 / ISO 8601
+extended profile: it rejects the ISO 8601 &quot;basic format&quot; numeric offsets OpenSearch emits and accepts
+(<code>+1000</code>, <code>+10</code>) and it caps fractional seconds at 7 digits. The legacy formatter parsed those
+forms, so relying on the built-in reader regresses real payloads (see GitHub issue #4876) with
+&quot;The JSON value is not in a supported DateTime format.&quot; This converter reproduces the legacy parser exactly.</p>
+<p>Behaviour mirrored from the legacy formatter:</p>
+<ul>
+<li>Truncated forms: &quot;YYYY&quot;, &quot;YYYY-MM&quot;, &quot;YYYY-MM-DD&quot;.</li>
+<li>Time to seconds precision, then optional '.' fraction of 1..7 significant digits (ticks); digits beyond the
+seventh are read and discarded (&quot;lack of precision&quot;).</li>
+<li>Zone: 'Z' (UTC), or a sign followed by an offset of length 3 (+hh), 5 (+hhmm) or 6 (+hh:mm). Any other
+offset length is an error.</li>
+<li>DateTime with an explicit offset is normalised to UTC then converted to local time (matching the legacy
+<code>...DateTimeKind.Utc).AddTicks(ticks).Subtract(offset).ToLocalTime()</code>); a bare value keeps
+<code>DateTimeKind.Unspecified</code> (or Utc for a trailing 'Z').</li>
+<li>Invalid input throws <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a> with the same message prefix as the legacy
+formatter, so callers that catch it (e.g. issue #4876's tests) keep working.</li>
+</ul>
+</section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.Iso8601DateTimeOffsetConverter.html">Iso8601DateTimeOffsetConverter</a></h4>
+      <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.NullableDecimalConverter.html">NullableDecimalConverter</a></h4>
+      <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.NullableDoubleConverter.html">NullableDoubleConverter</a></h4>
+      <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.NullableIso8601DateTimeConverter.html">NullableIso8601DateTimeConverter</a></h4>
+      <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.NullableIso8601DateTimeOffsetConverter.html">NullableIso8601DateTimeOffsetConverter</a></h4>
+      <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.NullableSingleConverter.html">NullableSingleConverter</a></h4>
+      <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.NullableStringIntConverter.html">NullableStringIntConverter</a></h4>
+      <section><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1">JsonConverter&lt;T&gt;</a> for <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> that handles values
+which may arrive from OpenSearch as a JSON number, a string containing a number, or null.</p>
+</section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.ObjectConverter.html">ObjectConverter</a></h4>
+      <section><p>Writes values whose declared (static) type is <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> — the common case for dynamic request bodies
+such as <code>Dictionary&lt;string, object&gt;</code> built from a parsed YAML/JSON document. System.Text.Json writes a
+dictionary's <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> values through the declared <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> type, which bypasses the
+registered <a class="xref" href="OpenSearch.Net.Serialization.Converters.DoubleConverter.html">DoubleConverter</a>/<a class="xref" href="OpenSearch.Net.Serialization.Converters.SingleConverter.html">SingleConverter</a>; an integral double like <code>3.0</code> would
+then be emitted as <code>3</code>, changing the value the server stores. This converter dispatches on the runtime type
+so boxed doubles/floats keep their trailing <code>.0</code> and nested objects/arrays recurse through the same rules.</p>
+<p>On read, System.Text.Json's own <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> handling (or a more specific converter such as
+<code>DynamicDictionaryConverter</code>) applies, so this converter is write-only and defers reading to the reader's
+element deserialization.</p>
+</section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.OpenSearchContractAttribute.html">OpenSearchContractAttribute</a></h4>
+      <section><p>Public marker attribute for the System.Text.Json data-contract model, usable on interfaces (unlike the
+framework's <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.datacontractattribute">DataContractAttribute</a>). It is the migration replacement for the Utf8Json-internal
+<code>[InterfaceDataContract]</code>: apply it to an interface (or type) whose <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.datamemberattribute">DataMemberAttribute</a>
+annotations should drive serialization via <a class="xref" href="OpenSearch.Net.Serialization.Converters.InterfaceDataContractResolver.html">InterfaceDataContractResolver</a>.</p>
+</section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.SingleConverter.html">SingleConverter</a></h4>
+      <section></section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.SingleOrManyCollectionConverter-1.html">SingleOrManyCollectionConverter&lt;T&gt;</a></h4>
+      <section><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1">JsonConverter&lt;T&gt;</a> for <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection&lt;T&gt;</a> that accepts either a
+JSON array or a single value. OpenSearch frequently omits the surrounding array when a field
+holds only one element (e.g. <code>&quot;foo&quot;</code> instead of <code>[&quot;foo&quot;]</code>); in that case the single
+value is wrapped into a one-element collection. This mirrors the legacy
+<code>InterfaceReadOnlyCollectionSingleOrEnumerableFormatter&lt;T&gt;</code>.</p>
+</section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.StringEnumConverterFactory.html">StringEnumConverterFactory</a></h4>
+      <section><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverterfactory">JsonConverterFactory</a> that produces string-based enum converters for
+enum types decorated with <a class="xref" href="OpenSearch.Net.StringEnumAttribute.html">StringEnumAttribute</a>. Mirrors the legacy Utf8Json
+<code>EnumFormatter</code>: the serialized name is <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.enummemberattribute">EnumMemberAttribute</a>.Value, else
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.datamemberattribute">DataMemberAttribute</a>.Name, else the verbatim enum field name (no camelCasing).</p>
+</section>
+      <h4><a class="xref" href="OpenSearch.Net.Serialization.Converters.ValueTupleConverterFactory.html">ValueTupleConverterFactory</a></h4>
+      <section><p>System.Text.Json replacement for the legacy Utf8Json <code>ValueTupleFormatter</code>. A <code>System.ValueTuple</code>
+exposes its elements as public FIELDS (Item1, Item2, …, and Rest for arity &gt; 7), which STJ does not serialize
+by default (IncludeFields is off), so a tuple member would otherwise render as an empty object. This factory
+(de)serializes the tuple as an object with <code>Item1..ItemN</code> properties, matching the legacy formatter,
+without turning on field serialization globally.</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

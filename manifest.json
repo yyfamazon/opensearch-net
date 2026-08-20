@@ -2170,6 +2170,132 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamAllDescriptor-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.BulkStreamAllDescriptor-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.BulkStreamAllDescriptor<T>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamAllExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.BulkStreamAllExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.BulkStreamAllExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamAllObservable-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.BulkStreamAllObservable-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.BulkStreamAllObservable<T>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamAllObserver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.BulkStreamAllObserver.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.BulkStreamAllObserver",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamAllRequest-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.BulkStreamAllRequest-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.BulkStreamAllRequest<T>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamAllResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.BulkStreamAllResponse.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.BulkStreamAllResponse",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Client.BulkStreamAllResponse.yml\" sourcestartlinenumber=\"1\">Response from a single bulk batch within the BulkStreamAll operation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamDescriptor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.BulkStreamDescriptor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.BulkStreamDescriptor",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Client.BulkStreamDescriptor.yml\" sourcestartlinenumber=\"1\">Descriptor for BulkStream</p>\n<p>https://opensearch.org/docs/latest/api-reference/document-apis/bulk-streaming/</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.BulkStreamRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.BulkStreamRequest",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Client.BulkStreamRequest.yml\" sourcestartlinenumber=\"1\">Request for BulkStream</p>\n<p>https://opensearch.org/docs/latest/api-reference/document-apis/bulk-streaming/</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.BulkStreamResponse.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.BulkStreamResponse",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkUpdateDescriptor-2.yml",
       "output": {
         ".html": {
@@ -13016,6 +13142,34 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "OpenSearch.Client.IBulkRequest",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.IBulkStreamAllRequest-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.IBulkStreamAllRequest-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.IBulkStreamAllRequest<T>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.IBulkStreamRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Client.IBulkStreamRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Client.IBulkStreamRequest",
       "Summary": null
     },
     {
@@ -41594,6 +41748,342 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.DecimalConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.DecimalConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.DecimalConverter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.DoubleConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.DoubleConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.DoubleConverter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.DynamicDictionaryConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.DynamicDictionaryConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.DynamicDictionaryConverter",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.DynamicDictionaryConverter.yml\" sourcestartlinenumber=\"1\">A <xref href=\"System.Text.Json.Serialization.JsonConverter%601\" data-throw-if-not-resolved=\"false\"></xref> for <xref href=\"OpenSearch.Net.DynamicDictionary\" data-throw-if-not-resolved=\"false\"></xref> that serializes\nkey-value pairs as a JSON object and deserializes JSON objects or arrays into\na <xref href=\"OpenSearch.Net.DynamicDictionary\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.ErrorCauseConverter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.ErrorCauseConverter-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.ErrorCauseConverter<TErrorCause>",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.ErrorCauseConverter-1.yml\" sourcestartlinenumber=\"1\">System.Text.Json replacement for the legacy Utf8Json <code>ErrorCauseFormatter&lt;T&gt;</code>.</p>\n<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.ErrorCauseConverter-1.yml\" sourcestartlinenumber=\"3\">Reads an <xref href=\"OpenSearch.Net.ErrorCause\" data-throw-if-not-resolved=\"false\"></xref> that OpenSearch may return either as a bare string (treated as the\n<xref href=\"OpenSearch.Net.ErrorCause.Reason\" data-throw-if-not-resolved=\"false\"></xref>) or as an object with a fixed set of snake_case fields; unrecognised fields\nare collected into <xref href=\"OpenSearch.Net.ErrorCause.AdditionalProperties\" data-throw-if-not-resolved=\"false\"></xref>. <code>caused_by</code> is recursive. Derived\ntypes extend the known-field set via the <xref href=\"OpenSearch.Net.Serialization.Converters.ErrorCauseConverter%601.ReadExtraField(System.Text.Json.Utf8JsonReader%40%2cSystem.String%2c%600%2cSystem.Text.Json.JsonSerializerOptions)\" data-throw-if-not-resolved=\"false\"></xref> / <xref href=\"OpenSearch.Net.Serialization.Converters.ErrorCauseConverter%601.WriteExtraFields(System.Text.Json.Utf8JsonWriter%2c%600%2cSystem.Text.Json.JsonSerializerOptions)\" data-throw-if-not-resolved=\"false\"></xref> hooks.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.ErrorCauseConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.ErrorCauseConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.ErrorCauseConverter",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.ErrorCauseConverter.yml\" sourcestartlinenumber=\"1\">Non-generic converter for the base <xref href=\"OpenSearch.Net.ErrorCause\" data-throw-if-not-resolved=\"false\"></xref> type.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.ErrorConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.ErrorConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.ErrorConverter",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.ErrorConverter.yml\" sourcestartlinenumber=\"1\">System.Text.Json replacement for the legacy Utf8Json <code>ErrorFormatter</code>. Extends\n<xref href=\"OpenSearch.Net.Serialization.Converters.ErrorCauseConverter%601\" data-throw-if-not-resolved=\"false\"></xref> with the two <xref href=\"OpenSearch.Net.Error\" data-throw-if-not-resolved=\"false\"></xref>-specific fields:\n<code>headers</code> and <code>root_cause</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.ExceptionConverterFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.ExceptionConverterFactory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.ExceptionConverterFactory",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.ExceptionConverterFactory.yml\" sourcestartlinenumber=\"1\">A <xref href=\"System.Text.Json.Serialization.JsonConverterFactory\" data-throw-if-not-resolved=\"false\"></xref> that serializes any <xref href=\"System.Exception\" data-throw-if-not-resolved=\"false\"></xref> (and derived\ntypes) as a JSON array, one object per exception in the <xref href=\"System.Exception.InnerException\" data-throw-if-not-resolved=\"false\"></xref>\nchain. This replaces the legacy Utf8Json <code>ExceptionFormatter&lt;TException&gt;</code> and its\nresolver.</p>\n<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.ExceptionConverterFactory.yml\" sourcestartlinenumber=\"6\">Like the legacy formatter, this reads exception state via <code>ISerializable.GetObjectData</code>, so\n<code>RemoteStackTraceString</code> and <code>RemoteStackIndex</code> are still emitted and the output matches the legacy\nengine field-for-field. The one field the legacy formatter emitted that this does not is the structured\n<code>ExceptionMethod</code> object; on modern .NET <code>GetObjectData</code> no longer populates the underlying\n<code>ExceptionMethod</code> serialization entry, so the legacy formatter also produces nothing for it in practice\n(verified byte-for-byte across several exception shapes). Serialization is one-way; deserialization is not\nsupported, matching the legacy behaviour.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.GenericDictionaryConverterFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.GenericDictionaryConverterFactory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.GenericDictionaryConverterFactory",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.GenericDictionaryConverterFactory.yml\" sourcestartlinenumber=\"1\">Handles dictionary types that System.Text.Json's built-in dictionary support cannot: those keyed by\n<xref href=\"System.Object\" data-throw-if-not-resolved=\"false\"></xref> (STJ rejects a non-string/non-primitive dictionary key) and read-only dictionary types\nthat lack a public parameterless constructor (e.g. <code>ReadOnlyDictionary&lt;,&gt;</code>, a custom\n<code>IReadOnlyDictionary&lt;,&gt;</code>, or an <code>IIsADictionary</code> implementation). Keys are written verbatim via\n<code>ToString</code>; values delegate to the surrounding options. On read the target concrete type is reconstructed\nthrough a parameterless constructor + indexer, or a constructor accepting an <code>IDictionary&lt;TKey,TValue&gt;</code>.</p>\n<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.GenericDictionaryConverterFactory.yml\" sourcestartlinenumber=\"8\">The common string-keyed cases (<code>Dictionary&lt;string,T&gt;</code>, <code>IDictionary&lt;string,T&gt;</code>,\n<code>Hashtable</code>) are left to STJ's built-in support — <xref href=\"OpenSearch.Net.Serialization.Converters.GenericDictionaryConverterFactory.CanConvert(System.Type)\" data-throw-if-not-resolved=\"false\"></xref> only claims the types STJ fails.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.InterfaceDataContractResolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.InterfaceDataContractResolver.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.InterfaceDataContractResolver",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.InterfaceDataContractResolver.yml\" sourcestartlinenumber=\"1\">A System.Text.Json <xref href=\"System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver\" data-throw-if-not-resolved=\"false\"></xref> that reproduces the legacy Utf8Json\n<code>[InterfaceDataContract]</code> behaviour: serialization metadata (<xref href=\"System.Runtime.Serialization.DataMemberAttribute\" data-throw-if-not-resolved=\"false\"></xref> /\n<xref href=\"System.Runtime.Serialization.IgnoreDataMemberAttribute\" data-throw-if-not-resolved=\"false\"></xref>) is frequently declared on the <em>interfaces</em> a request type\nimplements rather than on the concrete class. When a type (or one of its interfaces) is marked with\n<xref href=\"OpenSearch.Net.Utf8Json.InterfaceDataContractAttribute\" data-throw-if-not-resolved=\"false\"></xref>, this resolver:</p>\n<ul><li>opts the type into a data-contract model: only members carrying <xref href=\"System.Runtime.Serialization.DataMemberAttribute\" data-throw-if-not-resolved=\"false\"></xref>\n(on the property or a matching interface property) are serialized;</li><li>honours <xref href=\"System.Runtime.Serialization.IgnoreDataMemberAttribute\" data-throw-if-not-resolved=\"false\"></xref> and the <code>Name</code> of <xref href=\"System.Runtime.Serialization.DataMemberAttribute\" data-throw-if-not-resolved=\"false\"></xref>\nas declared on the interface.</li></ul>\n<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.InterfaceDataContractResolver.yml\" sourcestartlinenumber=\"11\">This is the System.Text.Json replacement for the metadata handling in the legacy <code>MetaType</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.Iso8601DateTimeConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.Iso8601DateTimeConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.Iso8601DateTimeConverter",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.Iso8601DateTimeConverter.yml\" sourcestartlinenumber=\"1\">System.Text.Json replacements for the legacy Utf8Json <code>ISO8601DateTimeFormatter</code> /\n<code>ISO8601DateTimeOffsetFormatter</code> (the default DateTime/DateTimeOffset handling of the old engine).</p>\n<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.Iso8601DateTimeConverter.yml\" sourcestartlinenumber=\"4\">System.Text.Json's built-in <code>Utf8JsonReader.GetDateTime()</code> only accepts a strict RFC 3339 / ISO 8601\nextended profile: it rejects the ISO 8601 &quot;basic format&quot; numeric offsets OpenSearch emits and accepts\n(<code>+1000</code>, <code>+10</code>) and it caps fractional seconds at 7 digits. The legacy formatter parsed those\nforms, so relying on the built-in reader regresses real payloads (see GitHub issue #4876) with\n&quot;The JSON value is not in a supported DateTime format.&quot; This converter reproduces the legacy parser exactly.</p>\n<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.Iso8601DateTimeConverter.yml\" sourcestartlinenumber=\"10\">Behaviour mirrored from the legacy formatter:</p>\n<ul sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.Iso8601DateTimeConverter.yml\" sourcestartlinenumber=\"11\">\n<li sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.Iso8601DateTimeConverter.yml\" sourcestartlinenumber=\"11\">Truncated forms: &quot;YYYY&quot;, &quot;YYYY-MM&quot;, &quot;YYYY-MM-DD&quot;.</li>\n<li sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.Iso8601DateTimeConverter.yml\" sourcestartlinenumber=\"12\">Time to seconds precision, then optional '.' fraction of 1..7 significant digits (ticks); digits beyond the\nseventh are read and discarded (&quot;lack of precision&quot;).</li>\n<li sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.Iso8601DateTimeConverter.yml\" sourcestartlinenumber=\"14\">Zone: 'Z' (UTC), or a sign followed by an offset of length 3 (+hh), 5 (+hhmm) or 6 (+hh:mm). Any other\noffset length is an error.</li>\n<li sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.Iso8601DateTimeConverter.yml\" sourcestartlinenumber=\"16\">DateTime with an explicit offset is normalised to UTC then converted to local time (matching the legacy\n<code>...DateTimeKind.Utc).AddTicks(ticks).Subtract(offset).ToLocalTime()</code>); a bare value keeps\n<code>DateTimeKind.Unspecified</code> (or Utc for a trailing 'Z').</li>\n<li sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.Iso8601DateTimeConverter.yml\" sourcestartlinenumber=\"19\">Invalid input throws <xref href=\"System.InvalidOperationException\" data-throw-if-not-resolved=\"false\"></xref> with the same message prefix as the legacy\nformatter, so callers that catch it (e.g. issue #4876's tests) keep working.</li>\n</ul>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.Iso8601DateTimeOffsetConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.Iso8601DateTimeOffsetConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.Iso8601DateTimeOffsetConverter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.NullableDecimalConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.NullableDecimalConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.NullableDecimalConverter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.NullableDoubleConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.NullableDoubleConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.NullableDoubleConverter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.NullableIso8601DateTimeConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.NullableIso8601DateTimeConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.NullableIso8601DateTimeConverter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.NullableIso8601DateTimeOffsetConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.NullableIso8601DateTimeOffsetConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.NullableIso8601DateTimeOffsetConverter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.NullableSingleConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.NullableSingleConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.NullableSingleConverter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.NullableStringIntConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.NullableStringIntConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.NullableStringIntConverter",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.NullableStringIntConverter.yml\" sourcestartlinenumber=\"1\">A <xref href=\"System.Text.Json.Serialization.JsonConverter%601\" data-throw-if-not-resolved=\"false\"></xref> for <xref href=\"System.Nullable%601\" data-throw-if-not-resolved=\"false\"></xref> that handles values\nwhich may arrive from OpenSearch as a JSON number, a string containing a number, or null.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.ObjectConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.ObjectConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.ObjectConverter",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.ObjectConverter.yml\" sourcestartlinenumber=\"1\">Writes values whose declared (static) type is <xref href=\"System.Object\" data-throw-if-not-resolved=\"false\"></xref> — the common case for dynamic request bodies\nsuch as <code>Dictionary&lt;string, object&gt;</code> built from a parsed YAML/JSON document. System.Text.Json writes a\ndictionary's <xref href=\"System.Object\" data-throw-if-not-resolved=\"false\"></xref> values through the declared <xref href=\"System.Object\" data-throw-if-not-resolved=\"false\"></xref> type, which bypasses the\nregistered <xref href=\"OpenSearch.Net.Serialization.Converters.DoubleConverter\" data-throw-if-not-resolved=\"false\"></xref>/<xref href=\"OpenSearch.Net.Serialization.Converters.SingleConverter\" data-throw-if-not-resolved=\"false\"></xref>; an integral double like <code>3.0</code> would\nthen be emitted as <code>3</code>, changing the value the server stores. This converter dispatches on the runtime type\nso boxed doubles/floats keep their trailing <code>.0</code> and nested objects/arrays recurse through the same rules.</p>\n<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.ObjectConverter.yml\" sourcestartlinenumber=\"8\">On read, System.Text.Json's own <xref href=\"System.Object\" data-throw-if-not-resolved=\"false\"></xref> handling (or a more specific converter such as\n<code>DynamicDictionaryConverter</code>) applies, so this converter is write-only and defers reading to the reader's\nelement deserialization.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.OpenSearchContractAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.OpenSearchContractAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.OpenSearchContractAttribute",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.OpenSearchContractAttribute.yml\" sourcestartlinenumber=\"1\">Public marker attribute for the System.Text.Json data-contract model, usable on interfaces (unlike the\nframework's <xref href=\"System.Runtime.Serialization.DataContractAttribute\" data-throw-if-not-resolved=\"false\"></xref>). It is the migration replacement for the Utf8Json-internal\n<code>[InterfaceDataContract]</code>: apply it to an interface (or type) whose <xref href=\"System.Runtime.Serialization.DataMemberAttribute\" data-throw-if-not-resolved=\"false\"></xref>\nannotations should drive serialization via <xref href=\"OpenSearch.Net.Serialization.Converters.InterfaceDataContractResolver\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.SingleConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.SingleConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.SingleConverter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.SingleOrManyCollectionConverter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.SingleOrManyCollectionConverter-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.SingleOrManyCollectionConverter<T>",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.SingleOrManyCollectionConverter-1.yml\" sourcestartlinenumber=\"1\">A <xref href=\"System.Text.Json.Serialization.JsonConverter%601\" data-throw-if-not-resolved=\"false\"></xref> for <xref href=\"System.Collections.Generic.IReadOnlyCollection%601\" data-throw-if-not-resolved=\"false\"></xref> that accepts either a\nJSON array or a single value. OpenSearch frequently omits the surrounding array when a field\nholds only one element (e.g. <code>&quot;foo&quot;</code> instead of <code>[&quot;foo&quot;]</code>); in that case the single\nvalue is wrapped into a one-element collection. This mirrors the legacy\n<code>InterfaceReadOnlyCollectionSingleOrEnumerableFormatter&lt;T&gt;</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.StringEnumConverterFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.StringEnumConverterFactory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.StringEnumConverterFactory",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.StringEnumConverterFactory.yml\" sourcestartlinenumber=\"1\">A <xref href=\"System.Text.Json.Serialization.JsonConverterFactory\" data-throw-if-not-resolved=\"false\"></xref> that produces string-based enum converters for\nenum types decorated with <xref href=\"OpenSearch.Net.StringEnumAttribute\" data-throw-if-not-resolved=\"false\"></xref>. Mirrors the legacy Utf8Json\n<code>EnumFormatter</code>: the serialized name is <xref href=\"System.Runtime.Serialization.EnumMemberAttribute\" data-throw-if-not-resolved=\"false\"></xref>.Value, else\n<xref href=\"System.Runtime.Serialization.DataMemberAttribute\" data-throw-if-not-resolved=\"false\"></xref>.Name, else the verbatim enum field name (no camelCasing).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.ValueTupleConverterFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.ValueTupleConverterFactory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters.ValueTupleConverterFactory",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.ValueTupleConverterFactory.yml\" sourcestartlinenumber=\"1\">System.Text.Json replacement for the legacy Utf8Json <code>ValueTupleFormatter</code>. A <code>System.ValueTuple</code>\nexposes its elements as public FIELDS (Item1, Item2, …, and Rest for arity &gt; 7), which STJ does not serialize\nby default (IncludeFields is off), so a tuple member would otherwise render as an empty object. This factory\n(de)serializes the tuple as an object with <code>Item1..ItemN</code> properties, matching the legacy formatter,\nwithout turning on field serialization globally.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.Serialization.Converters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.Serialization.Converters.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.Serialization.Converters",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.SerializationFormatting.yml",
       "output": {
         ".html": {
@@ -49112,6 +49602,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.SystemTextJsonEnvironment.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.SystemTextJsonEnvironment.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.SystemTextJsonEnvironment",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.SystemTextJsonEnvironment.yml\" sourcestartlinenumber=\"1\">Shared environment-variable resolution for the System.Text.Json / Utf8Json engine switch (GitHub issue\n#388), used by both <xref href=\"OpenSearch.Net.ConnectionConfiguration%601\" data-throw-if-not-resolved=\"false\"></xref> (the low-level engine) and\n<code>OpenSearch.Client.ConnectionSettingsBase</code> (the high-level engine). Each layer's own programmatic\n<code>UseSystemTextJson()</code> call takes precedence over this; the two layers select their engines\nindependently even though they read the same variable.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.SystemTextJsonSerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenSearch.Net.SystemTextJsonSerializer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpenSearch.Net.SystemTextJsonSerializer",
+      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Net.SystemTextJsonSerializer.yml\" sourcestartlinenumber=\"1\">A serializer implementation using System.Text.Json, replacing the legacy Utf8Json-based\n<xref href=\"OpenSearch.Net.LowLevelRequestResponseSerializer\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/temp/docfxapi/OpenSearch.Net.TasksGroupBy.yml",
       "output": {
         ".html": {
@@ -49730,11 +50248,11 @@
       "type": "Toc",
       "source_relative_path": "obj/temp/docfxapi/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "api/toc.html"
-        },
         ".json": {
           "relative_path": "api/toc.json"
+        },
+        ".html": {
+          "relative_path": "api/toc.html"
         }
       },
       "version": ""
@@ -49743,11 +50261,11 @@
       "type": "Toc",
       "source_relative_path": "toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "toc.html"
-        },
         ".json": {
           "relative_path": "toc.json"
+        },
+        ".html": {
+          "relative_path": "toc.html"
         }
       },
       "version": ""
