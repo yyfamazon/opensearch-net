@@ -37,8 +37,8 @@ namespace OpenSearch.Client
 		Action<BulkStreamDescriptor, IList<T>> BufferToBulk { get; set; }
 
 		/// <summary>
-		/// Halt the bulk all request if any of the documents returned is a failure that can not be retried.
-		/// When true, will feed dropped documents to <see cref="DroppedDocumentCallback" />.
+		/// When <c>true</c> (the default), non-retryable document failures are fed to <see cref="DroppedDocumentCallback" />
+		/// and ingestion continues. When <c>false</c>, the first non-retryable failure halts the whole stream.
 		/// </summary>
 		bool ContinueAfterDroppedDocuments { get; set; }
 
@@ -98,12 +98,6 @@ namespace OpenSearch.Client
 		/// Null = round-robin (no ordering guarantee).
 		/// </summary>
 		Func<T, string> DocumentAffinityKey { get; set; }
-
-		/// <summary>
-		/// Time-based flush interval. When set, each worker will flush its buffer at least this often
-		/// even if the batch size has not been reached. Null = no timer-based flush.
-		/// </summary>
-		TimeSpan? FlushInterval { get; set; }
 	}
 
 	public class BulkStreamAllRequest<T> : IBulkStreamAllRequest<T>, IHelperCallable
@@ -113,6 +107,7 @@ namespace OpenSearch.Client
 		{
 			Documents = documents;
 			Index = typeof(T);
+			ContinueAfterDroppedDocuments = true;
 		}
 
 		/// <inheritdoc />
@@ -174,9 +169,6 @@ namespace OpenSearch.Client
 
 		/// <inheritdoc />
 		public Func<T, string> DocumentAffinityKey { get; set; }
-
-		/// <inheritdoc />
-		public TimeSpan? FlushInterval { get; set; }
 
 		internal RequestMetaData ParentMetaData { get; set; }
 

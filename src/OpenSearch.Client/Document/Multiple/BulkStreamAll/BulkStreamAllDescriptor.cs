@@ -20,6 +20,7 @@ namespace OpenSearch.Client
 		{
 			_documents = documents;
 			((IBulkStreamAllRequest<T>)this).Index = typeof(T);
+			((IBulkStreamAllRequest<T>)this).ContinueAfterDroppedDocuments = true;
 		}
 
 		int? IBulkStreamAllRequest<T>.MaxRetries { get; set; }
@@ -42,7 +43,6 @@ namespace OpenSearch.Client
 		int? IBulkStreamAllRequest<T>.WaitForActiveShards { get; set; }
 		Action<BulkStreamResponse> IBulkStreamAllRequest<T>.BulkResponseCallback { get; set; }
 		Func<T, string> IBulkStreamAllRequest<T>.DocumentAffinityKey { get; set; }
-		TimeSpan? IBulkStreamAllRequest<T>.FlushInterval { get; set; }
 		RequestMetaData IHelperCallable.ParentMetaData { get; set; }
 
 		/// <inheritdoc cref="IBulkStreamAllRequest{T}.MaxDegreeOfParallelism" />
@@ -117,10 +117,6 @@ namespace OpenSearch.Client
 		/// <inheritdoc cref="IBulkStreamAllRequest{T}.DocumentAffinityKey" />
 		public BulkStreamAllDescriptor<T> DocumentAffinityKey(Func<T, string> keySelector) =>
 			Assign(keySelector, (a, v) => a.DocumentAffinityKey = v);
-
-		/// <inheritdoc cref="IBulkStreamAllRequest{T}.FlushInterval" />
-		public BulkStreamAllDescriptor<T> FlushInterval(TimeSpan? interval) =>
-			Assign(interval, (a, v) => a.FlushInterval = v);
 
 		/// <inheritdoc cref="IBulkStreamAllRequest{T}.WaitForActiveShards" />
 		public BulkStreamAllDescriptor<T> WaitForActiveShards(int? shards) =>

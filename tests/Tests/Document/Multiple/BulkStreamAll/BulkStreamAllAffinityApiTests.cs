@@ -88,40 +88,38 @@ namespace Tests.Document.Multiple.BulkStreamAll
 		{
 			var index = CreateIndexName();
 
-			// Create documents where each key has sequential IDs
-			var documents = new List<SmallObject>();
-			for (var batch = 0; batch < 10; batch++)
-			{
-				for (var key = 0; key < 5; key++)
-				{
-					documents.Add(new SmallObject { Id = batch * 5 + key, Name = $"order-{key}" });
-				}
-			}
+			// Many small batches per worker so out-of-order dispatch would be observable.
+			var numberOfDocuments = 2000;
+			var distinctKeys = 4;
+			var documents = CreateDocumentsWithAffinityKeys(numberOfDocuments, distinctKeys);
 
-			var size = 10; // Force multiple batches
-			var batchesByWorker = new ConcurrentDictionary<int, ConcurrentBag<long>>();
+			var size = 20; // Force many batches per worker
+			// Record the order in which each worker's batches COMPLETE, without sorting, so that
+			// a page arriving out of order is caught rather than masked by an OrderBy.
+			var completionOrderByWorker = new ConcurrentDictionary<int, ConcurrentQueue<long>>();
 
-			var observableBulk = Client.BulkStreamAll((IEnumerable<SmallObject>)documents, f => f
+			var observableBulk = Client.BulkStreamAll(documents, f => f
 				.MaxDegreeOfParallelism(4)
 				.Size(size)
 				.Index(index)
 				.DocumentAffinityKey(doc => doc.Name)
 			);
 
-			observableBulk.Wait(TimeSpan.FromSeconds(30), b =>
+			observableBulk.Wait(TimeSpan.FromSeconds(60), b =>
 			{
-				var bag = batchesByWorker.GetOrAdd(b.WorkerIndex, _ => new ConcurrentBag<long>());
-				bag.Add(b.Page);
+				var queue = completionOrderByWorker.GetOrAdd(b.WorkerIndex, _ => new ConcurrentQueue<long>());
+				queue.Enqueue(b.Page);
 			});
 
-			// Each worker should have received pages in order (page numbers increasing)
-			foreach (var kvp in batchesByWorker)
+			// Because at most one batch per worker is in flight at a time, each worker's batches must
+			// complete in the exact order they were dispatched: strictly ascending page numbers with no gaps.
+			foreach (var kvp in completionOrderByWorker)
 			{
-				var pages = kvp.Value.OrderBy(p => p).ToList();
-				for (var i = 1; i < pages.Count; i++)
+				var arrivalOrder = kvp.Value.ToArray();
+				for (var i = 0; i < arrivalOrder.Length; i++)
 				{
-					pages[i].Should().BeGreaterThan(pages[i - 1],
-						$"Worker {kvp.Key} should process pages in order");
+					arrivalOrder[i].Should().Be(i,
+						$"worker {kvp.Key} must complete batches in dispatch order (page {i} expected at position {i}, without pre-sorting)");
 				}
 			}
 		}
