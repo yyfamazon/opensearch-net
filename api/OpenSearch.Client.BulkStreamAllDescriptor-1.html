@@ -344,8 +344,8 @@ of describing how the buffer should be translated to a bulk operation.</p>
   </span>
   <a id="OpenSearch_Client_BulkStreamAllDescriptor_1_ContinueAfterDroppedDocuments_" data-uid="OpenSearch.Client.BulkStreamAllDescriptor`1.ContinueAfterDroppedDocuments*"></a>
   <h4 id="OpenSearch_Client_BulkStreamAllDescriptor_1_ContinueAfterDroppedDocuments_System_Boolean_" data-uid="OpenSearch.Client.BulkStreamAllDescriptor`1.ContinueAfterDroppedDocuments(System.Boolean)">ContinueAfterDroppedDocuments(bool)</h4>
-  <div class="markdown level1 summary"><p>Halt the bulk all request if any of the documents returned is a failure that can not be retried.
-When true, will feed dropped documents to <a class="xref" href="OpenSearch.Client.IBulkStreamAllRequest-1.html#OpenSearch_Client_IBulkStreamAllRequest_1_DroppedDocumentCallback">DroppedDocumentCallback</a>.</p>
+  <div class="markdown level1 summary"><p>When <code>true</code> (the default), non-retryable document failures are fed to <a class="xref" href="OpenSearch.Client.IBulkStreamAllRequest-1.html#OpenSearch_Client_IBulkStreamAllRequest_1_DroppedDocumentCallback">DroppedDocumentCallback</a>
+and ingestion continues. When <code>false</code>, the first non-retryable failure halts the whole stream.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -463,55 +463,6 @@ Null = round-robin (no ordering guarantee).</p>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<a class="xref" href="OpenSearch.Client.BulkResponseItemBase.html">BulkResponseItemBase</a>, T&gt;</td>
         <td><span class="parametername">callback</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="OpenSearch.Client.BulkStreamAllDescriptor-1.html">BulkStreamAllDescriptor</a>&lt;T&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamAllDescriptor_1_FlushInterval_System_Nullable_System_TimeSpan__.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamAllDescriptor%601.FlushInterval(System.Nullable%7BSystem.TimeSpan%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Document/Multiple/BulkStreamAll/BulkStreamAllDescriptor.cs/#L122">View Source</a>
-  </span>
-  <a id="OpenSearch_Client_BulkStreamAllDescriptor_1_FlushInterval_" data-uid="OpenSearch.Client.BulkStreamAllDescriptor`1.FlushInterval*"></a>
-  <h4 id="OpenSearch_Client_BulkStreamAllDescriptor_1_FlushInterval_System_Nullable_System_TimeSpan__" data-uid="OpenSearch.Client.BulkStreamAllDescriptor`1.FlushInterval(System.Nullable{System.TimeSpan})">FlushInterval(TimeSpan?)</h4>
-  <div class="markdown level1 summary"><p>Time-based flush interval. When set, each worker will flush its buffer at least this often
-even if the batch size has not been reached. Null = no timer-based flush.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public BulkStreamAllDescriptor&lt;T&gt; FlushInterval(TimeSpan? interval)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a>?</td>
-        <td><span class="parametername">interval</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -1159,7 +1110,7 @@ Defaults to failed bulk items with a HTTP 429 (Too Many Requests) response statu
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_BulkStreamAllDescriptor_1_WaitForActiveShards_System_Nullable_System_Int32__.md&amp;value=---%0Auid%3A%20OpenSearch.Client.BulkStreamAllDescriptor%601.WaitForActiveShards(System.Nullable%7BSystem.Int32%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Document/Multiple/BulkStreamAll/BulkStreamAllDescriptor.cs/#L126">View Source</a>
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Document/Multiple/BulkStreamAll/BulkStreamAllDescriptor.cs/#L122">View Source</a>
   </span>
   <a id="OpenSearch_Client_BulkStreamAllDescriptor_1_WaitForActiveShards_" data-uid="OpenSearch.Client.BulkStreamAllDescriptor`1.WaitForActiveShards*"></a>
   <h4 id="OpenSearch_Client_BulkStreamAllDescriptor_1_WaitForActiveShards_System_Nullable_System_Int32__" data-uid="OpenSearch.Client.BulkStreamAllDescriptor`1.WaitForActiveShards(System.Nullable{System.Int32})">WaitForActiveShards(int?)</h4>
