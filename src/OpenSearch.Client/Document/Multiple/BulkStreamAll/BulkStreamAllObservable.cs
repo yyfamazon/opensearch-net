@@ -44,8 +44,10 @@ namespace OpenSearch.Client
 		{
 			_client = client;
 			_request = request;
-			_bulkSize = request.Size ?? BulkStreamAllDefaults.SizeDefault;
-			_maxDegreeOfParallelism = request.MaxDegreeOfParallelism ?? BulkStreamAllDefaults.MaxDegreeOfParallelismDefault;
+			// Clamp to at least 1: a Size <= 0 makes PartitionHelper loop forever on empty batches, and a
+			// MaxDegreeOfParallelism <= 0 divides by zero when routing/round-robining.
+			_bulkSize = Math.Max(1, request.Size ?? BulkStreamAllDefaults.SizeDefault);
+			_maxDegreeOfParallelism = Math.Max(1, request.MaxDegreeOfParallelism ?? BulkStreamAllDefaults.MaxDegreeOfParallelismDefault);
 			_affinityKeySelector = request.DocumentAffinityKey;
 			_compositeCancelTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 			_compositeCancelToken = _compositeCancelTokenSource.Token;
@@ -81,11 +83,6 @@ namespace OpenSearch.Client
 
 		private async Task RunAsync(IObserver<BulkStreamAllResponse> observer)
 		{
-			// One slot per worker holding that worker's most recently scheduled dispatch. A new batch for a
-			// worker is chained after its previous batch so at most one batch per worker is ever in flight;
-			// this preserves on-the-wire ordering for batches routed to the same worker (e.g. all operations
-			// sharing a DocumentAffinityKey). Total in-flight batches are therefore bounded by MaxDegreeOfParallelism.
-			var workerTails = new Task[_maxDegreeOfParallelism];
 			var observerLock = new object();
 			Exception dispatchException = null;
 
@@ -111,6 +108,85 @@ namespace OpenSearch.Client
 				}
 			}
 
+			try
+			{
+				if (_affinityKeySelector != null)
+					await RunWithAffinityAsync(DispatchAsync).ConfigureAwait(false);
+				else
+					await RunRoundRobinAsync(DispatchAsync).ConfigureAwait(false);
+
+				OnCompleted(null, observer);
+			}
+			catch (Exception ex)
+			{
+				OnCompleted(dispatchException ?? ex, observer);
+			}
+		}
+
+		// Round-robin dispatch: batches run concurrently up to MaxDegreeOfParallelism and are scheduled by
+		// whichever finishes first (as BulkAllObservable does via ForEachAsync). Without a DocumentAffinityKey
+		// there is no ordering to protect, so a slow or retrying batch only occupies one of the N in-flight
+		// slots instead of stalling a whole worker while the others sit idle.
+		private async Task RunRoundRobinAsync(Func<IList<T>, long, int, Task> dispatch)
+		{
+			var inFlight = new List<Task>();
+			var partitioned = new PartitionHelper<T>(_request.Documents, _bulkSize);
+			long page = 0;
+
+			try
+			{
+				foreach (var batch in partitioned)
+				{
+					_compositeCancelToken.ThrowIfCancellationRequested();
+
+					// Reap finished dispatches (propagating any failure) so the list can't grow unbounded when
+					// back pressure holds the in-flight count below MaxDegreeOfParallelism.
+					for (var i = inFlight.Count - 1; i >= 0; i--)
+					{
+						if (!inFlight[i].IsCompleted) continue;
+						var finished = inFlight[i];
+						inFlight.RemoveAt(i);
+						await finished.ConfigureAwait(false);
+					}
+
+					// Cap concurrency at MaxDegreeOfParallelism, freeing a slot as soon as any batch completes.
+					while (inFlight.Count >= _maxDegreeOfParallelism)
+					{
+						var completed = await Task.WhenAny(inFlight).ConfigureAwait(false);
+						inFlight.Remove(completed);
+						await completed.ConfigureAwait(false);
+					}
+
+					// Throttle the producer against consumer progress when back pressure is configured.
+					if (_request.BackPressure != null)
+						await _request.BackPressure.WaitAsync(_compositeCancelToken).ConfigureAwait(false);
+
+					inFlight.Add(dispatch(batch, page, (int)(page % _maxDegreeOfParallelism)));
+					page++;
+				}
+
+				await Task.WhenAll(inFlight).ConfigureAwait(false);
+			}
+			catch
+			{
+				// Observe every scheduled dispatch so faulted batches never surface as unobserved task exceptions.
+				try { await Task.WhenAll(inFlight).ConfigureAwait(false); }
+				catch { /* the originating failure is surfaced by the caller */ }
+				throw;
+			}
+		}
+
+		// Affinity dispatch: hash each document's key to a worker and chain that worker's batches so at most one
+		// batch per worker is ever in flight, preserving on-the-wire ordering for operations sharing a key.
+		private async Task RunWithAffinityAsync(Func<IList<T>, long, int, Task> dispatch)
+		{
+			var buffers = new List<T>[_maxDegreeOfParallelism];
+			for (var i = 0; i < _maxDegreeOfParallelism; i++)
+				buffers[i] = new List<T>(_bulkSize);
+
+			var pageCounters = new long[_maxDegreeOfParallelism];
+			var workerTails = new Task[_maxDegreeOfParallelism];
+
 			async Task FlushAsync(int workerIndex, IList<T> batch, long page)
 			{
 				// Serialize on the worker's previous batch before scheduling the next one.
@@ -118,76 +194,44 @@ namespace OpenSearch.Client
 				if (previous != null)
 					await previous.ConfigureAwait(false);
 
-				// Throttle the producer against consumer progress on every dispatch path (affinity and round-robin).
 				if (_request.BackPressure != null)
 					await _request.BackPressure.WaitAsync(_compositeCancelToken).ConfigureAwait(false);
 
-				workerTails[workerIndex] = DispatchAsync(batch, page, workerIndex);
+				workerTails[workerIndex] = dispatch(batch, page, workerIndex);
 			}
 
 			try
 			{
-				if (_affinityKeySelector != null)
-					await ProduceWithAffinityAsync(FlushAsync).ConfigureAwait(false);
-				else
-					await ProduceRoundRobinAsync(FlushAsync).ConfigureAwait(false);
+				foreach (var document in _request.Documents)
+				{
+					_compositeCancelToken.ThrowIfCancellationRequested();
+
+					var key = _affinityKeySelector(document);
+					var workerIndex = (int)((uint)GetStableHashCode(key) % (uint)_maxDegreeOfParallelism);
+					buffers[workerIndex].Add(document);
+
+					if (buffers[workerIndex].Count < _bulkSize) continue;
+
+					var batch = new List<T>(buffers[workerIndex]);
+					buffers[workerIndex].Clear();
+					await FlushAsync(workerIndex, batch, pageCounters[workerIndex]++).ConfigureAwait(false);
+				}
+
+				// Flush any partially-filled buffers.
+				for (var i = 0; i < _maxDegreeOfParallelism; i++)
+				{
+					if (buffers[i].Count == 0) continue;
+					await FlushAsync(i, buffers[i], pageCounters[i]++).ConfigureAwait(false);
+				}
 
 				await Task.WhenAll(workerTails.Where(t => t != null)).ConfigureAwait(false);
-				OnCompleted(null, observer);
 			}
-			catch (Exception ex)
+			catch
 			{
 				// Observe every scheduled dispatch so faulted batches never surface as unobserved task exceptions.
 				try { await Task.WhenAll(workerTails.Where(t => t != null)).ConfigureAwait(false); }
-				catch { /* the originating failure is surfaced below */ }
-
-				OnCompleted(dispatchException ?? ex, observer);
-			}
-		}
-
-		private async Task ProduceRoundRobinAsync(Func<int, IList<T>, long, Task> flush)
-		{
-			var partitioned = new PartitionHelper<T>(_request.Documents, _bulkSize);
-			long page = 0;
-			foreach (var batch in partitioned)
-			{
-				_compositeCancelToken.ThrowIfCancellationRequested();
-				var workerIndex = (int)(page % _maxDegreeOfParallelism);
-				await flush(workerIndex, batch, page).ConfigureAwait(false);
-				page++;
-			}
-		}
-
-		private async Task ProduceWithAffinityAsync(Func<int, IList<T>, long, Task> flush)
-		{
-			// Per-worker buffers filled by hashing the affinity key, so all documents sharing a key are
-			// batched and dispatched by the same worker.
-			var buffers = new List<T>[_maxDegreeOfParallelism];
-			for (var i = 0; i < _maxDegreeOfParallelism; i++)
-				buffers[i] = new List<T>(_bulkSize);
-
-			var pageCounters = new long[_maxDegreeOfParallelism];
-
-			foreach (var document in _request.Documents)
-			{
-				_compositeCancelToken.ThrowIfCancellationRequested();
-
-				var key = _affinityKeySelector(document);
-				var workerIndex = (int)((uint)GetStableHashCode(key) % (uint)_maxDegreeOfParallelism);
-				buffers[workerIndex].Add(document);
-
-				if (buffers[workerIndex].Count < _bulkSize) continue;
-
-				var batch = new List<T>(buffers[workerIndex]);
-				buffers[workerIndex].Clear();
-				await flush(workerIndex, batch, pageCounters[workerIndex]++).ConfigureAwait(false);
-			}
-
-			// Flush any partially-filled buffers.
-			for (var i = 0; i < _maxDegreeOfParallelism; i++)
-			{
-				if (buffers[i].Count == 0) continue;
-				await flush(i, buffers[i], pageCounters[i]++).ConfigureAwait(false);
+				catch { /* the originating failure is surfaced by the caller */ }
+				throw;
 			}
 		}
 
