@@ -19,6 +19,11 @@ namespace OpenSearch.Client
 		public const int MaxRetriesDefault = 3;
 		public const int MaxDegreeOfParallelismDefault = 4;
 		public const int SizeDefault = 1000;
+
+		// How many batches a single affinity worker may have accepted but not yet completed (one dispatching plus
+		// the rest queued) before the producer must wait on that worker. Bounds memory while giving the producer
+		// enough runway to keep feeding the other workers when one worker is slow or retrying.
+		public const int AffinityWorkerQueueDepthDefault = 2;
 	}
 
 	public class BulkStreamAllObservable<T> : IDisposable, IObservable<BulkStreamAllResponse> where T : class
@@ -176,62 +181,150 @@ namespace OpenSearch.Client
 			}
 		}
 
-		// Affinity dispatch: hash each document's key to a worker and chain that worker's batches so at most one
-		// batch per worker is ever in flight, preserving on-the-wire ordering for operations sharing a key.
+		// Affinity dispatch: hash each document's key to a worker so operations sharing a key always land on the
+		// same worker, and give every worker its own bounded queue drained by a dedicated consumer. Each consumer
+		// dispatches its batches strictly FIFO with at most one in flight, preserving on-the-wire ordering for a
+		// key. Crucially the producer only ever waits on the *one* worker whose queue is full — a batch that is
+		// slow or backing off holds up only its own worker, so the remaining workers keep draining instead of the
+		// whole ingestion stalling behind it (the same guarantee the round-robin path already provides).
 		private async Task RunWithAffinityAsync(Func<IList<T>, long, int, Task> dispatch)
 		{
 			var buffers = new List<T>[_maxDegreeOfParallelism];
-			for (var i = 0; i < _maxDegreeOfParallelism; i++)
-				buffers[i] = new List<T>(_bulkSize);
-
 			var pageCounters = new long[_maxDegreeOfParallelism];
-			var workerTails = new Task[_maxDegreeOfParallelism];
+			var queues = new AffinityWorkerQueue[_maxDegreeOfParallelism];
+			var consumers = new Task[_maxDegreeOfParallelism];
 
-			async Task FlushAsync(int workerIndex, IList<T> batch, long page)
+			for (var i = 0; i < _maxDegreeOfParallelism; i++)
 			{
-				// Serialize on the worker's previous batch before scheduling the next one.
-				var previous = workerTails[workerIndex];
-				if (previous != null)
-					await previous.ConfigureAwait(false);
-
-				if (_request.BackPressure != null)
-					await _request.BackPressure.WaitAsync(_compositeCancelToken).ConfigureAwait(false);
-
-				workerTails[workerIndex] = dispatch(batch, page, workerIndex);
+				buffers[i] = new List<T>(_bulkSize);
+				queues[i] = new AffinityWorkerQueue(BulkStreamAllDefaults.AffinityWorkerQueueDepthDefault);
+				var workerIndex = i;
+				consumers[i] = ConsumeWorkerAsync(queues[workerIndex], dispatch, workerIndex);
 			}
 
 			try
 			{
-				foreach (var document in _request.Documents)
+				try
 				{
-					_compositeCancelToken.ThrowIfCancellationRequested();
+					foreach (var document in _request.Documents)
+					{
+						_compositeCancelToken.ThrowIfCancellationRequested();
 
-					var key = _affinityKeySelector(document);
-					var workerIndex = (int)((uint)GetStableHashCode(key) % (uint)_maxDegreeOfParallelism);
-					buffers[workerIndex].Add(document);
+						var key = _affinityKeySelector(document);
+						var workerIndex = (int)((uint)GetStableHashCode(key) % (uint)_maxDegreeOfParallelism);
+						buffers[workerIndex].Add(document);
 
-					if (buffers[workerIndex].Count < _bulkSize) continue;
+						if (buffers[workerIndex].Count < _bulkSize) continue;
 
-					var batch = new List<T>(buffers[workerIndex]);
-					buffers[workerIndex].Clear();
-					await FlushAsync(workerIndex, batch, pageCounters[workerIndex]++).ConfigureAwait(false);
+						var batch = new List<T>(buffers[workerIndex]);
+						buffers[workerIndex].Clear();
+						await queues[workerIndex].EnqueueAsync(batch, pageCounters[workerIndex]++, _compositeCancelToken).ConfigureAwait(false);
+					}
+
+					// Flush any partially-filled buffers, then signal each worker that no more batches are coming.
+					for (var i = 0; i < _maxDegreeOfParallelism; i++)
+					{
+						if (buffers[i].Count > 0)
+							await queues[i].EnqueueAsync(buffers[i], pageCounters[i]++, _compositeCancelToken).ConfigureAwait(false);
+						queues[i].Complete();
+					}
+
+					await Task.WhenAll(consumers).ConfigureAwait(false);
 				}
-
-				// Flush any partially-filled buffers.
-				for (var i = 0; i < _maxDegreeOfParallelism; i++)
+				catch
 				{
-					if (buffers[i].Count == 0) continue;
-					await FlushAsync(i, buffers[i], pageCounters[i]++).ConfigureAwait(false);
+					// Unblock any worker still waiting for input, then observe every consumer so a faulted batch
+					// never surfaces as an unobserved task exception.
+					for (var i = 0; i < _maxDegreeOfParallelism; i++)
+						queues[i].Complete();
+					try { await Task.WhenAll(consumers).ConfigureAwait(false); }
+					catch { /* the originating failure is surfaced by the caller */ }
+					throw;
 				}
-
-				await Task.WhenAll(workerTails.Where(t => t != null)).ConfigureAwait(false);
 			}
-			catch
+			finally
 			{
-				// Observe every scheduled dispatch so faulted batches never surface as unobserved task exceptions.
-				try { await Task.WhenAll(workerTails.Where(t => t != null)).ConfigureAwait(false); }
-				catch { /* the originating failure is surfaced by the caller */ }
-				throw;
+				for (var i = 0; i < _maxDegreeOfParallelism; i++)
+					queues[i].Dispose();
+			}
+		}
+
+		// Drains one worker's queue, dispatching each batch to completion before taking the next so that at most
+		// one batch per worker is ever in flight and batches complete in the order they were enqueued.
+		private async Task ConsumeWorkerAsync(AffinityWorkerQueue queue, Func<IList<T>, long, int, Task> dispatch, int workerIndex)
+		{
+			while (true)
+			{
+				var next = await queue.DequeueAsync(_compositeCancelToken).ConfigureAwait(false);
+				if (next == null) break; // queue completed and drained
+
+				if (_request.BackPressure != null)
+					await _request.BackPressure.WaitAsync(_compositeCancelToken).ConfigureAwait(false);
+
+				try
+				{
+					await dispatch(next.Value.Batch, next.Value.Page, workerIndex).ConfigureAwait(false);
+				}
+				finally
+				{
+					// Free the worker's slot only once the batch is fully done (including retries), so a slow or
+					// backing-off batch counts against this worker's depth and eventually backpressures the
+					// producer for this key alone — never for the other workers.
+					queue.ReleaseSlot();
+				}
+			}
+		}
+
+		// A bounded single-consumer FIFO queue of pending batches for one affinity worker. EnqueueAsync blocks the
+		// producer only when this worker already holds `capacity` unfinished batches (queued plus in flight);
+		// DequeueAsync yields batches in order and returns null once the queue has been completed and fully drained.
+		// ReleaseSlot frees a slot when a batch finishes.
+		private sealed class AffinityWorkerQueue : IDisposable
+		{
+			private readonly Queue<(IList<T> Batch, long Page)> _items = new Queue<(IList<T>, long)>();
+			private readonly SemaphoreSlim _itemAvailable = new SemaphoreSlim(0);
+			private readonly SemaphoreSlim _freeCapacity;
+			private readonly object _gate = new object();
+			private bool _completed;
+
+			public AffinityWorkerQueue(int capacity) => _freeCapacity = new SemaphoreSlim(capacity, capacity);
+
+			public async Task EnqueueAsync(IList<T> batch, long page, CancellationToken cancellationToken)
+			{
+				await _freeCapacity.WaitAsync(cancellationToken).ConfigureAwait(false);
+				lock (_gate)
+					_items.Enqueue((batch, page));
+				_itemAvailable.Release();
+			}
+
+			public async Task<(IList<T> Batch, long Page)?> DequeueAsync(CancellationToken cancellationToken)
+			{
+				await _itemAvailable.WaitAsync(cancellationToken).ConfigureAwait(false);
+				lock (_gate)
+				{
+					if (_items.Count == 0)
+						return null; // woken by Complete() with nothing left to hand out
+					return _items.Dequeue();
+				}
+			}
+
+			// Returns a slot to the producer once a dequeued batch has finished processing.
+			public void ReleaseSlot() => _freeCapacity.Release();
+
+			public void Complete()
+			{
+				lock (_gate)
+				{
+					if (_completed) return;
+					_completed = true;
+				}
+				_itemAvailable.Release(); // wake the consumer so it can observe completion once drained
+			}
+
+			public void Dispose()
+			{
+				_itemAvailable.Dispose();
+				_freeCapacity.Dispose();
 			}
 		}
 
