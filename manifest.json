@@ -2170,90 +2170,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamAllDescriptor-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenSearch.Client.BulkStreamAllDescriptor-1.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "OpenSearch.Client.BulkStreamAllDescriptor<T>",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamAllExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenSearch.Client.BulkStreamAllExtensions.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "OpenSearch.Client.BulkStreamAllExtensions",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamAllObservable-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenSearch.Client.BulkStreamAllObservable-1.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "OpenSearch.Client.BulkStreamAllObservable<T>",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamAllObserver.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenSearch.Client.BulkStreamAllObserver.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "OpenSearch.Client.BulkStreamAllObserver",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamAllRequest-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenSearch.Client.BulkStreamAllRequest-1.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "OpenSearch.Client.BulkStreamAllRequest<T>",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamAllResponse.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenSearch.Client.BulkStreamAllResponse.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "OpenSearch.Client.BulkStreamAllResponse",
-      "Summary": "<p sourcefile=\"obj/temp/docfxapi/OpenSearch.Client.BulkStreamAllResponse.yml\" sourcestartlinenumber=\"1\">Response from a single bulk batch within the BulkStreamAll operation.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.BulkStreamDescriptor.yml",
       "output": {
         ".html": {
@@ -13142,20 +13058,6 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "OpenSearch.Client.IBulkRequest",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/temp/docfxapi/OpenSearch.Client.IBulkStreamAllRequest-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenSearch.Client.IBulkStreamAllRequest-1.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "OpenSearch.Client.IBulkStreamAllRequest<T>",
       "Summary": null
     },
     {

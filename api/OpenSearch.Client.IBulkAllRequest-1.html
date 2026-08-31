@@ -300,6 +300,40 @@ When true, will feed dropped documents to <a class="xref" href="OpenSearch.Clien
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_IBulkAllRequest_1_DocumentAffinityKey.md&amp;value=---%0Auid%3A%20OpenSearch.Client.IBulkAllRequest%601.DocumentAffinityKey%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Document/Multiple/BulkAll/BulkAllRequest.cs/#L134">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_IBulkAllRequest_1_DocumentAffinityKey_" data-uid="OpenSearch.Client.IBulkAllRequest`1.DocumentAffinityKey*"></a>
+  <h4 id="OpenSearch_Client_IBulkAllRequest_1_DocumentAffinityKey" data-uid="OpenSearch.Client.IBulkAllRequest`1.DocumentAffinityKey">DocumentAffinityKey</h4>
+  <div class="markdown level1 summary"><p>Optional per-document affinity key. When set, documents sharing a key are routed to the same worker and that
+worker dispatches its batches strictly in order with at most one batch in flight, preserving on-the-wire
+ordering for operations that share a key. A slow or retrying worker holds up only its own key, not the
+others. When <code>null</code> (the default) batches are dispatched round-robin with no ordering guarantee.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Func&lt;T, string&gt; DocumentAffinityKey { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_IBulkAllRequest_1_Documents.md&amp;value=---%0Auid%3A%20OpenSearch.Client.IBulkAllRequest%601.Documents%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
@@ -525,6 +559,38 @@ on <a class="xref" href="OpenSearch.Client.ConnectionSettings.html">ConnectionSe
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_IBulkAllRequest_1_RetryBaseDelay.md&amp;value=---%0Auid%3A%20OpenSearch.Client.IBulkAllRequest%601.RetryBaseDelay%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Document/Multiple/BulkAll/BulkAllRequest.cs/#L140">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_IBulkAllRequest_1_RetryBaseDelay_" data-uid="OpenSearch.Client.IBulkAllRequest`1.RetryBaseDelay*"></a>
+  <h4 id="OpenSearch_Client_IBulkAllRequest_1_RetryBaseDelay" data-uid="OpenSearch.Client.IBulkAllRequest`1.RetryBaseDelay">RetryBaseDelay</h4>
+  <div class="markdown level1 summary"><p>When set, retries use exponential backoff with jitter starting from this base delay (doubling per attempt,
+randomized, capped by <a class="xref" href="OpenSearch.Client.IBulkAllRequest-1.html#OpenSearch_Client_IBulkAllRequest_1_RetryMaxDelay">RetryMaxDelay</a>) instead of the fixed <a class="xref" href="OpenSearch.Client.IBulkAllRequest-1.html#OpenSearch_Client_IBulkAllRequest_1_BackOffTime">BackOffTime</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">TimeSpan? RetryBaseDelay { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a>?</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_IBulkAllRequest_1_RetryDocumentPredicate.md&amp;value=---%0Auid%3A%20OpenSearch.Client.IBulkAllRequest%601.RetryDocumentPredicate%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
@@ -551,6 +617,38 @@ Defaults to failed bulk items with a HTTP 429 (Too Many Requests) response statu
     <tbody>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="OpenSearch.Client.BulkResponseItemBase.html">BulkResponseItemBase</a>, T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_IBulkAllRequest_1_RetryMaxDelay.md&amp;value=---%0Auid%3A%20OpenSearch.Client.IBulkAllRequest%601.RetryMaxDelay%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Document/Multiple/BulkAll/BulkAllRequest.cs/#L146">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_IBulkAllRequest_1_RetryMaxDelay_" data-uid="OpenSearch.Client.IBulkAllRequest`1.RetryMaxDelay*"></a>
+  <h4 id="OpenSearch_Client_IBulkAllRequest_1_RetryMaxDelay" data-uid="OpenSearch.Client.IBulkAllRequest`1.RetryMaxDelay">RetryMaxDelay</h4>
+  <div class="markdown level1 summary"><p>The maximum delay between retries when <a class="xref" href="OpenSearch.Client.IBulkAllRequest-1.html#OpenSearch_Client_IBulkAllRequest_1_RetryBaseDelay">RetryBaseDelay</a> is set. Ignored when
+<a class="xref" href="OpenSearch.Client.IBulkAllRequest-1.html#OpenSearch_Client_IBulkAllRequest_1_RetryBaseDelay">RetryBaseDelay</a> is not set (the fixed <a class="xref" href="OpenSearch.Client.IBulkAllRequest-1.html#OpenSearch_Client_IBulkAllRequest_1_BackOffTime">BackOffTime</a> is used instead).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">TimeSpan? RetryMaxDelay { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a>?</td>
         <td></td>
       </tr>
     </tbody>
@@ -644,6 +742,40 @@ Defaults to failed bulk items with a HTTP 429 (Too Many Requests) response statu
     <tbody>
       <tr>
         <td><a class="xref" href="OpenSearch.Client.Time.html">Time</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/opensearch-project/opensearch-net/new/main/apiSpec/new?filename=OpenSearch_Client_IBulkAllRequest_1_UseStreamingEndpoint.md&amp;value=---%0Auid%3A%20OpenSearch.Client.IBulkAllRequest%601.UseStreamingEndpoint%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/yyfamazon/opensearch-net/blob/main/src/OpenSearch.Client/Document/Multiple/BulkAll/BulkAllRequest.cs/#L154">View Source</a>
+  </span>
+  <a id="OpenSearch_Client_IBulkAllRequest_1_UseStreamingEndpoint_" data-uid="OpenSearch.Client.IBulkAllRequest`1.UseStreamingEndpoint*"></a>
+  <h4 id="OpenSearch_Client_IBulkAllRequest_1_UseStreamingEndpoint" data-uid="OpenSearch.Client.IBulkAllRequest`1.UseStreamingEndpoint">UseStreamingEndpoint</h4>
+  <div class="markdown level1 summary"><p>When <code>true</code>, each batch is sent to the <code>_bulk/stream</code> endpoint instead of <code>_bulk</code>. The
+orchestration (batching, retries, affinity, back pressure) is identical; only the transport differs.
+Note: <a class="xref" href="OpenSearch.Client.IBulkAllRequest-1.html#OpenSearch_Client_IBulkAllRequest_1_BufferToBulk">BufferToBulk</a> targets the <code>_bulk</code> descriptor and is not applied on this path — the
+buffer is sent with <code>IndexMany</code>. Defaults to <code>false</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool UseStreamingEndpoint { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
         <td></td>
       </tr>
     </tbody>
