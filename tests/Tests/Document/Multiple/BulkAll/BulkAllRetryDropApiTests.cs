@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -17,61 +16,57 @@ using OpenSearch.OpenSearch.Xunit.XunitPlumbing;
 using OpenSearch.Net;
 using FluentAssertions;
 using OpenSearch.Client;
-using Tests.Core.ManagedOpenSearch.Clusters;
 using Tests.Domain.Extensions;
 
-namespace Tests.Document.Multiple.BulkStreamAll
+namespace Tests.Document.Multiple.BulkAll
 {
-	// Live coverage for the retry / dropped-document partition logic in BulkStreamAllObservable.BulkAsync, driven by a
-	// programmable in-memory connection that returns per-request outcomes and records exactly which documents were sent.
-	public class BulkStreamAllRetryDropApiTests : BulkStreamAllApiTestsBase
+	// Deterministic unit coverage for BulkAllObservable's retry / dropped-document partition logic and the affinity
+	// routing added when folding the streaming helper into BulkAll. Driven by a programmable in-memory connection that
+	// returns a per-request _bulk response and records exactly which documents each request carried.
+	public class BulkAllRetryDropApiTests
 	{
-		public BulkStreamAllRetryDropApiTests(IntrusiveOperationCluster cluster) : base(cluster) { }
+		private class SmallObject
+		{
+			public int Id { get; set; }
+			public string Name { get; set; }
+		}
 
 		[U]
 		public void PartialFailureRetriesOnlyTheFailingDocument()
 		{
 			const int failingId = 2;
-
-			// First attempt: only doc-2 returns 429. The retry (any later request) succeeds.
-			var connection = new ProgrammableBulkStreamConnection((ordinal, ids) =>
+			var connection = new ProgrammableBulkConnection((ordinal, ids) =>
 				ids.Select(id => ordinal == 0 && id == failingId ? 429 : 201).ToArray());
 
-			var run = RunBulkStreamAll(connection, documents: 5, size: 5, maxDegreeOfParallelism: 1, maxRetries: 3);
+			var run = RunBulkAll(connection, documents: 5, size: 5, maxDegreeOfParallelism: 1, backOffRetries: 3);
 
 			run.Error.Should().BeNull();
 			run.Observer.TotalNumberOfRetries.Should().Be(1, "one partial failure means exactly one retry");
 			connection.RequestCount.Should().Be(2, "the initial batch plus a single retry");
-			connection.RequestedDocIds[1].Should().Equal(new[] { failingId },
-				"only the failing document may be re-sent, not the whole batch");
+			connection.RequestedDocIds[1].Should().Equal(new[] { failingId }, "only the failing document may be re-sent");
 		}
 
 		[U]
 		public void PersistentFailureExhaustsRetriesThenThrows()
 		{
-			const int maxRetries = 2;
+			const int backOffRetries = 2;
+			var connection = new ProgrammableBulkConnection((ordinal, ids) => ids.Select(id => id == 2 ? 429 : 201).ToArray());
 
-			// doc-2 fails with 429 on every attempt.
-			var connection = new ProgrammableBulkStreamConnection((ordinal, ids) =>
-				ids.Select(id => id == 2 ? 429 : 201).ToArray());
-
-			var run = RunBulkStreamAll(connection, documents: 5, size: 5, maxDegreeOfParallelism: 1, maxRetries: maxRetries);
+			var run = RunBulkAll(connection, documents: 5, size: 5, maxDegreeOfParallelism: 1, backOffRetries: backOffRetries);
 
 			run.Error.Should().BeOfType<OpenSearchClientException>();
 			run.Error.Message.Should().Contain("after retrying");
-			connection.RequestCount.Should().Be(maxRetries + 1, "initial attempt plus MaxRetries retries");
+			connection.RequestCount.Should().Be(backOffRetries + 1, "initial attempt plus BackOffRetries retries");
 			run.Observer.TotalNumberOfFailedBuffers.Should().Be(1);
 		}
 
 		[U]
 		public void ContinueAfterDroppedDocumentsFalseHaltsAndDispatchesNoFurtherBatches()
 		{
-			// doc-0 (in the first batch) fails with a non-retryable 400.
-			var connection = new ProgrammableBulkStreamConnection((ordinal, ids) =>
-				ids.Select(id => id == 0 ? 400 : 201).ToArray());
+			var connection = new ProgrammableBulkConnection((ordinal, ids) => ids.Select(id => id == 0 ? 400 : 201).ToArray());
 
-			var run = RunBulkStreamAll(connection, documents: 4, size: 2, maxDegreeOfParallelism: 1, maxRetries: 3,
-				continueAfterDroppedDocuments: false);
+			var run = RunBulkAll(connection, documents: 4, size: 2, maxDegreeOfParallelism: 1, backOffRetries: 3,
+				configure: f => f.ContinueAfterDroppedDocuments(false));
 
 			run.Error.Should().NotBeNull();
 			run.Error.Message.Should().Contain("halted");
@@ -82,12 +77,10 @@ namespace Tests.Document.Multiple.BulkStreamAll
 		[U]
 		public void RetryPreservesAffinityOrdering()
 		{
-			// Same affinity key => both batches run on one worker. Batch 0 (page 0) hits a 429 and backs off; batch 1
-			// (page 1) must still complete after it.
-			var connection = new ProgrammableBulkStreamConnection((ordinal, ids) =>
+			var connection = new ProgrammableBulkConnection((ordinal, ids) =>
 				ids.Select(id => ordinal == 0 && id == 0 ? 429 : 201).ToArray());
 
-			var run = RunBulkStreamAll(connection, documents: 4, size: 2, maxDegreeOfParallelism: 4, maxRetries: 3,
+			var run = RunBulkAll(connection, documents: 4, size: 2, maxDegreeOfParallelism: 4, backOffRetries: 3,
 				affinityKey: "same-key");
 
 			run.Error.Should().BeNull();
@@ -100,12 +93,10 @@ namespace Tests.Document.Multiple.BulkStreamAll
 		public void CustomRetryPredicateRetriesAnOtherwiseNonRetryableStatus()
 		{
 			const int failingId = 1;
-
-			// doc-1 returns 400 on the first attempt (not retryable by default), then succeeds.
-			var connection = new ProgrammableBulkStreamConnection((ordinal, ids) =>
+			var connection = new ProgrammableBulkConnection((ordinal, ids) =>
 				ids.Select(id => ordinal == 0 && id == failingId ? 400 : 201).ToArray());
 
-			var run = RunBulkStreamAll(connection, documents: 4, size: 4, maxDegreeOfParallelism: 1, maxRetries: 3,
+			var run = RunBulkAll(connection, documents: 4, size: 4, maxDegreeOfParallelism: 1, backOffRetries: 3,
 				configure: f => f.RetryDocumentPredicate((item, doc) => item.Status == 400));
 
 			run.Error.Should().BeNull();
@@ -118,14 +109,12 @@ namespace Tests.Document.Multiple.BulkStreamAll
 		{
 			const int failingId = 1;
 			var droppedIds = new List<int>();
+			var connection = new ProgrammableBulkConnection((ordinal, ids) => ids.Select(id => id == failingId ? 429 : 201).ToArray());
 
-			// doc-1 always returns 429 (retryable by default), but the predicate refuses to retry it.
-			var connection = new ProgrammableBulkStreamConnection((ordinal, ids) =>
-				ids.Select(id => id == failingId ? 429 : 201).ToArray());
-
-			var run = RunBulkStreamAll(connection, documents: 4, size: 4, maxDegreeOfParallelism: 1, maxRetries: 3,
+			var run = RunBulkAll(connection, documents: 4, size: 4, maxDegreeOfParallelism: 1, backOffRetries: 3,
 				configure: f => f
 					.RetryDocumentPredicate((item, doc) => false)
+					.ContinueAfterDroppedDocuments()
 					.DroppedDocumentCallback((item, doc) => droppedIds.Add(doc.Id)));
 
 			run.Error.Should().BeNull();
@@ -140,16 +129,12 @@ namespace Tests.Document.Multiple.BulkStreamAll
 			const int failingId = 3;
 			BulkResponseItemBase droppedItem = null;
 			SmallObject droppedDocument = null;
+			var connection = new ProgrammableBulkConnection((ordinal, ids) => ids.Select(id => id == failingId ? 400 : 201).ToArray());
 
-			var connection = new ProgrammableBulkStreamConnection((ordinal, ids) =>
-				ids.Select(id => id == failingId ? 400 : 201).ToArray());
-
-			var run = RunBulkStreamAll(connection, documents: 5, size: 5, maxDegreeOfParallelism: 1, maxRetries: 3,
-				configure: f => f.DroppedDocumentCallback((item, doc) =>
-				{
-					droppedItem = item;
-					droppedDocument = doc;
-				}));
+			var run = RunBulkAll(connection, documents: 5, size: 5, maxDegreeOfParallelism: 1, backOffRetries: 3,
+				configure: f => f
+					.ContinueAfterDroppedDocuments()
+					.DroppedDocumentCallback((item, doc) => { droppedItem = item; droppedDocument = doc; }));
 
 			run.Error.Should().BeNull();
 			droppedDocument.Should().NotBeNull();
@@ -158,41 +143,38 @@ namespace Tests.Document.Multiple.BulkStreamAll
 		}
 
 		[U]
-		public void ContinueAfterDroppedDocumentsAllowsSubsequentBatches()
+		public void ContinueAfterDroppedDocumentsTrueAllowsSubsequentBatches()
 		{
-			// doc-0 (first batch) is dropped, but ContinueAfterDroppedDocuments (the default) lets the run proceed.
-			var connection = new ProgrammableBulkStreamConnection((ordinal, ids) =>
-				ids.Select(id => id == 0 ? 400 : 201).ToArray());
+			var connection = new ProgrammableBulkConnection((ordinal, ids) => ids.Select(id => id == 0 ? 400 : 201).ToArray());
 
-			var run = RunBulkStreamAll(connection, documents: 4, size: 2, maxDegreeOfParallelism: 1, maxRetries: 3);
+			var run = RunBulkAll(connection, documents: 4, size: 2, maxDegreeOfParallelism: 1, backOffRetries: 3,
+				configure: f => f.ContinueAfterDroppedDocuments());
 
 			run.Error.Should().BeNull();
 			run.Pages.Should().Contain(new long[] { 0, 1 }, "both batches must complete despite the dropped document");
-			connection.RequestBodies.Should().Contain(body => body.Contains("\"doc-2\""),
-				"the second batch must still be dispatched");
+			connection.RequestBodies.Should().Contain(body => body.Contains("\"doc-2\""), "the second batch must still be dispatched");
 		}
 
 		[U]
-		public void BulkResponseCallbackIsInvokedForEachStreamedResponse()
+		public void BulkResponseCallbackIsInvokedForEachResponse()
 		{
 			var callbackCount = 0;
-			var connection = new ProgrammableBulkStreamConnection((ordinal, ids) => ids.Select(_ => 201).ToArray());
+			var connection = new ProgrammableBulkConnection((ordinal, ids) => ids.Select(_ => 201).ToArray());
 
-			// 6 documents at size 2 => 3 batches, all succeeding => 3 responses.
-			var run = RunBulkStreamAll(connection, documents: 6, size: 2, maxDegreeOfParallelism: 1, maxRetries: 3,
+			var run = RunBulkAll(connection, documents: 6, size: 2, maxDegreeOfParallelism: 1, backOffRetries: 3,
 				configure: f => f.BulkResponseCallback(_ => Interlocked.Increment(ref callbackCount)));
 
 			run.Error.Should().BeNull();
-			callbackCount.Should().Be(3, "the callback fires once per dispatched bulk request");
+			callbackCount.Should().Be(3, "6 documents at size 2 => 3 successful bulk requests");
 		}
 
 		[U]
 		public void TracksTotalDocumentsProcessed()
 		{
 			const int documents = 6;
-			var connection = new ProgrammableBulkStreamConnection((ordinal, ids) => ids.Select(_ => 201).ToArray());
+			var connection = new ProgrammableBulkConnection((ordinal, ids) => ids.Select(_ => 201).ToArray());
 
-			var run = RunBulkStreamAll(connection, documents, size: 2, maxDegreeOfParallelism: 1, maxRetries: 3);
+			var run = RunBulkAll(connection, documents, size: 2, maxDegreeOfParallelism: 1, backOffRetries: 3);
 
 			run.Error.Should().BeNull();
 			run.Observer.TotalDocumentsProcessed.Should().Be(documents);
@@ -201,9 +183,10 @@ namespace Tests.Document.Multiple.BulkStreamAll
 		[U]
 		public void EmptyDocumentStreamCompletesWithoutRequests()
 		{
-			var connection = new ProgrammableBulkStreamConnection((ordinal, ids) => ids.Select(_ => 201).ToArray());
+			var connection = new ProgrammableBulkConnection((ordinal, ids) => ids.Select(_ => 201).ToArray());
 
-			var run = RunBulkStreamAll(connection, documents: 0, size: 10, maxDegreeOfParallelism: 4, maxRetries: 3);
+			var run = RunBulkAll(connection, documents: 0, size: 10, maxDegreeOfParallelism: 4, backOffRetries: 3,
+				affinityKey: "k");
 
 			run.Error.Should().BeNull();
 			run.Pages.Should().BeEmpty();
@@ -212,25 +195,23 @@ namespace Tests.Document.Multiple.BulkStreamAll
 
 		private readonly struct RunResult
 		{
-			public RunResult(BulkStreamAllObserver observer, Exception error, List<long> pages)
+			public RunResult(BulkAllObserver observer, Exception error, List<long> pages)
 			{
 				Observer = observer;
 				Error = error;
 				Pages = pages;
 			}
 
-			public BulkStreamAllObserver Observer { get; }
+			public BulkAllObserver Observer { get; }
 			public Exception Error { get; }
 			public List<long> Pages { get; }
 		}
 
-		private static RunResult RunBulkStreamAll(
-			IConnection connection, int documents, int size, int maxDegreeOfParallelism, int maxRetries,
-			bool continueAfterDroppedDocuments = true, string affinityKey = null,
-			Action<BulkStreamAllDescriptor<SmallObject>> configure = null)
+		private static RunResult RunBulkAll(
+			IConnection connection, int documents, int size, int maxDegreeOfParallelism, int backOffRetries,
+			string affinityKey = null, Action<BulkAllDescriptor<SmallObject>> configure = null)
 		{
-			var settings = new ConnectionSettings(
-					new SingleNodeConnectionPool(new Uri("http://localhost:9200")), connection)
+			var settings = new ConnectionSettings(new SingleNodeConnectionPool(new Uri("http://localhost:9200")), connection)
 				.ApplyDomainSettings();
 			var client = new OpenSearchClient(settings);
 
@@ -239,20 +220,19 @@ namespace Tests.Document.Multiple.BulkStreamAll
 			Exception error = null;
 			var handle = new ManualResetEventSlim(false);
 
-			var observer = new BulkStreamAllObserver(
+			var observer = new BulkAllObserver(
 				onNext: r => { lock (pages) pages.Add(r.Page); },
 				onError: e => { error = e; handle.Set(); },
 				onCompleted: () => handle.Set());
 
-			var observable = client.BulkStreamAll(docs, f =>
+			var observable = client.BulkAll(docs, f =>
 			{
 				f.MaxDegreeOfParallelism(maxDegreeOfParallelism)
 					.Size(size)
-					.Index("bulkstreamall-retrydrop")
-					.MaxRetries(maxRetries)
+					.Index("bulkall-retrydrop")
+					.BackOffRetries(backOffRetries)
 					.RetryBaseDelay(TimeSpan.FromMilliseconds(1))
 					.RetryMaxDelay(TimeSpan.FromMilliseconds(5))
-					.ContinueAfterDroppedDocuments(continueAfterDroppedDocuments)
 					.BufferToBulk((r, buffer) => r.IndexMany(buffer));
 				if (affinityKey != null) f.DocumentAffinityKey(_ => affinityKey);
 				configure?.Invoke(f);
@@ -265,10 +245,10 @@ namespace Tests.Document.Multiple.BulkStreamAll
 			return new RunResult(observer, error, pages);
 		}
 
-		// In-memory connection that maps each request to a per-document status via a caller-supplied resolver
-		// (ordinal, docIdsInRequestOrder) => status[], streams one NDJSON object per document, and records the
+		// In-memory connection that maps each _bulk request to per-document statuses via a resolver
+		// (ordinal, docIdsInRequestOrder) => status[], returns a single _bulk response object, and records the
 		// documents seen on each request so tests can assert exactly what was (re-)sent.
-		private sealed class ProgrammableBulkStreamConnection : InMemoryConnection
+		private sealed class ProgrammableBulkConnection : InMemoryConnection
 		{
 			private static readonly Regex DocIdPattern = new Regex("doc-(\\d+)", RegexOptions.Compiled);
 
@@ -277,30 +257,18 @@ namespace Tests.Document.Multiple.BulkStreamAll
 			private readonly List<string> _requestBodies = new List<string>();
 			private readonly List<IReadOnlyList<int>> _requestedDocIds = new List<IReadOnlyList<int>>();
 
-			public ProgrammableBulkStreamConnection(Func<int, IReadOnlyList<int>, int[]> statusResolver)
+			public ProgrammableBulkConnection(Func<int, IReadOnlyList<int>, int[]> statusResolver)
 				: base(Array.Empty<byte>(), 200, null, RequestData.MimeType) =>
 				_statusResolver = statusResolver;
 
-			public IReadOnlyList<string> RequestBodies
-			{
-				get { lock (_gate) return _requestBodies.ToArray(); }
-			}
-
-			public IReadOnlyList<IReadOnlyList<int>> RequestedDocIds
-			{
-				get { lock (_gate) return _requestedDocIds.ToArray(); }
-			}
-
-			public int RequestCount
-			{
-				get { lock (_gate) return _requestBodies.Count; }
-			}
+			public IReadOnlyList<string> RequestBodies { get { lock (_gate) return _requestBodies.ToArray(); } }
+			public IReadOnlyList<IReadOnlyList<int>> RequestedDocIds { get { lock (_gate) return _requestedDocIds.ToArray(); } }
+			public int RequestCount { get { lock (_gate) return _requestBodies.Count; } }
 
 			public override async Task<TResponse> RequestAsync<TResponse>(RequestData requestData, CancellationToken cancellationToken)
 			{
 				var body = await ReadBodyAsync(requestData, cancellationToken).ConfigureAwait(false);
-				var responseBytes = Handle(body);
-				return await ReturnConnectionStatusAsync<TResponse>(requestData, cancellationToken, responseBytes, 200).ConfigureAwait(false);
+				return await ReturnConnectionStatusAsync<TResponse>(requestData, cancellationToken, Handle(body), 200).ConfigureAwait(false);
 			}
 
 			public override TResponse Request<TResponse>(RequestData requestData)
@@ -320,8 +288,7 @@ namespace Tests.Document.Multiple.BulkStreamAll
 					_requestedDocIds.Add(ids);
 				}
 
-				var statuses = _statusResolver(ordinal, ids);
-				return BuildNewlineDelimitedResponse(ids, statuses);
+				return BuildBulkResponse(ids, _statusResolver(ordinal, ids));
 			}
 
 			private static IReadOnlyList<int> ParseDocIds(string body)
@@ -343,26 +310,28 @@ namespace Tests.Document.Multiple.BulkStreamAll
 				}
 			}
 
-			private static byte[] BuildNewlineDelimitedResponse(IReadOnlyList<int> ids, int[] statuses)
+			// A single _bulk response object: { took, errors, items: [ { index: { ... } }, ... ] }.
+			private static byte[] BuildBulkResponse(IReadOnlyList<int> ids, int[] statuses)
 			{
+				var anyFailed = statuses.Any(s => s < 200 || s >= 300);
 				var sb = new StringBuilder();
+				sb.Append("{\"took\":1,\"errors\":").Append(anyFailed ? "true" : "false").Append(",\"items\":[");
 				for (var i = 0; i < ids.Count; i++)
 				{
 					var status = i < statuses.Length ? statuses[i] : 201;
 					var failed = status < 200 || status >= 300;
-
-					sb.Append("{\"took\":1,\"errors\":").Append(failed ? "true" : "false")
-						.Append(",\"items\":[{\"index\":{")
-						.Append("\"_index\":\"bulkstreamall-retrydrop\",")
+					if (i > 0) sb.Append(',');
+					sb.Append("{\"index\":{")
+						.Append("\"_index\":\"bulkall-retrydrop\",")
 						.Append("\"_id\":\"").Append(ids[i]).Append("\",")
 						.Append("\"_version\":1,")
 						.Append("\"status\":").Append(status)
 						.Append(failed
 							? ",\"error\":{\"type\":\"test_failure\",\"reason\":\"injected failure\"}"
 							: ",\"result\":\"created\"")
-						.Append("}}]}\n");
+						.Append("}}");
 				}
-
+				sb.Append("]}");
 				return Encoding.UTF8.GetBytes(sb.ToString());
 			}
 		}

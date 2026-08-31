@@ -6,7 +6,6 @@
 */
 
 using System;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -18,10 +17,11 @@ using Newtonsoft.Json.Linq;
 using OpenSearch.Client;
 using Tests.Domain.Extensions;
 
-namespace Tests.Document.Multiple.BulkStreamAll
+namespace Tests.Document.Multiple.BulkStream
 {
-	// BulkStreamRequestFormatter serializes the request body as newline-delimited JSON: an action/metadata line per
-	// operation, followed by a source line for operations that carry a document. It had no coverage, so pin the framing.
+	// The _bulk/stream request body is newline-delimited JSON: an action/metadata line per operation, followed by a
+	// source line for operations that carry a document. Runs under both engines to guard the Utf8Json formatter AND the
+	// System.Text.Json BulkStreamRequestConverter (without which the body serializes to {} under UseSystemTextJson()).
 	public class BulkStreamRequestFormatterTests
 	{
 		private class Doc
@@ -30,12 +30,15 @@ namespace Tests.Document.Multiple.BulkStreamAll
 			public string Name { get; set; }
 		}
 
-		[U]
-		public void IndexManyEmitsAnActionLineAndSourceLinePerDocument()
+		[U] public void IndexManyFramingUtf8Json() => AssertIndexManyFraming(useSystemTextJson: false);
+
+		[U] public void IndexManyFramingSystemTextJson() => AssertIndexManyFraming(useSystemTextJson: true);
+
+		private static void AssertIndexManyFraming(bool useSystemTextJson)
 		{
 			const int documents = 3;
 			var connection = new RecordingConnection();
-			var client = CreateClient(connection);
+			var client = CreateClient(connection, useSystemTextJson);
 
 			client.BulkStream(s => s
 				.Index("bulkstream-framing")
@@ -47,19 +50,19 @@ namespace Tests.Document.Multiple.BulkStreamAll
 
 			for (var i = 0; i < documents; i++)
 			{
-				var action = JObject.Parse(lines[i * 2]);
-				action.Should().ContainKey("index", "every action line names its operation");
-
-				var source = JObject.Parse(lines[i * 2 + 1]);
-				source.Value<string>("name").Should().Be($"doc-{i}", "the source line must follow its action line, in order");
+				JObject.Parse(lines[i * 2]).Should().ContainKey("index", "every action line names its operation");
+				JObject.Parse(lines[i * 2 + 1]).Value<string>("name").Should().Be($"doc-{i}", "the source line follows its action line, in order");
 			}
 		}
 
-		[U]
-		public void DeleteOperationEmitsAnActionLineButNoSourceLine()
+		[U] public void DeleteHasNoSourceLineUtf8Json() => AssertDeleteHasNoSourceLine(useSystemTextJson: false);
+
+		[U] public void DeleteHasNoSourceLineSystemTextJson() => AssertDeleteHasNoSourceLine(useSystemTextJson: true);
+
+		private static void AssertDeleteHasNoSourceLine(bool useSystemTextJson)
 		{
 			var connection = new RecordingConnection();
-			var client = CreateClient(connection);
+			var client = CreateClient(connection, useSystemTextJson);
 
 			client.BulkStream(s => s
 				.Index("bulkstream-framing")
@@ -68,45 +71,22 @@ namespace Tests.Document.Multiple.BulkStreamAll
 			);
 
 			var lines = NonEmptyLines(connection.LastRequestBody);
-
-			// index => action + source (2 lines); delete => action only (1 line).
-			lines.Should().HaveCount(3);
+			lines.Should().HaveCount(3); // index => action + source; delete => action only
 			JObject.Parse(lines[0]).Should().ContainKey("index");
 			JObject.Parse(lines[1]).Value<string>("name").Should().Be("doc-0");
 			JObject.Parse(lines[2]).Should().ContainKey("delete", "a delete carries no document, so no source line follows it");
 		}
 
-		[U]
-		public void EveryLineIsAStandaloneJsonObject()
+		private static string[] NonEmptyLines(string body) => body.Split('\n').Where(l => l.Trim().Length > 0).ToArray();
+
+		private static IOpenSearchClient CreateClient(RecordingConnection connection, bool useSystemTextJson)
 		{
-			var connection = new RecordingConnection();
-			var client = CreateClient(connection);
-
-			client.BulkStream(s => s
-				.Index("bulkstream-framing")
-				.IndexMany(Enumerable.Range(0, 4).Select(i => new Doc { Id = i, Name = $"doc-{i}" }))
-			);
-
-			foreach (var line in NonEmptyLines(connection.LastRequestBody))
-			{
-				// Newline-delimited JSON: each line must parse on its own (no embedded raw newlines, no trailing commas).
-				Action parse = () => JObject.Parse(line);
-				parse.Should().NotThrow($"'{line}' must be a standalone JSON object");
-			}
-		}
-
-		private static string[] NonEmptyLines(string body) =>
-			body.Split('\n').Where(l => l.Trim().Length > 0).ToArray();
-
-		private static IOpenSearchClient CreateClient(RecordingConnection connection)
-		{
-			var settings = new ConnectionSettings(
-					new SingleNodeConnectionPool(new Uri("http://localhost:9200")), connection)
-				.ApplyDomainSettings();
+			var settings = new ConnectionSettings(new SingleNodeConnectionPool(new Uri("http://localhost:9200")), connection)
+				.ApplyDomainSettings()
+				.UseSystemTextJson(useSystemTextJson);
 			return new OpenSearchClient(settings);
 		}
 
-		// Captures the outgoing request body and returns a minimal valid _bulk/stream response so the call completes.
 		private sealed class RecordingConnection : InMemoryConnection
 		{
 			private static readonly byte[] EmptyStreamResponse = Encoding.UTF8.GetBytes("{\"took\":0,\"errors\":false,\"items\":[]}");
