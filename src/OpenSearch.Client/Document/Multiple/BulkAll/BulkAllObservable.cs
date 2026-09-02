@@ -56,7 +56,6 @@ namespace OpenSearch.Client
 		private readonly IBulkAllRequest<T> _partitionedBulkRequest;
 		private readonly Func<BulkResponseItemBase, T, bool> _retryPredicate;
 		private readonly Func<T, string> _affinityKeySelector;
-		private readonly bool _useStreamingEndpoint;
 		private Action _incrementFailed = () => { };
 		private Action _incrementRetries = () => { };
 		private Action<long> _addDocumentsProcessed = _ => { };
@@ -81,7 +80,6 @@ namespace OpenSearch.Client
 			_droppedDocumentCallBack = _partitionedBulkRequest.DroppedDocumentCallback ?? DroppedDocumentCallbackDefault;
 			_bulkResponseCallback = _partitionedBulkRequest.BulkResponseCallback;
 			_affinityKeySelector = _partitionedBulkRequest.DocumentAffinityKey;
-			_useStreamingEndpoint = _partitionedBulkRequest.UseStreamingEndpoint;
 
 			_maxDegreeOfParallelism = Math.Max(1,
 				_partitionedBulkRequest.MaxDegreeOfParallelism ?? CoordinatedRequestDefaults.BulkAllMaxDegreeOfParallelismDefault);
@@ -347,32 +345,14 @@ namespace OpenSearch.Client
 			return new BulkAllResponse { Retries = backOffRetries, Page = page, WorkerIndex = workerIndex, Items = items };
 		}
 
-		// Sends a single buffer, routing to _bulk/stream or _bulk per UseStreamingEndpoint, and projects either
-		// response onto the common (ApiCall, Items) shape the orchestrator works with.
+		// Sends a single buffer to _bulk and projects the response onto the common (ApiCall, Items) shape the
+		// orchestrator works with.
 		private async Task<(IApiCallDetails ApiCall, IReadOnlyCollection<BulkResponseItemBase> Items)> SendBatchAsync(IList<T> buffer)
 		{
 			var request = _partitionedBulkRequest;
 
 			var parentMetaData = (_partitionedBulkRequest as IHelperCallable)?.ParentMetaData;
 			var metaData = parentMetaData ?? RequestMetaDataFactory.BulkHelperRequestMetaData();
-
-			if (_useStreamingEndpoint)
-			{
-				var streamResponse = await _client.BulkStreamAsync(s =>
-					{
-						s.Index(request.Index);
-						s.Timeout(request.Timeout);
-						s.IndexMany(buffer); // BufferToBulk targets the _bulk descriptor; not applicable here
-						if (!string.IsNullOrEmpty(request.Pipeline)) s.Pipeline(request.Pipeline);
-						if (request.Routing != null) s.Routing(request.Routing);
-						if (request.WaitForActiveShards.HasValue) s.WaitForActiveShards(request.WaitForActiveShards.ToString());
-						s.RequestConfiguration(rc => rc.RequestMetaData(metaData));
-						return s;
-					}, _compositeCancelToken)
-					.ConfigureAwait(false);
-
-				return (streamResponse.ApiCall, streamResponse.Items);
-			}
 
 			var response = await _client.BulkAsync(s =>
 				{

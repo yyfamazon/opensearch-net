@@ -225,7 +225,6 @@ namespace Tests.CodeStandards
 				where !(m.Name == "Lang" && dt == typeof(ScriptQueryDescriptor<>))
 				where !(m.Name == nameof(BulkAllDescriptor<object>.RefreshOnCompleted) && dt == typeof(BulkAllDescriptor<>))
 				where !(m.Name == nameof(BulkAllDescriptor<object>.ContinueAfterDroppedDocuments) && dt == typeof(BulkAllDescriptor<>))
-				where !(m.Name == nameof(BulkAllDescriptor<object>.UseStreamingEndpoint) && dt == typeof(BulkAllDescriptor<>))
 				where !(m.Name == nameof(ReindexDescriptor<object, object>.OmitIndexCreation) && dt == typeof(ReindexDescriptor<,>))
 				where !(m.Name == nameof(PutMappingDescriptor<object>.AutoMap))
 				where !(m.Name == nameof(PutMappingDescriptor<object>.Dynamic))

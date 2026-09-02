@@ -144,14 +144,6 @@ namespace OpenSearch.Client
 		/// <see cref="RetryBaseDelay" /> is not set (the fixed <see cref="BackOffTime" /> is used instead).
 		/// </summary>
 		TimeSpan? RetryMaxDelay { get; set; }
-
-		/// <summary>
-		/// When <c>true</c>, each batch is sent to the <c>_bulk/stream</c> endpoint instead of <c>_bulk</c>. The
-		/// orchestration (batching, retries, affinity, back pressure) is identical; only the transport differs.
-		/// Note: <see cref="BufferToBulk" /> targets the <c>_bulk</c> descriptor and is not applied on this path — the
-		/// buffer is sent with <c>IndexMany</c>. Defaults to <c>false</c>.
-		/// </summary>
-		bool UseStreamingEndpoint { get; set; }
 	}
 
 	public class BulkAllRequest<T> : IBulkAllRequest<T>, IHelperCallable
@@ -226,9 +218,6 @@ namespace OpenSearch.Client
 		/// <inheritdoc />
 		public TimeSpan? RetryMaxDelay { get; set; }
 
-		/// <inheritdoc />
-		public bool UseStreamingEndpoint { get; set; }
-
 		internal RequestMetaData ParentMetaData { get; set; }
 
 		RequestMetaData IHelperCallable.ParentMetaData { get => ParentMetaData; set => ParentMetaData = value; }
@@ -267,7 +256,6 @@ namespace OpenSearch.Client
 		Func<T, string> IBulkAllRequest<T>.DocumentAffinityKey { get; set; }
 		TimeSpan? IBulkAllRequest<T>.RetryBaseDelay { get; set; }
 		TimeSpan? IBulkAllRequest<T>.RetryMaxDelay { get; set; }
-		bool IBulkAllRequest<T>.UseStreamingEndpoint { get; set; }
 		RequestMetaData IHelperCallable.ParentMetaData { get; set; }
 
 		/// <inheritdoc cref="IBulkAllRequest{T}.MaxDegreeOfParallelism" />
@@ -348,8 +336,5 @@ namespace OpenSearch.Client
 
 		/// <inheritdoc cref="IBulkAllRequest{T}.RetryMaxDelay" />
 		public BulkAllDescriptor<T> RetryMaxDelay(TimeSpan? delay) => Assign(delay, (a, v) => a.RetryMaxDelay = v);
-
-		/// <inheritdoc cref="IBulkAllRequest{T}.UseStreamingEndpoint" />
-		public BulkAllDescriptor<T> UseStreamingEndpoint(bool use = true) => Assign(use, (a, v) => a.UseStreamingEndpoint = v);
 	}
 }
