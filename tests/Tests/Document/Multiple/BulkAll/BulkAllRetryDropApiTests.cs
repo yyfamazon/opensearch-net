@@ -193,6 +193,28 @@ namespace Tests.Document.Multiple.BulkAll
 			connection.RequestCount.Should().Be(0, "an empty stream must not issue any request");
 		}
 
+		[U]
+		public void AffinityDoesNotDeadlockWhenBackPressurePoolIsDrained()
+		{
+			// Regression: ProducerConsumerBackPressure is directional — in a Reindex the scroll producer acquires a slot
+			// per page and the bulk consumer repays via Release(). The affinity consumer must therefore never acquire
+			// from that pool. Here we mimic a scroll that has buffered ahead and drained the pool to zero, then run an
+			// affinity BulkAll wired to that same pool (exactly how ReindexObservable wires it). A consumer-side WaitAsync
+			// would block before the batch is ever dispatched — so nothing is in flight to ever Release — and the run
+			// would hang forever. With the fix the consumer dispatches without acquiring and the run completes.
+			var backPressure = new ProducerConsumerBackPressure(backPressureFactor: 1, maxConcurrency: 1);
+			backPressure.WaitAsync().GetAwaiter().GetResult(); // drain the single slot: pool now empty, nothing in flight
+
+			var connection = new ProgrammableBulkConnection((ordinal, ids) => ids.Select(_ => 201).ToArray());
+
+			var run = RunBulkAll(connection, documents: 4, size: 2, maxDegreeOfParallelism: 2, backOffRetries: 3,
+				affinityKey: "same-key", backPressure: backPressure);
+
+			run.Error.Should().BeNull();
+			run.Pages.Should().NotBeEmpty("the affinity path must make progress even when the back-pressure pool is empty");
+			connection.RequestCount.Should().BeGreaterThan(0, "batches must dispatch without acquiring a back-pressure slot");
+		}
+
 		private readonly struct RunResult
 		{
 			public RunResult(BulkAllObserver observer, Exception error, List<long> pages)
@@ -209,7 +231,8 @@ namespace Tests.Document.Multiple.BulkAll
 
 		private static RunResult RunBulkAll(
 			IConnection connection, int documents, int size, int maxDegreeOfParallelism, int backOffRetries,
-			string affinityKey = null, Action<BulkAllDescriptor<SmallObject>> configure = null)
+			string affinityKey = null, Action<BulkAllDescriptor<SmallObject>> configure = null,
+			ProducerConsumerBackPressure backPressure = null)
 		{
 			var settings = new ConnectionSettings(new SingleNodeConnectionPool(new Uri("http://localhost:9200")), connection)
 				.ApplyDomainSettings();
@@ -235,6 +258,7 @@ namespace Tests.Document.Multiple.BulkAll
 					.RetryMaxDelay(TimeSpan.FromMilliseconds(5))
 					.BufferToBulk((r, buffer) => r.IndexMany(buffer));
 				if (affinityKey != null) f.DocumentAffinityKey(_ => affinityKey);
+				if (backPressure != null) ((IBulkAllRequest<SmallObject>)f).BackPressure = backPressure;
 				configure?.Invoke(f);
 				return f;
 			});

@@ -248,9 +248,14 @@ namespace OpenSearch.Client
 				var next = await queue.DequeueAsync(_compositeCancelToken).ConfigureAwait(false);
 				if (next == null) break; // queue completed and drained
 
-				if (_partitionedBulkRequest.BackPressure != null)
-					await _partitionedBulkRequest.BackPressure.WaitAsync(_compositeCancelToken).ConfigureAwait(false);
-
+				// Do NOT acquire from BackPressure here. ProducerConsumerBackPressure is directional: in a Reindex the
+				// scroll producer acquires a slot per page and the bulk side repays via Release() per completed batch
+				// (BulkAsync / ThrowOnBadBulk). A consumer-side WaitAsync would add a second acquirer to that same pool
+				// while a batch still repays at most backPressureFactor slots, so any config where a batch spans more
+				// pages than the factor repays (a legal Reindex setup, e.g. searchSize=10, Size=1000, factor<100) would
+				// drain the pool to zero and deadlock the reindex — the scroll blocked in WaitAsync, this worker holding
+				// a ready batch, and nothing in flight to ever Release. Per-worker concurrency is already bounded to one
+				// in-flight batch by AffinityWorkerQueue, matching the round-robin path which likewise only Releases.
 				try
 				{
 					await dispatch(next.Value.Batch, next.Value.Page, workerIndex).ConfigureAwait(false);
