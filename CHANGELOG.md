@@ -7,6 +7,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
 
 - Added initial support for the bulk streaming API ([#935](https://github.com/opensearch-project/opensearch-net/pull/935))
+- Added `HttpConnection(HttpClient)` and `HttpConnection(Func<RequestData, HttpClient>)` constructors to send requests through a caller-owned `HttpClient`, and the `OpenSearch.Client.Extensions.DependencyInjection` package with `services.AddOpenSearchClient(...)` to register the client and route its requests through `IHttpClientFactory` ([#1027](https://github.com/opensearch-project/opensearch-net/issues/1027))
 - Extended the `BulkAll` helper with exponential-backoff-with-jitter retries (`RetryBaseDelay`/`RetryMaxDelay`), document-ID affinity routing (`DocumentAffinityKey`) that preserves per-key ordering, a fluent `WaitForActiveShards`, and a `TotalDocumentsProcessed` progress counter ([#1020](https://github.com/opensearch-project/opensearch-net/pull/1020))
 
 ### Removed
